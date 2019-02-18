@@ -1,10 +1,11 @@
 const PORT = 80;
-const SECURE_PORT = 8443;
+const SECURE_PORT = 443;
 const HOSTNAME = '127.0.0.1';
 const PUBLIC_DIR_NAME = '/res';
 
 const https = require('https');
 const http = require('http');
+const fs = require('fs');
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
@@ -46,7 +47,12 @@ createHttpServer(httpOptions);
 
 
 function createHttpsServer(options) {
-    var httpsServer = https.createServer(app);
+    var credentials = {
+        key: fs.readFileSync(path.join(__dirname, 'certs', 'mockserver.key')),
+        cert: fs.readFileSync(path.join(__dirname, 'certs', 'mockserver.crt'))
+    };
+
+    var httpsServer = https.createServer(credentials, app);
     httpsServer.listen(options);
     //Create a listener to handle errors opening the server.
     httpsServer.on('error', (e) => {
@@ -56,7 +62,7 @@ function createHttpsServer(options) {
                 setTimeout(function () {
                     console.log('Reattempting connection...');
                     httpsServer.close();
-                    httpsServer.listen(httpsOptions);
+                    httpsServer.listen(options);
                 }, 10000);
                 break;
             default:
