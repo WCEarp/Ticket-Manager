@@ -1,0 +1,10 @@
+{
+  "name": "NodeJS Demo",
+  "version": "1.0.0",
+  "dependencies": {
+    "express": "^4.16.4"
+  },
+  "devDependencies": {
+    "body-parser": "^1.18.3"
+  }
+}
