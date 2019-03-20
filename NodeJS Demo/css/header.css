@@ -1,0 +1,93 @@
+/*
+    Custom stylesheet as to not modify the existing library.
+ */
+
+#template {
+    font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    padding: 10px 0 50px 0;
+    min-height: 100vh;
+    background-image: url('../public/img/background.png');
+    background-size: cover;
+    background-repeat: repeat, no-repeat;
+    background-position: center center, center top;
+    background-attachment: scroll, scroll;
+}
+
+.header {
+    font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+
+#mainHeader {
+    display: block;
+    width: 100%;
+    font-weight: 200;
+    min-height: 50px;
+    line-height: 25px
+}
+
+.menu-link {
+    color: white;
+    font-size: 32px;
+    align: right;
+}
+
+#mainHeader {
+    color: black;
+}
+
+
+/* Add a black background color to the top navigation */
+.topnav {
+    align: right;
+    padding-left: 15px;
+    overflow: hidden;
+    text-align: inherit;
+}
+
+/* Style the links inside the navigation bar */
+.topnav a {
+    float: left;
+    color: white;
+    text-align: center;
+    padding: 30px 16px;
+    text-decoration: none;
+    font-size: 32px;
+    margin-right: 32px;
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+    color: black;
+}
+
+
+/* Right-aligned section inside the top navigation */
+.topnav-right {
+    float: right;
+}
+
+#logoImg {
+    position: absolute;
+    margin: -64px 0 0 -6px;
+    vertical-align: center;
+    width: 125px;
+}
+
+#logoText {
+    font-size: 52px;
+    padding-left: 125px;
+}
+
+#myCarousel {
+    margin-top: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    vertical-align: middle
+}
+
+/* Make the image fully responsive */
+.carousel-inner > .item > img {
+    width: 66%;
+    margin: auto;
+}

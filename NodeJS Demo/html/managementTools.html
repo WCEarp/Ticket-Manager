@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE-edge">
+    <meta name="viewport" content="width = device-width, initial-scale = 1">
+    <title>Cheers</title>
+    <link rel="stylesheet" type="text/css" href="../css/header.css"> <!--Our custom style sheet-->
+    <link rel="stylesheet" type="text/css" href="../css/managementTools.css"> <!--Our custom style sheet-->
+</head>
+<body id="template">
+<header id=mainHeader class="header3">
+    <div class="container-fluid">
+        <div id="header_Links" class="row">
+            <div id="links_Ham" class="burger">
+                <div class="burger-line">
+                </div>
+                <div class="burger-line">
+                </div>
+                <div class="burger-line">
+                </div>
+            </div>
+
+            <div class="topnav">
+                <a href="../html/index.html">
+                    <img id="logoImg" src="../public/img/chargerLogo.png">
+                    <span id="logoText">Cheers</span>
+                </a>
+                <div class="topnav-right">
+                    <a href="../html/index.html">Home</a>
+                    <a href="../html/aboutUs.html">About Us</a>
+                    <a href="../html/tickets.html">Tickets</a>
+                    <a href="../html/managementTools.html">Management Tools</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+</head>
+
+<div id="centCon" class="container-fluid">
+
+    <div class="row">
+        <div class="column left" style="background-color:#f1f1f1">
+            <div class="tab">
+                <button class="tablinks" onclick="openTool(event, 'Create/Edit User')">Create/Edit</button>
+                <button class="tablinks" onclick="openTool(event, 'STH Manager')">STH Manager</button>
+                <button class="tablinks" onclick="openTool(event, 'Exchange Tickets')">Exchange Tickets</button>
+                <button class="tablinks" onclick="openTool(event, 'Ticket Manager')">Ticket Manager</button>
+            </div>
+
+            <!-- Tab content -->
+            <div id="Create/Edit User" class="tabcontent">
+                <h3>Manager Users</h3>
+                <form action="">
+                    First name: <input type="text" name="FirstName" value=""><span><input type="submit"
+                                                                                          value="Grab User"></span><br>
+                    Last name: <input type="text" name="LastName" value=""><br>
+
+                </form>
+            </div>
+
+            <div id="STH Manager" class="tabcontent">
+                <h3>Manage Season Ticket Holders</h3>
+            </div>
+
+            <div id="Exchange Tickets" class="tabcontent">
+                <h3>Exchange Tickets</h3>
+
+            </div>
+
+            <div id="Ticket Manager" class="tabcontent">
+                <h3>Manage Tickets</h3>
+            </div>
+        </div>
+
+        <div class="column right" style="background-color:#aaa">
+            <h2>Helpful Tips</h2>
+            <p>Hilarious splashed goodness brief the much amoral far coldly more uncritically thought normal grave much
+                dear thus ouch far across less a pouted well excepting far goodness as falcon recast peaceful outgrew
+                much justly threw.
+
+                Dear and far one rabbit yet spilled house far when one one alas out a jeez glibly pious compulsive ahead
+                popularly therefore.
+            </p>
+        </div>
+    </div>
+
+</div>
+
+<!--------------------------------------------------------------------------------------------------------------------->
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+
+
+<script>
+    function openTool(evt, toolName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(toolName).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+
+    document.getElementById("defaultOpen").click();
+</script>
+
+</body>
+</html>
