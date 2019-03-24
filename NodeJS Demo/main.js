@@ -10,8 +10,14 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 
+var database = require('./db/database');
+const database_instance = new database();
+
 var homeRoutes = require('./routes/home_route');
 var loginRoutes = require('./routes/login_route');
+loginRoutes.setDatabase(database_instance);
+
+
 
 const app = express();
 
