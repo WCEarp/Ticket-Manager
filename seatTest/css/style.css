@@ -38,6 +38,10 @@
      font-size: 50%;
  }
 
+ .disabled:hover {
+     cursor: pointer;
+ }
+
  .reserved {
      background-color: #747474;
      color: #ffffff;
@@ -53,4 +57,21 @@
      border-radius: 5px;
      padding: 0px;
      font-size: 90%;
+ }
+
+ /* CSS for help table*/
+ .input-color {
+     position: relative;
+ }
+ .input-color input {
+     padding-left: 20px;
+ }
+ .input-color .color-box {
+     width: 10px;
+     height: 10px;
+     display: inline-block;
+     background-color: #ccc;
+     position: absolute;
+     left: 5px;
+     top: 5px;
  }
