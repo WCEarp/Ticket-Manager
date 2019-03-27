@@ -10,12 +10,15 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 
-var database = require('./db/database');
-const database_instance = new database();
+const database_module = require('./db/database');
+const database_instance = new database_module.Database();
 
-var homeRoutes = require('./routes/home_route');
-var loginRoutes = require('./routes/login_route');
-loginRoutes.setDatabase(database_instance);
+const user_module = require('./db/user');
+const userManager = new user_module.UserManager(database_instance);
+
+const homeRoutes = require('./routes/home_route');
+const loginRoutes = require('./routes/login_route');
+loginRoutes.setUserManager(userManager);
 
 
 
@@ -41,24 +44,25 @@ app.use(function (req, res) {
 
 // Handle 500
 app.use(function (error, req, res, next) {
+    console.log(error);
     res.status(500).send('500: Internal Server Error');
 });
 
 
-var httpsOptions = {host: HOSTNAME, port: SECURE_PORT};
+const httpsOptions = {host: HOSTNAME, port: SECURE_PORT};
 createHttpsServer(httpsOptions);
 
-var httpOptions = {host: HOSTNAME, port: PORT};
+const httpOptions = {host: HOSTNAME, port: PORT};
 createHttpServer(httpOptions);
 
 
 function createHttpsServer(options) {
-    var credentials = {
+    const credentials = {
         key: fs.readFileSync(path.join(__dirname, 'certs', 'mockserver.key')),
         cert: fs.readFileSync(path.join(__dirname, 'certs', 'mockserver.crt'))
     };
 
-    var httpsServer = https.createServer(credentials, app);
+    let httpsServer = https.createServer(credentials, app);
     httpsServer.listen(options);
     //Create a listener to handle errors opening the server.
     httpsServer.on('error', (e) => {
@@ -79,7 +83,7 @@ function createHttpsServer(options) {
     //Create a listener to run on the https server opening
     httpsServer.on("listening", () => {
         //Get the server address info
-        var addr = httpsServer.address();
+        let addr = httpsServer.address();
         //Log where the server is running
         console.log('Running https server at https://' + addr.address + ':' + SECURE_PORT + '/');
     });
@@ -87,7 +91,7 @@ function createHttpsServer(options) {
 }
 
 function createHttpServer(options) {
-    var httpServer = http.createServer(app);
+    let httpServer = http.createServer(app);
     httpServer.listen(options);
     httpServer.on('error', (e) => {
         switch (e.code) {
@@ -107,7 +111,7 @@ function createHttpServer(options) {
     });
     httpServer.on("listening", () => {
         //Get the server address info
-        var addr = httpServer.address();
+        let addr = httpServer.address();
         //Log where the server is running
         console.log('Running http server at http://' + addr.address + ':' + PORT + '/');
     });

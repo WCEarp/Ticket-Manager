@@ -1,12 +1,14 @@
 const express = require('express');
 const path = require('path');
 const router = express.Router();
+let userManager;
 
-router.setDatabase = function (database) {
-    this.db = database;
+router.setUserManager = function (manager) {
+    userManager = manager
 };
 
 router.get('/', function (req, res) {
+    console.log(" Name = " + user.firstName + " " + user.lastName);
     res.sendFile(path.join(__dirname, '..', 'html', 'login.html'));
 });
 
