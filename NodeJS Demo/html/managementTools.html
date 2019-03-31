@@ -59,24 +59,87 @@
                     First name: <input type="text" name="FirstName" value=""><br>
                     Last name: <input type="text" name="LastName" value=""><br>
                     Address: <input type="text" name="FirstName" value=""><br>
-                    Phone Number: <input type="tel" name="FirstName" value=""><br>
-                    Email: <input type="email" name="LastName" value=""><br>
-                    CCN: <input type="number" name="FirstName" value=""><br>
-                    User Type: <input type="number" name="FirstName" value=""><br>
+                    Phone Number: <input type="text" name="FirstName" value=""><br>
+                    Email: <input type="text" name="LastName" value=""><br>
+                    CCN: <input type="text" name="FirstName" value=""><br>
+                    User Type: <input type="text" name="FirstName" value=""><br>
+
                 </form>
+
+                <button>Add</button>
+                <button>Update</button>
+                <button>Delete</button><br>
+                <br><button >Display All Users</button>
+
+                <table name="userTable" style="display:none"> <!-- THIS TABLE IS HIDDEN BY DEFAULT-->
+                    <tr>
+                        <th>WHAT</th>
+                        <th>FIELDS</th>
+                        <th>HERE?</th>
+                    </tr>
+                    <tr>
+                        <td>This should be</td>
+                        <td>Hidden</td>
+                        <td>By Default</td>
+                    </tr>
+                </table>
+
             </div>
 
-            <div id="STH Manager" class="tabcontent">
+        <div id="STH Manager" class="tabcontent">
                 <h3>Manage Season Ticket Holders</h3>
+
+                UserID: <input type="text" name="FirstName" value=""><br>
+                Pick Seat: <input type="text" name="LastName" value=""><span><button>Submit</button></span><br>
+
+                <button>Export</button>
+                <button>Notify to Renew</button>
             </div>
 
             <div id="Exchange Tickets" class="tabcontent">
                 <h3>Exchange Tickets</h3>
+                Ticket 1: <input type="text" name="FirstName" value=""><br>
+                Ticket 2: <input type="text" name="FirstName" value=""><span><button>Exchange</button></span><br>
+                <br>
 
+                <button>Display Available</button>
+                <br>
+                <table name="ticketTable"  style="display:none" > <!-- THIS TABLE IS HIDDEN BY DEFAULT-->
+                    <tr>
+                        <th>WHAT</th>
+                        <th>FIELDS</th>
+                        <th>HERE?</th>
+                        <th>    </th>
+                    </tr>
+                    <tr>
+                        <td>This should be</td>
+                        <td>Hidden</td>
+                        <td>By Default</td>
+                        <td><button>Add</button></td>
+                    </tr>
+                </table>
             </div>
 
             <div id="Ticket Manager" class="tabcontent">
                 <h3>Manage Tickets</h3>
+                Ticket ID: <input type="text" name="FirstName" value=""><span><button>Check Status</button></span><br>
+                <br>
+                <button>Display All Tickets</button>
+                <br>
+                <table name="managerTable"  style="display:none" > <!-- THIS TABLE IS HIDDEN BY DEFAULT-->
+                    <tr>
+                        <th>WHAT</th>
+                        <th>FIELDS</th>
+                        <th>HERE?</th>
+                        <th>Check Paid Status</th>
+                    </tr>
+                    <tr>
+                        <td>This should be</td>
+                        <td>Hidden</td>
+                        <td>By Default</td>
+                        <td><button>Check Status</button></td>
+                    </tr>
+                </table>
             </div>
         </div>
 
@@ -102,7 +165,7 @@
 <!-- Popper JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 <!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
 
 <script>
