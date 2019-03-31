@@ -20,7 +20,8 @@ const homeRoutes = require('./routes/home_route');
 const loginRoutes = require('./routes/login_route');
 loginRoutes.setUserManager(userManager);
 
-
+var ticketRoutes = require('./routes/ticket_route');
+var manage_route = require('./routes/management_route');
 
 const app = express();
 
@@ -36,6 +37,8 @@ app.use(PUBLIC_DIR_NAME, express.static(path.join(__dirname, 'public')));
 //GET http://127.0.0.1/ -> Send ./index.html
 app.use('/', homeRoutes);
 app.use('/login', loginRoutes);
+app.use('/tickets', ticketRoutes);
+app.use('/manage', manage_route);
 
 // Handle 404
 app.use(function (req, res) {
