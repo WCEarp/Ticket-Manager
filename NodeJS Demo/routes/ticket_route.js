@@ -1,5 +1,11 @@
 var express = require('express');
 var path = require('path');
+
+/**
+ * This router handles any requests from the ticket pages
+ *
+ * @type {Router|router}
+ */
 var router = express.Router();
 
 //GET http://127.0.0.1/tickets -> Send ../html/tickets.html

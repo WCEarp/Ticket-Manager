@@ -1,5 +1,12 @@
 var express = require('express');
 var path = require('path');
+
+/**
+ * This router handles homepage requests as well as
+ * the about page since its tiny.
+ *
+ * @type {Router|router}
+ */
 var router = express.Router();
 
 //GET http://127.0.0.1/ -> Send ../html/index.html
