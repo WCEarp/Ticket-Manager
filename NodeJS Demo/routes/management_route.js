@@ -14,4 +14,14 @@ router.get('/', function (req, res) {
     res.sendFile(path.join(__dirname, '..', 'html', 'managementTools.html'));
 });
 
+router.setUserManager = function (manager) {
+    userManager = manager
+};
+
+router.get('/user', function (req, res) {
+	userId = req.query.id;
+	userManager.getUser(userId, function(user){
+		res.json(user);
+	})})
+	
 module.exports = router;
