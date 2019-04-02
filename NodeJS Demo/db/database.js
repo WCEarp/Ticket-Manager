@@ -6,6 +6,9 @@ const ticket_module = require('./ticket');
  * go in a data access object
  */
 module.exports.Database = function () {
+    const THEATER_COLUMNS = "TheaterID theaterID, SeatsNum seatsNum, SeatsTotal seatsTotal";
+    const SHOW_COLUMNS = `ShowID showID, StartDate startDate, EndDate endDate, Time time, 
+        TheaterID theaterID, SeatsTaken seatsTaken, ProductionID productionID`;
 
     let db = new sqlite3.Database('./db/database.db', sqlite3.OPEN_READWRITE,
         function (err) {
@@ -213,6 +216,97 @@ module.exports.Database = function () {
                 console.log(`Ticket rows updated: ${this.changes}`);
             }
         });
+    };
+    //endregion
+
+    //region THEATER functions
+    /**
+     * Return the string variable for a theater's TOTAL seats.
+     * Will be passed into parsing function to convert the string into array/list of seats for further use.
+     *
+     * @param id The id of the theater you want to get the total seats from.
+     * @param callback A function that user is passed into to be executed.
+     */
+    this.query_totalseats_by_id = function (id, callback) {
+        let columns = "SeatsTotal seatsTotal";
+
+        let sql_statement = `SELECT ` + columns +
+            ` FROM Theater
+        WHERE TheaterID = ?`;
+
+        db.get(sql_statement, [id], function (err, row) {
+            if (err) {
+                console.error(err.message);
+            } else {
+                callback(row);
+            }
+        });
+    };
+
+    /**
+     * Get all rows containing theater ID's.
+     *
+     * @param callback A function that user is passed into to be executed.
+     */
+    this.query_all_theaters = function (callback) {
+        //let columns = "TheaterID theaterID";
+
+        let sql_statement = `SELECT ${THEATER_COLUMNS} FROM Theater`;
+
+        db.all(sql_statement, [], function (err, rows) {
+            if (err) {
+                console.error(err.message);
+            } else {
+                callback(rows);
+            }
+        });
+    };
+
+    /**
+     * Get a row containing theater data from the database.
+     *
+     * @param id The id of the theater.
+     * @param callback A function that user is passed into to be executed.
+     */
+    this.query_theater_by_id = function (id, callback) {
+
+        let sql_statement = `SELECT ${THEATER_COLUMNS} FROM Theater WHERE TheaterID = ?`;
+
+        db.get(sql_statement, [id], function (err, row) {
+            if (err) {
+                console.error(err.message);
+            } else {
+                callback(row);
+            }
+        });
+    };
+    //endregion
+
+    //region SHOW Functions
+    this.query_all_shows = function (callback) {
+        let sql_statement = `SELECT ${SHOW_COLUMNS} FROM Show`;
+
+        db.all(sql_statement, [], function (err, rows) {
+            if (err) {
+                console.error(err.message);
+            } else {
+                callback(rows);
+            }
+        });
+    };
+
+    this.query_show_by_id = function (id, callback) {
+        let sql_statement = `SELECT ${SHOW_COLUMNS} FROM Show WHERE ShowID = ?`;
+
+        db.get(sql_statement, [id], function (err, row) {
+            if (err) {
+                console.error(err.message);
+            } else {
+                callback(row);
+            }
+        });
     }
     //endregion
+
+
 };
