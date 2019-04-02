@@ -4,9 +4,39 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE-edge">
     <meta name="viewport" content="width = device-width, initial-scale = 1">
+<!--------------------------------------------------------------------------------------------------------------------->
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <title>Cheers</title>
     <link rel="stylesheet" type="text/css" href="/res/css/header.css"> <!--Our custom style sheet-->
     <link rel="stylesheet" type="text/css" href="/res/css/managementTools.css"> <!--Our custom style sheet-->
+	
+    <script>
+        $(document).ready(function () {
+            $("#btnGrab").click(function () {
+                console.log($("#userIDtext").val());
+				userID = $("#userIDtext").val();
+				
+                $.getJSON("/manage/user?id=" + userID, function (result) {
+				//document.write(result.firstName);
+				console.log(result);
+				$("#MU1").val(result.firstName);
+				$("#MU2").val(result.lastName);
+				$("#MU3").val(result.address);
+				$("#MU4").val(result.phoneNumber);
+				$("#MU5").val(result.email);
+				$("#MU6").val(result.ccn);
+				$("#MU7").val(result.seasonTicketSeat);
+                });
+            });
+        });
+    </script>
 </head>
 <body id="template">
 <header id=mainHeader class="header3">
@@ -51,16 +81,16 @@
             <!-- Tab content -->
             <div id="Create/Edit User" class="tabcontent">
                 <h3>Manager Users</h3>
-                <form action="#THIS IS THE FUNCTION MAYB???">
-                    User ID: <input type="text" name="FirstName" value=""> <span><input id="btnGrab" type="submit"
-                                                                                          value="Grab User"></span><br>
-                    First name: <input type="text" name="FirstName" value=""><br>
-                    Last name: <input type="text" name="LastName" value=""><br>
-                    Address: <input type="text" name="FirstName" value=""><br>
-                    Phone Number: <input type="text" name="FirstName" value=""><br>
-                    Email: <input type="text" name="LastName" value=""><br>
-                    CCN: <input type="text" name="FirstName" value=""><br>
-                    User Type: <input type="text" name="FirstName" value=""><br>
+                <form>
+                    User ID: <input id="userIDtext" type="text">
+					<span><input id="btnGrab" type="button" value="Grab User"></span><br>
+                    First name: <input id="MU1" type="text"><br>
+                    Last name: <input id="MU2" type="text"><br>
+                    Address: <input id="MU3" type="text"><br>
+                    Phone Number: <input id="MU4" type="text"><br>
+                    Email: <input id="MU5" type="text"><br>
+                    CCN: <input id="MU6" type="text"><br>
+                    Season Ticket Seat: <input id="MU7" type="text"><br>
 
                 </form>
 
@@ -155,16 +185,6 @@
 
 </div>
 
-<!--------------------------------------------------------------------------------------------------------------------->
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<!-- Popper JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-<!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-
 
 <script>
     function openTool(evt, toolName) {
@@ -181,7 +201,16 @@
         evt.currentTarget.className += " active";
     }
 
-    document.getElementById("defaultOpen").click();
+    //document.getElementById("defaultOpen").click();
+	
+	function test1(userID){	
+	document.write("<br>hellloo<br>", userID);
+	
+	// onclick="test1(document.getElementsByName('FirstName')[0].value)"
+	
+	// action="#THIS IS THE FUNCTION MAYB???"
+	}
+	
 </script>
 
 </body>
