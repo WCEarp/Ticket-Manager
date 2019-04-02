@@ -37,10 +37,13 @@ module.exports.Database = function () {
         WHERE UserID = ?`;
 
         db.get(sql_statement, [id], function (err, row) {
-            if (err) {
-                console.error(err.message);
+            if (err || !row) {
+                if (err) {
+                    console.error(err.message);
+                }
+                callback("Unable to get user", null)
             } else {
-                callback(row);
+                callback(null, row);
             }
         });
     };
@@ -163,13 +166,14 @@ module.exports.Database = function () {
         WHERE TicketID = ?`;
 
         db.get(sql, [id], function (err, row) {
-            if (err) {
-                console.error(err.message);
-            } else if (row) {
-                console.log(`Ticket found with id ${id}`);
-                callback(row)
+            if (err || !row) {
+                if (err) {
+                    console.error(err.message);
+                }
+                callback("Unable to get ticket", null)
             } else {
-                console.log(`No show found with the id ${id}`);
+                console.log(`Ticket found with id ${id}`);
+                callback(null, row)
             }
         })
     };
@@ -235,10 +239,13 @@ module.exports.Database = function () {
         WHERE TheaterID = ?`;
 
         db.get(sql_statement, [id], function (err, row) {
-            if (err) {
-                console.error(err.message);
+            if (err || !row) {
+                if (err) {
+                    console.error(err.message);
+                }
+                callback("Failed to get total seats", null)
             } else {
-                callback(row);
+                callback(null, row);
             }
         });
     };
@@ -254,10 +261,13 @@ module.exports.Database = function () {
         let sql_statement = `SELECT ${THEATER_COLUMNS} FROM Theater`;
 
         db.all(sql_statement, [], function (err, rows) {
-            if (err) {
-                console.error(err.message);
+            if (err || !rows) {
+                if (err) {
+                    console.error(err.message);
+                }
+                callback("Failed to get theaters", null);
             } else {
-                callback(rows);
+                callback(null, rows);
             }
         });
     };
@@ -273,10 +283,13 @@ module.exports.Database = function () {
         let sql_statement = `SELECT ${THEATER_COLUMNS} FROM Theater WHERE TheaterID = ?`;
 
         db.get(sql_statement, [id], function (err, row) {
-            if (err) {
-                console.error(err.message);
+            if (err || !row) {
+                if (err) {
+                    console.error(err.message);
+                }
+                callback("Failed to get theater", null)
             } else {
-                callback(row);
+                callback(null, row);
             }
         });
     };
@@ -287,26 +300,45 @@ module.exports.Database = function () {
         let sql_statement = `SELECT ${SHOW_COLUMNS} FROM Show`;
 
         db.all(sql_statement, [], function (err, rows) {
-            if (err) {
-                console.error(err.message);
+            if (err || !rows) {
+                if (err) {
+                    console.error(err.message);
+                }
+                callback("Failed to get shows", null);
             } else {
-                callback(rows);
+                callback(null, rows);
             }
         });
     };
+
 
     this.query_show_by_id = function (id, callback) {
         let sql_statement = `SELECT ${SHOW_COLUMNS} FROM Show WHERE ShowID = ?`;
 
         db.get(sql_statement, [id], function (err, row) {
+            if (err || !row) {
+                if (err) {
+                    console.error(err.message);
+                }
+                callback("Failed to get show", null);
+            } else {
+                callback(null, row);
+            }
+        });
+    };
+
+    this.update_show_seats_taken = function (id, seatsTaken) {
+        let values = [seatsTaken, id];
+        let sql_statement = `Update Show SET SeatsTaken = ? WHERE ShowID = ?`;
+
+        db.run(sql_statement, values, function (err) {
             if (err) {
                 console.error(err.message);
             } else {
-                callback(row);
+                //Log how many rows were updated. Should be 0-1.
+                console.log(`Show rows updated: ${this.changes}`);
             }
         });
     }
     //endregion
-
-
 };

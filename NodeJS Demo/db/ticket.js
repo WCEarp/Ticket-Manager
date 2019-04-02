@@ -18,13 +18,14 @@ module.exports.TicketManager = function (database) {
      */
     this.getTicket = function (ticketID, callback) {
 
-        db.query_ticket_by_id(ticketID, function (row) {
-            if (row) {
+        db.query_ticket_by_id(ticketID, function (err, row) {
+
+            if (!err) {
                 let ticket = new Ticket(row.ticketID, row.showID, row.userID,
                     row.paymentMethodID, row.reservedSeats, row.numberOfSeats, row.paid);
                 callback(ticket)
             } else {
-                console.info(`No ticket found with id ${ticketID}`);
+                console.error(err);
             }
         });
     }
