@@ -22,6 +22,7 @@ loginRoutes.setUserManager(userManager);
 
 var ticketRoutes = require('./routes/ticket_route');
 var manage_route = require('./routes/management_route');
+manage_route.setUserManager(userManager);
 
 const app = express();
 
