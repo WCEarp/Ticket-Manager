@@ -11,6 +11,7 @@ module.exports.UserManager = function (database) {
                 callback(user)
             } else {
                 console.error(err);
+                callback(null)
             }
         });
     }

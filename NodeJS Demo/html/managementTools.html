@@ -4,38 +4,57 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE-edge">
     <meta name="viewport" content="width = device-width, initial-scale = 1">
-<!--------------------------------------------------------------------------------------------------------------------->
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<!-- Popper JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-<!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <!--------------------------------------------------------------------------------------------------------------------->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <title>Cheers</title>
     <link rel="stylesheet" type="text/css" href="/res/css/header.css"> <!--Our custom style sheet-->
     <link rel="stylesheet" type="text/css" href="/res/css/managementTools.css"> <!--Our custom style sheet-->
-	
+
     <script>
         $(document).ready(function () {
             $("#btnGrab").click(function () {
-                console.log($("#userIDtext").val());
-				userID = $("#userIDtext").val();
-				
+                var userID = $("#userIDtext").val();
+
+                //Get user object as JSON from server where result contains a user object or an errors object
                 $.getJSON("/manage/user?id=" + userID, function (result) {
-				//document.write(result.firstName);
-				console.log(result);
-				$("#MU1").val(result.firstName);
-				$("#MU2").val(result.lastName);
-				$("#MU3").val(result.address);
-				$("#MU4").val(result.phoneNumber);
-				$("#MU5").val(result.email);
-				$("#MU6").val(result.ccn);
-				$("#MU7").val(result.seasonTicketSeat);
+                    //Update user form
+                    let user = result.user;
+                    if (user) {
+                        $("#MU1").val(user.firstName);
+                        $("#MU2").val(user.lastName);
+                        $("#MU3").val(user.address);
+                        $("#MU4").val(user.phoneNumber);
+                        $("#MU5").val(user.email);
+                        $("#MU6").val(user.ccn);
+                        $("#MU7").val(user.seasonTicketSeat);
+                    }
+                    //Update error alert if there were any alerts.
+                    display_errors(result.errors);
                 });
             });
         });
+
+        function display_errors(errors) {
+            var errorHtml = '';
+            if (errors) {
+                errorHtml = '<div class="alert alert-danger fade in">' +
+                    '<a class="close" data-dismiss="alert">&times;</a>' +
+                    '<strong>Error!</strong>';
+                $.each(errors, function (index, value) {
+                    errorHtml += '<br>*' + value;
+                });
+                errorHtml += '</div>'
+            }
+            $("#create_edit_user_errors").html(errorHtml);
+
+        }
     </script>
 </head>
 <body id="template">
@@ -68,7 +87,7 @@
 </header>
 
 <div id="centCon" class="container-fluid">
-
+    <div id="create_edit_user_errors"></div>
     <div class="row">
         <div class="column left" style="background-color:#f1f1f1">
             <div class="tab">
@@ -82,22 +101,23 @@
             <div id="Create/Edit User" class="tabcontent">
                 <h3>Manager Users</h3>
                 <form>
-                    User ID: <input id="userIDtext" type="text">
-					<span><input id="btnGrab" type="button" value="Grab User"></span><br>
-                    First name: <input id="MU1" type="text"><br>
-                    Last name: <input id="MU2" type="text"><br>
-                    Address: <input id="MU3" type="text"><br>
-                    Phone Number: <input id="MU4" type="text"><br>
-                    Email: <input id="MU5" type="text"><br>
-                    CCN: <input id="MU6" type="text"><br>
-                    Season Ticket Seat: <input id="MU7" type="text"><br>
-
+                    <label for="userIDtext">User ID: </label><input id="userIDtext" type="text">
+                    <span><input id="btnGrab" type="button" value="Grab User"></span><br>
+                    <label for="MU1">First name: </label><input id="MU1" type="text"><br>
+                    <label for="MU2">Last name: </label><input id="MU2" type="text"><br>
+                    <label for="MU3">Address: </label><input id="MU3" type="text"><br>
+                    <label for="MU4">Phone Number: </label><input id="MU4" type="text"><br>
+                    <label for="MU5">Email: </label><input id="MU5" type="text"><br>
+                    <label for="MU6">CCN: </label><input id="MU6" type="text"><br>
+                    <label for="MU7">Season Ticket Seat: </label><input id="MU7" type="text"><br>
                 </form>
 
                 <button>Add</button>
                 <button>Update</button>
-                <button>Delete</button><br>
-                <br><button >Display All Users</button>
+                <button>Delete</button>
+                <br>
+                <br>
+                <button>Display All Users</button>
 
                 <table name="userTable" style="display:none"> <!-- THIS TABLE IS HIDDEN BY DEFAULT-->
                     <tr>
@@ -114,7 +134,7 @@
 
             </div>
 
-        <div id="STH Manager" class="tabcontent">
+            <div id="STH Manager" class="tabcontent">
                 <h3>Manage Season Ticket Holders</h3>
 
                 UserID: <input type="text" name="FirstName" value=""><br>
@@ -132,18 +152,20 @@
 
                 <button>Display Available</button>
                 <br>
-                <table name="ticketTable"  style="display:none" > <!-- THIS TABLE IS HIDDEN BY DEFAULT-->
+                <table name="ticketTable" style="display:none"> <!-- THIS TABLE IS HIDDEN BY DEFAULT-->
                     <tr>
                         <th>WHAT</th>
                         <th>FIELDS</th>
                         <th>HERE?</th>
-                        <th>    </th>
+                        <th></th>
                     </tr>
                     <tr>
                         <td>This should be</td>
                         <td>Hidden</td>
                         <td>By Default</td>
-                        <td><button>Add</button></td>
+                        <td>
+                            <button>Add</button>
+                        </td>
                     </tr>
                 </table>
             </div>
@@ -154,7 +176,7 @@
                 <br>
                 <button>Display All Tickets</button>
                 <br>
-                <table name="managerTable"  style="display:none" > <!-- THIS TABLE IS HIDDEN BY DEFAULT-->
+                <table name="managerTable" style="display:none"> <!-- THIS TABLE IS HIDDEN BY DEFAULT-->
                     <tr>
                         <th>WHAT</th>
                         <th>FIELDS</th>
@@ -165,7 +187,9 @@
                         <td>This should be</td>
                         <td>Hidden</td>
                         <td>By Default</td>
-                        <td><button>Check Status</button></td>
+                        <td>
+                            <button>Check Status</button>
+                        </td>
                     </tr>
                 </table>
             </div>
@@ -200,17 +224,6 @@
         document.getElementById(toolName).style.display = "block";
         evt.currentTarget.className += " active";
     }
-
-    //document.getElementById("defaultOpen").click();
-	
-	function test1(userID){	
-	document.write("<br>hellloo<br>", userID);
-	
-	// onclick="test1(document.getElementsByName('FirstName')[0].value)"
-	
-	// action="#THIS IS THE FUNCTION MAYB???"
-	}
-	
 </script>
 
 </body>
