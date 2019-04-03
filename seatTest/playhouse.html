@@ -9,8 +9,16 @@
 </head>
 <body>
 
-    <p id="demo">Tickets Selected: </p>
+    <p id="selected">Tickets Selected: </p>
+    <p id="price">Total Price: </p>
+
     <button id="buyButton" onclick="buyButton()" type="button">Buy Selected Seats</button>
+
+    <form id="setTicketPrice" action="/action_page.php">
+        Set Floor Seat Price: <input type="text" name="floor" value="8.50"><br>
+        Set Seat Price: <input type="text" name="balcony" value="8.50"><br>
+        <input type="button" onclick="setTicketPrice()" value="Set Prices">
+    </form>
 
     <div class="input-color">
         <input type="text" value="Available" />
@@ -208,8 +216,8 @@
         <div class="empty"></div>
         <div class="empty"></div>
         <div class="empty">A</div>
-        <button class="box" title="available"  id="F_S4_A02" onclick="onClick(this)" type="button">2</button>
-        <button class="box" title="available"  id="F_S4_A01" onclick="onClick(this)" type="button">1</button>
+        <button class="box" title="available"  value = 8.50  id="F_S4_A02" onclick="onClick(this)" type="button">2</button>
+        <button class="box" title="available"  value = 8.50  id="F_S4_A01" onclick="onClick(this)" type="button">1</button>
         <div class="empty">A</div>
         <div class="empty"></div>
         <div class="empty"></div>
@@ -218,19 +226,19 @@
         <div class="empty"></div>
         <div class="empty"></div>
         <div class="empty">A</div>
-        <button class="disabled" title="available"  id="F_S3_A06" onclick="onClick(this)" type="button">6</button>
-        <button class="disabled" title="available"  id="F_S3_A05" onclick="onClick(this)" type="button">5</button>
-        <button class="disabled" title="available"  id="F_S3_A04" onclick="onClick(this)" type="button">4</button>
-        <button class="disabled" title="available"  id="F_S3_A03" onclick="onClick(this)" type="button">3</button>
-        <button class="disabled" title="available"  id="F_S3_A02" onclick="onClick(this)" type="button">2</button>
-        <button class="disabled" title="available"  id="F_S3_A01" onclick="onClick(this)" type="button">1</button>
+        <button class="disabled" title="available"  value = 8.50  id="F_S3_A06" onclick="onClick(this)" type="button">6</button>
+        <button class="disabled" title="available"  value = 8.50  id="F_S3_A05" onclick="onClick(this)" type="button">5</button>
+        <button class="disabled" title="available"  value = 8.50  id="F_S3_A04" onclick="onClick(this)" type="button">4</button>
+        <button class="disabled" title="available"  value = 8.50  id="F_S3_A03" onclick="onClick(this)" type="button">3</button>
+        <button class="disabled" title="available"  value = 8.50  id="F_S3_A02" onclick="onClick(this)" type="button">2</button>
+        <button class="disabled" title="available"  value = 8.50  id="F_S3_A01" onclick="onClick(this)" type="button">1</button>
         <div class="empty">A</div>
-        <button class="disabled" title="available"  id="F_S2_A06" onclick="onClick(this)" type="button">6</button>
-        <button class="disabled" title="available"  id="F_S2_A05" onclick="onClick(this)" type="button">5</button>
-        <button class="disabled" title="available"  id="F_S2_A04" onclick="onClick(this)" type="button">4</button>
-        <button class="disabled" title="available"  id="F_S2_A03" onclick="onClick(this)" type="button">3</button>
-        <button class="disabled" title="available"  id="F_S2_A02" onclick="onClick(this)" type="button">2</button>
-        <button class="disabled" title="available"  id="F_S2_A01" onclick="onClick(this)" type="button">1</button>
+        <button class="disabled" title="available"  value = 8.50  id="F_S2_A06" onclick="onClick(this)" type="button">6</button>
+        <button class="disabled" title="available"  value = 8.50  id="F_S2_A05" onclick="onClick(this)" type="button">5</button>
+        <button class="disabled" title="available"  value = 8.50  id="F_S2_A04" onclick="onClick(this)" type="button">4</button>
+        <button class="disabled" title="available"  value = 8.50  id="F_S2_A03" onclick="onClick(this)" type="button">3</button>
+        <button class="disabled" title="available"  value = 8.50  id="F_S2_A02" onclick="onClick(this)" type="button">2</button>
+        <button class="disabled" title="available"  value = 8.50  id="F_S2_A01" onclick="onClick(this)" type="button">1</button>
         <div class="empty">A</div>
         <div class="empty"></div>
         <div class="empty"></div>
@@ -239,8 +247,8 @@
         <div class="empty"></div>
         <div class="empty"></div>
         <div class="empty">A</div>
-        <button class="box" title="available"  id="F_S1_A02" onclick="onClick(this)" type="button">2</button>
-        <button class="box" title="available"  id="F_S1_A01" onclick="onClick(this)" type="button">1</button>
+        <button class="box" title="available"  value = 8.50  id="F_S1_A02" onclick="onClick(this)" type="button">2</button>
+        <button class="box" title="available"  value = 8.50  id="F_S1_A01" onclick="onClick(this)" type="button">1</button>
         <div class="empty">A</div>
         <div class="empty"></div>
         <div class="empty"></div>
@@ -263,41 +271,41 @@
         <div class="empty"></div>
         <div class="empty"></div>
         <div class="empty">B</div>
-        <button class="box" title="available"  id="F_S4_B03" onclick="onClick(this)" type="button">3</button>
-        <button class="box" title="available"  id="F_S4_B02" onclick="onClick(this)" type="button">2</button>
-        <button class="box" title="available"  id="F_S4_B01" onclick="onClick(this)" type="button">1</button>
+        <button class="box" title="available"  value = 8.50  id="F_S4_B03" onclick="onClick(this)" type="button">3</button>
+        <button class="box" title="available"  value = 8.50  id="F_S4_B02" onclick="onClick(this)" type="button">2</button>
+        <button class="box" title="available"  value = 8.50  id="F_S4_B01" onclick="onClick(this)" type="button">1</button>
         <div class="empty">B</div>
         <div class="empty"></div>
         <div class="empty"></div>
         <div class="empty"></div>
         <div class="empty"></div>
         <div class="empty">B</div>
-        <button class="box" title="available"  id="F_S3_B08" onclick="onClick(this)" type="button">8</button>
-        <button class="box" title="available"  id="F_S3_B07" onclick="onClick(this)" type="button">7</button>
-        <button class="box" title="available"  id="F_S3_B06" onclick="onClick(this)" type="button">6</button>
-        <button class="box" title="available"  id="F_S3_B05" onclick="onClick(this)" type="button">5</button>
-        <button class="box" title="available"  id="F_S3_B04" onclick="onClick(this)" type="button">4</button>
-        <button class="box" title="available"  id="F_S3_B03" onclick="onClick(this)" type="button">3</button>
-        <button class="box" title="available"  id="F_S3_B02" onclick="onClick(this)" type="button">2</button>
-        <button class="box" title="available"  id="F_S3_B01" onclick="onClick(this)" type="button">1</button>
+        <button class="box" title="available"  value = 8.50  id="F_S3_B08" onclick="onClick(this)" type="button">8</button>
+        <button class="box" title="available"  value = 8.50  id="F_S3_B07" onclick="onClick(this)" type="button">7</button>
+        <button class="box" title="available"  value = 8.50  id="F_S3_B06" onclick="onClick(this)" type="button">6</button>
+        <button class="box" title="available"  value = 8.50  id="F_S3_B05" onclick="onClick(this)" type="button">5</button>
+        <button class="box" title="available"  value = 8.50  id="F_S3_B04" onclick="onClick(this)" type="button">4</button>
+        <button class="box" title="available"  value = 8.50  id="F_S3_B03" onclick="onClick(this)" type="button">3</button>
+        <button class="box" title="available"  value = 8.50  id="F_S3_B02" onclick="onClick(this)" type="button">2</button>
+        <button class="box" title="available"  value = 8.50  id="F_S3_B01" onclick="onClick(this)" type="button">1</button>
         <div class="empty">B</div>
-        <button class="box" title="available"  id="F_S2_B08" onclick="onClick(this)" type="button">8</button>
-        <button class="box" title="available"  id="F_S2_B07" onclick="onClick(this)" type="button">7</button>
-        <button class="box" title="available"  id="F_S2_B06" onclick="onClick(this)" type="button">6</button>
-        <button class="box" title="available"  id="F_S2_B05" onclick="onClick(this)" type="button">5</button>
-        <button class="box" title="available"  id="F_S2_B04" onclick="onClick(this)" type="button">4</button>
-        <button class="box" title="available"  id="F_S2_B03" onclick="onClick(this)" type="button">3</button>
-        <button class="box" title="available"  id="F_S2_B02" onclick="onClick(this)" type="button">2</button>
-        <button class="box" title="available"  id="F_S2_B01" onclick="onClick(this)" type="button">1</button>
+        <button class="box" title="available"  value = 8.50  id="F_S2_B08" onclick="onClick(this)" type="button">8</button>
+        <button class="box" title="available"  value = 8.50  id="F_S2_B07" onclick="onClick(this)" type="button">7</button>
+        <button class="box" title="available"  value = 8.50  id="F_S2_B06" onclick="onClick(this)" type="button">6</button>
+        <button class="box" title="available"  value = 8.50  id="F_S2_B05" onclick="onClick(this)" type="button">5</button>
+        <button class="box" title="available"  value = 8.50  id="F_S2_B04" onclick="onClick(this)" type="button">4</button>
+        <button class="box" title="available"  value = 8.50  id="F_S2_B03" onclick="onClick(this)" type="button">3</button>
+        <button class="box" title="available"  value = 8.50  id="F_S2_B02" onclick="onClick(this)" type="button">2</button>
+        <button class="box" title="available"  value = 8.50  id="F_S2_B01" onclick="onClick(this)" type="button">1</button>
         <div class="empty">B</div>
         <div class="empty"></div>
         <div class="empty"></div>
         <div class="empty"></div>
         <div class="empty"></div>
         <div class="empty">B</div>
-        <button class="box" title="available"  id="F_S1_B03" onclick="onClick(this)" type="button">3</button>
-        <button class="box" title="available"  id="F_S1_B02" onclick="onClick(this)" type="button">2</button>
-        <button class="box" title="available"  id="F_S1_B01" onclick="onClick(this)" type="button">1</button>
+        <button class="box" title="available"  value = 8.50  id="F_S1_B03" onclick="onClick(this)" type="button">3</button>
+        <button class="box" title="available"  value = 8.50  id="F_S1_B02" onclick="onClick(this)" type="button">2</button>
+        <button class="box" title="available"  value = 8.50  id="F_S1_B01" onclick="onClick(this)" type="button">1</button>
         <div class="empty">B</div>
         <div class="empty"></div>
         <div class="empty"></div>
@@ -317,45 +325,45 @@
         <div class="empty"></div>
         <div class="empty"></div>
         <div class="empty">C</div>
-        <button class="box" title="available"  id="F_S4_C04" onclick="onClick(this)" type="button">4</button>
-        <button class="box" title="available"  id="F_S4_C03" onclick="onClick(this)" type="button">3</button>
-        <button class="box" title="available"  id="F_S4_C02" onclick="onClick(this)" type="button">2</button>
-        <button class="box" title="available"  id="F_S4_C01" onclick="onClick(this)" type="button">1</button>
+        <button class="box" title="available"  value = 8.50  id="F_S4_C04" onclick="onClick(this)" type="button">4</button>
+        <button class="box" title="available"  value = 8.50  id="F_S4_C03" onclick="onClick(this)" type="button">3</button>
+        <button class="box" title="available"  value = 8.50  id="F_S4_C02" onclick="onClick(this)" type="button">2</button>
+        <button class="box" title="available"  value = 8.50  id="F_S4_C01" onclick="onClick(this)" type="button">1</button>
         <div class="empty">C</div>
         <div class="empty"></div>
         <div class="empty"></div>
         <div class="empty"></div>
         <div class="empty"></div>
         <div class="empty">C</div>
-        <button class="box" title="available"  id="F_S3_C09" onclick="onClick(this)" type="button">9</button>
-        <button class="box" title="available"  id="F_S3_C08" onclick="onClick(this)" type="button">8</button>
-        <button class="box" title="available"  id="F_S3_C07" onclick="onClick(this)" type="button">7</button>
-        <button class="box" title="available"  id="F_S3_C06" onclick="onClick(this)" type="button">6</button>
-        <button class="box" title="available"  id="F_S3_C05" onclick="onClick(this)" type="button">5</button>
-        <button class="box" title="available"  id="F_S3_C04" onclick="onClick(this)" type="button">4</button>
-        <button class="box" title="available"  id="F_S3_C03" onclick="onClick(this)" type="button">3</button>
-        <button class="box" title="available"  id="F_S3_C02" onclick="onClick(this)" type="button">2</button>
-        <button class="box" title="available"  id="F_S3_C01" onclick="onClick(this)" type="button">1</button>
+        <button class="box" title="available"  value = 8.50  id="F_S3_C09" onclick="onClick(this)" type="button">9</button>
+        <button class="box" title="available"  value = 8.50  id="F_S3_C08" onclick="onClick(this)" type="button">8</button>
+        <button class="box" title="available"  value = 8.50  id="F_S3_C07" onclick="onClick(this)" type="button">7</button>
+        <button class="box" title="available"  value = 8.50  id="F_S3_C06" onclick="onClick(this)" type="button">6</button>
+        <button class="box" title="available"  value = 8.50  id="F_S3_C05" onclick="onClick(this)" type="button">5</button>
+        <button class="box" title="available"  value = 8.50  id="F_S3_C04" onclick="onClick(this)" type="button">4</button>
+        <button class="box" title="available"  value = 8.50  id="F_S3_C03" onclick="onClick(this)" type="button">3</button>
+        <button class="box" title="available"  value = 8.50  id="F_S3_C02" onclick="onClick(this)" type="button">2</button>
+        <button class="box" title="available"  value = 8.50  id="F_S3_C01" onclick="onClick(this)" type="button">1</button>
         <div class="empty">C</div>
-        <button class="box" title="available"  id="F_S2_C09" onclick="onClick(this)" type="button">9</button>
-        <button class="box" title="available"  id="F_S2_C08" onclick="onClick(this)" type="button">8</button>
-        <button class="box" title="available"  id="F_S2_C07" onclick="onClick(this)" type="button">7</button>
-        <button class="box" title="available"  id="F_S2_C06" onclick="onClick(this)" type="button">6</button>
-        <button class="box" title="available"  id="F_S2_C05" onclick="onClick(this)" type="button">5</button>
-        <button class="box" title="available"  id="F_S2_C04" onclick="onClick(this)" type="button">4</button>
-        <button class="box" title="available"  id="F_S2_C03" onclick="onClick(this)" type="button">3</button>
-        <button class="box" title="available"  id="F_S2_C02" onclick="onClick(this)" type="button">2</button>
-        <button class="box" title="available"  id="F_S2_C01" onclick="onClick(this)" type="button">1</button>
+        <button class="box" title="available"  value = 8.50  id="F_S2_C09" onclick="onClick(this)" type="button">9</button>
+        <button class="box" title="available"  value = 8.50  id="F_S2_C08" onclick="onClick(this)" type="button">8</button>
+        <button class="box" title="available"  value = 8.50  id="F_S2_C07" onclick="onClick(this)" type="button">7</button>
+        <button class="box" title="available"  value = 8.50  id="F_S2_C06" onclick="onClick(this)" type="button">6</button>
+        <button class="box" title="available"  value = 8.50  id="F_S2_C05" onclick="onClick(this)" type="button">5</button>
+        <button class="box" title="available"  value = 8.50  id="F_S2_C04" onclick="onClick(this)" type="button">4</button>
+        <button class="box" title="available"  value = 8.50  id="F_S2_C03" onclick="onClick(this)" type="button">3</button>
+        <button class="box" title="available"  value = 8.50  id="F_S2_C02" onclick="onClick(this)" type="button">2</button>
+        <button class="box" title="available"  value = 8.50  id="F_S2_C01" onclick="onClick(this)" type="button">1</button>
         <div class="empty">C</div>
         <div class="empty"></div>
         <div class="empty"></div>
         <div class="empty"></div>
         <div class="empty"></div>
         <div class="empty">C</div>
-        <button class="box" title="available"  id="F_S1_C04" onclick="onClick(this)" type="button">4</button>
-        <button class="box" title="available"  id="F_S1_C03" onclick="onClick(this)" type="button">3</button>
-        <button class="box" title="available"  id="F_S1_C02" onclick="onClick(this)" type="button">2</button>
-        <button class="box" title="available"  id="F_S1_C01" onclick="onClick(this)" type="button">1</button>
+        <button class="box" title="available"  value = 8.50  id="F_S1_C04" onclick="onClick(this)" type="button">4</button>
+        <button class="box" title="available"  value = 8.50  id="F_S1_C03" onclick="onClick(this)" type="button">3</button>
+        <button class="box" title="available"  value = 8.50  id="F_S1_C02" onclick="onClick(this)" type="button">2</button>
+        <button class="box" title="available"  value = 8.50  id="F_S1_C01" onclick="onClick(this)" type="button">1</button>
         <div class="empty">C</div>
         <div class="empty"></div>
         <div class="empty"></div>
@@ -371,49 +379,49 @@
         <div class="empty"></div>
         <div class="empty"></div>
         <div class="empty">D</div>
-        <button class="box" title="available"  id="F_S4_D04" onclick="onClick(this)" type="button">4</button>
-        <button class="box" title="available"  id="F_S4_D03" onclick="onClick(this)" type="button">3</button>
-        <button class="box" title="available"  id="F_S4_D02" onclick="onClick(this)" type="button">2</button>
-        <button class="box" title="available"  id="F_S4_D01" onclick="onClick(this)" type="button">1</button>
+        <button class="box" title="available"  value = 8.50  id="F_S4_D04" onclick="onClick(this)" type="button">4</button>
+        <button class="box" title="available"  value = 8.50  id="F_S4_D03" onclick="onClick(this)" type="button">3</button>
+        <button class="box" title="available"  value = 8.50  id="F_S4_D02" onclick="onClick(this)" type="button">2</button>
+        <button class="box" title="available"  value = 8.50  id="F_S4_D01" onclick="onClick(this)" type="button">1</button>
         <div class="empty">D</div>
         <div class="empty"></div>
         <div class="empty"></div>
         <div class="empty"></div>
         <div class="empty">D</div>
-        <button class="box" title="available"  id="F_S3_D12" onclick="onClick(this)" type="button">12</button>
-        <button class="box" title="available"  id="F_S3_D11" onclick="onClick(this)" type="button">11</button>
-        <button class="box" title="available"  id="F_S3_D10" onclick="onClick(this)" type="button">10</button>
-        <button class="box" title="available"  id="F_S3_D09" onclick="onClick(this)" type="button">9</button>
-        <button class="box" title="available"  id="F_S3_D08" onclick="onClick(this)" type="button">8</button>
-        <button class="box" title="available"  id="F_S3_D07" onclick="onClick(this)" type="button">7</button>
-        <button class="box" title="available"  id="F_S3_D06" onclick="onClick(this)" type="button">6</button>
-        <button class="box" title="available"  id="F_S3_D05" onclick="onClick(this)" type="button">5</button>
-        <button class="box" title="available"  id="F_S3_D04" onclick="onClick(this)" type="button">4</button>
-        <button class="box" title="available"  id="F_S3_D03" onclick="onClick(this)" type="button">3</button>
-        <button class="box" title="available"  id="F_S3_D02" onclick="onClick(this)" type="button">2</button>
-        <button class="box" title="available"  id="F_S3_D01" onclick="onClick(this)" type="button">1</button>
+        <button class="box" title="available"  value = 8.50  id="F_S3_D12" onclick="onClick(this)" type="button">12</button>
+        <button class="box" title="available"  value = 8.50  id="F_S3_D11" onclick="onClick(this)" type="button">11</button>
+        <button class="box" title="available"  value = 8.50  id="F_S3_D10" onclick="onClick(this)" type="button">10</button>
+        <button class="box" title="available"  value = 8.50  id="F_S3_D09" onclick="onClick(this)" type="button">9</button>
+        <button class="box" title="available"  value = 8.50  id="F_S3_D08" onclick="onClick(this)" type="button">8</button>
+        <button class="box" title="available"  value = 8.50  id="F_S3_D07" onclick="onClick(this)" type="button">7</button>
+        <button class="box" title="available"  value = 8.50  id="F_S3_D06" onclick="onClick(this)" type="button">6</button>
+        <button class="box" title="available"  value = 8.50  id="F_S3_D05" onclick="onClick(this)" type="button">5</button>
+        <button class="box" title="available"  value = 8.50  id="F_S3_D04" onclick="onClick(this)" type="button">4</button>
+        <button class="box" title="available"  value = 8.50  id="F_S3_D03" onclick="onClick(this)" type="button">3</button>
+        <button class="box" title="available"  value = 8.50  id="F_S3_D02" onclick="onClick(this)" type="button">2</button>
+        <button class="box" title="available"  value = 8.50  id="F_S3_D01" onclick="onClick(this)" type="button">1</button>
         <div class="empty">D</div>
-        <button class="box" title="available"  id="F_S2_D12" onclick="onClick(this)" type="button">12</button>
-        <button class="box" title="available"  id="F_S2_D11" onclick="onClick(this)" type="button">11</button>
-        <button class="box" title="available"  id="F_S2_D10" onclick="onClick(this)" type="button">10</button>
-        <button class="box" title="available"  id="F_S2_D09" onclick="onClick(this)" type="button">9</button>
-        <button class="box" title="available"  id="F_S2_D08" onclick="onClick(this)" type="button">8</button>
-        <button class="box" title="available"  id="F_S2_D07" onclick="onClick(this)" type="button">7</button>
-        <button class="box" title="available"  id="F_S2_D06" onclick="onClick(this)" type="button">6</button>
-        <button class="box" title="available"  id="F_S2_D05" onclick="onClick(this)" type="button">5</button>
-        <button class="box" title="available"  id="F_S2_D04" onclick="onClick(this)" type="button">4</button>
-        <button class="box" title="available"  id="F_S2_D03" onclick="onClick(this)" type="button">3</button>
-        <button class="box" title="available"  id="F_S2_D02" onclick="onClick(this)" type="button">2</button>
-        <button class="box" title="available"  id="F_S2_D01" onclick="onClick(this)" type="button">1</button>
+        <button class="box" title="available"  value = 8.50  id="F_S2_D12" onclick="onClick(this)" type="button">12</button>
+        <button class="box" title="available"  value = 8.50  id="F_S2_D11" onclick="onClick(this)" type="button">11</button>
+        <button class="box" title="available"  value = 8.50  id="F_S2_D10" onclick="onClick(this)" type="button">10</button>
+        <button class="box" title="available"  value = 8.50  id="F_S2_D09" onclick="onClick(this)" type="button">9</button>
+        <button class="box" title="available"  value = 8.50  id="F_S2_D08" onclick="onClick(this)" type="button">8</button>
+        <button class="box" title="available"  value = 8.50  id="F_S2_D07" onclick="onClick(this)" type="button">7</button>
+        <button class="box" title="available"  value = 8.50  id="F_S2_D06" onclick="onClick(this)" type="button">6</button>
+        <button class="box" title="available"  value = 8.50  id="F_S2_D05" onclick="onClick(this)" type="button">5</button>
+        <button class="box" title="available"  value = 8.50  id="F_S2_D04" onclick="onClick(this)" type="button">4</button>
+        <button class="box" title="available"  value = 8.50  id="F_S2_D03" onclick="onClick(this)" type="button">3</button>
+        <button class="box" title="available"  value = 8.50  id="F_S2_D02" onclick="onClick(this)" type="button">2</button>
+        <button class="box" title="available"  value = 8.50  id="F_S2_D01" onclick="onClick(this)" type="button">1</button>
         <div class="empty">D</div>
         <div class="empty"></div>
         <div class="empty"></div>
         <div class="empty"></div>
         <div class="empty">D</div>
-        <button class="box" title="available"  id="F_S1_D04" onclick="onClick(this)" type="button">4</button>
-        <button class="box" title="available"  id="F_S1_D03" onclick="onClick(this)" type="button">3</button>
-        <button class="box" title="available"  id="F_S1_D02" onclick="onClick(this)" type="button">2</button>
-        <button class="box" title="available"  id="F_S1_D01" onclick="onClick(this)" type="button">1</button>
+        <button class="box" title="available"  value = 8.50  id="F_S1_D04" onclick="onClick(this)" type="button">4</button>
+        <button class="box" title="available"  value = 8.50  id="F_S1_D03" onclick="onClick(this)" type="button">3</button>
+        <button class="box" title="available"  value = 8.50  id="F_S1_D02" onclick="onClick(this)" type="button">2</button>
+        <button class="box" title="available"  value = 8.50  id="F_S1_D01" onclick="onClick(this)" type="button">1</button>
         <div class="empty">D</div>
         <div class="empty"></div>
         <div class="empty"></div>
@@ -425,53 +433,53 @@
         <div class="empty">E</div>
         <div class="empty"></div>
         <div class="empty">E</div>
-        <button class="box" title="available"  id="F_S4_E05" onclick="onClick(this)" type="button">5</button>
-        <button class="box" title="available"  id="F_S4_E04" onclick="onClick(this)" type="button">4</button>
-        <button class="box" title="available"  id="F_S4_E03" onclick="onClick(this)" type="button">3</button>
-        <button class="box" title="available"  id="F_S4_E02" onclick="onClick(this)" type="button">2</button>
-        <button class="box" title="available"  id="F_S4_E01" onclick="onClick(this)" type="button">1</button>
+        <button class="box" title="available"  value = 8.50  id="F_S4_E05" onclick="onClick(this)" type="button">5</button>
+        <button class="box" title="available"  value = 8.50  id="F_S4_E04" onclick="onClick(this)" type="button">4</button>
+        <button class="box" title="available"  value = 8.50  id="F_S4_E03" onclick="onClick(this)" type="button">3</button>
+        <button class="box" title="available"  value = 8.50  id="F_S4_E02" onclick="onClick(this)" type="button">2</button>
+        <button class="box" title="available"  value = 8.50  id="F_S4_E01" onclick="onClick(this)" type="button">1</button>
         <div class="empty">E</div>
         <div class="empty"></div>
         <div class="empty"></div>
         <div class="empty">E</div>
-        <button class="box" title="available"  id="F_S3_E14" onclick="onClick(this)" type="button">14</button>
-        <button class="box" title="available"  id="F_S3_E13" onclick="onClick(this)" type="button">13</button>
-        <button class="box" title="available"  id="F_S3_E12" onclick="onClick(this)" type="button">12</button>
-        <button class="box" title="available"  id="F_S3_E11" onclick="onClick(this)" type="button">11</button>
-        <button class="box" title="available"  id="F_S3_E10" onclick="onClick(this)" type="button">10</button>
-        <button class="box" title="available"  id="F_S3_E09" onclick="onClick(this)" type="button">9</button>
-        <button class="box" title="available"  id="F_S3_E08" onclick="onClick(this)" type="button">8</button>
-        <button class="box" title="available"  id="F_S3_E07" onclick="onClick(this)" type="button">7</button>
-        <button class="box" title="available"  id="F_S3_E06" onclick="onClick(this)" type="button">6</button>
-        <button class="box" title="available"  id="F_S3_E05" onclick="onClick(this)" type="button">5</button>
-        <button class="box" title="available"  id="F_S3_E04" onclick="onClick(this)" type="button">4</button>
-        <button class="box" title="available"  id="F_S3_E03" onclick="onClick(this)" type="button">3</button>
-        <button class="box" title="available"  id="F_S3_E02" onclick="onClick(this)" type="button">2</button>
-        <button class="box" title="available"  id="F_S3_E01" onclick="onClick(this)" type="button">1</button>
+        <button class="box" title="available"  value = 8.50  id="F_S3_E14" onclick="onClick(this)" type="button">14</button>
+        <button class="box" title="available"  value = 8.50  id="F_S3_E13" onclick="onClick(this)" type="button">13</button>
+        <button class="box" title="available"  value = 8.50  id="F_S3_E12" onclick="onClick(this)" type="button">12</button>
+        <button class="box" title="available"  value = 8.50  id="F_S3_E11" onclick="onClick(this)" type="button">11</button>
+        <button class="box" title="available"  value = 8.50  id="F_S3_E10" onclick="onClick(this)" type="button">10</button>
+        <button class="box" title="available"  value = 8.50  id="F_S3_E09" onclick="onClick(this)" type="button">9</button>
+        <button class="box" title="available"  value = 8.50  id="F_S3_E08" onclick="onClick(this)" type="button">8</button>
+        <button class="box" title="available"  value = 8.50  id="F_S3_E07" onclick="onClick(this)" type="button">7</button>
+        <button class="box" title="available"  value = 8.50  id="F_S3_E06" onclick="onClick(this)" type="button">6</button>
+        <button class="box" title="available"  value = 8.50  id="F_S3_E05" onclick="onClick(this)" type="button">5</button>
+        <button class="box" title="available"  value = 8.50  id="F_S3_E04" onclick="onClick(this)" type="button">4</button>
+        <button class="box" title="available"  value = 8.50  id="F_S3_E03" onclick="onClick(this)" type="button">3</button>
+        <button class="box" title="available"  value = 8.50  id="F_S3_E02" onclick="onClick(this)" type="button">2</button>
+        <button class="box" title="available"  value = 8.50  id="F_S3_E01" onclick="onClick(this)" type="button">1</button>
         <div class="empty">E</div>
-        <button class="box" title="available"  id="F_S2_E14" onclick="onClick(this)" type="button">14</button>
-        <button class="box" title="available"  id="F_S2_E13" onclick="onClick(this)" type="button">13</button>
-        <button class="box" title="available"  id="F_S2_E12" onclick="onClick(this)" type="button">12</button>
-        <button class="box" title="available"  id="F_S2_E11" onclick="onClick(this)" type="button">11</button>
-        <button class="box" title="available"  id="F_S2_E10" onclick="onClick(this)" type="button">10</button>
-        <button class="box" title="available"  id="F_S2_E09" onclick="onClick(this)" type="button">9</button>
-        <button class="box" title="available"  id="F_S2_E08" onclick="onClick(this)" type="button">8</button>
-        <button class="box" title="available"  id="F_S2_E07" onclick="onClick(this)" type="button">7</button>
-        <button class="box" title="available"  id="F_S2_E06" onclick="onClick(this)" type="button">6</button>
-        <button class="box" title="available"  id="F_S2_E05" onclick="onClick(this)" type="button">5</button>
-        <button class="box" title="available"  id="F_S2_E04" onclick="onClick(this)" type="button">4</button>
-        <button class="box" title="available"  id="F_S2_E03" onclick="onClick(this)" type="button">3</button>
-        <button class="box" title="available"  id="F_S2_E02" onclick="onClick(this)" type="button">2</button>
-        <button class="box" title="available"  id="F_S2_E01" onclick="onClick(this)" type="button">1</button>
+        <button class="box" title="available"  value = 8.50  id="F_S2_E14" onclick="onClick(this)" type="button">14</button>
+        <button class="box" title="available"  value = 8.50  id="F_S2_E13" onclick="onClick(this)" type="button">13</button>
+        <button class="box" title="available"  value = 8.50  id="F_S2_E12" onclick="onClick(this)" type="button">12</button>
+        <button class="box" title="available"  value = 8.50  id="F_S2_E11" onclick="onClick(this)" type="button">11</button>
+        <button class="box" title="available"  value = 8.50  id="F_S2_E10" onclick="onClick(this)" type="button">10</button>
+        <button class="box" title="available"  value = 8.50  id="F_S2_E09" onclick="onClick(this)" type="button">9</button>
+        <button class="box" title="available"  value = 8.50  id="F_S2_E08" onclick="onClick(this)" type="button">8</button>
+        <button class="box" title="available"  value = 8.50  id="F_S2_E07" onclick="onClick(this)" type="button">7</button>
+        <button class="box" title="available"  value = 8.50  id="F_S2_E06" onclick="onClick(this)" type="button">6</button>
+        <button class="box" title="available"  value = 8.50  id="F_S2_E05" onclick="onClick(this)" type="button">5</button>
+        <button class="box" title="available"  value = 8.50  id="F_S2_E04" onclick="onClick(this)" type="button">4</button>
+        <button class="box" title="available"  value = 8.50  id="F_S2_E03" onclick="onClick(this)" type="button">3</button>
+        <button class="box" title="available"  value = 8.50  id="F_S2_E02" onclick="onClick(this)" type="button">2</button>
+        <button class="box" title="available"  value = 8.50  id="F_S2_E01" onclick="onClick(this)" type="button">1</button>
         <div class="empty">E</div>
         <div class="empty"></div>
         <div class="empty"></div>
         <div class="empty">E</div>
-        <button class="box" title="available"  id="F_S1_E05" onclick="onClick(this)" type="button">5</button>
-        <button class="box" title="available"  id="F_S1_E04" onclick="onClick(this)" type="button">4</button>
-        <button class="box" title="available"  id="F_S1_E03" onclick="onClick(this)" type="button">3</button>
-        <button class="box" title="available"  id="F_S1_E02" onclick="onClick(this)" type="button">2</button>
-        <button class="box" title="available"  id="F_S1_E01" onclick="onClick(this)" type="button">1</button>
+        <button class="box" title="available"  value = 8.50  id="F_S1_E05" onclick="onClick(this)" type="button">5</button>
+        <button class="box" title="available"  value = 8.50  id="F_S1_E04" onclick="onClick(this)" type="button">4</button>
+        <button class="box" title="available"  value = 8.50  id="F_S1_E03" onclick="onClick(this)" type="button">3</button>
+        <button class="box" title="available"  value = 8.50  id="F_S1_E02" onclick="onClick(this)" type="button">2</button>
+        <button class="box" title="available"  value = 8.50  id="F_S1_E01" onclick="onClick(this)" type="button">1</button>
         <div class="empty">E</div>
         <div class="empty"></div>
         <div class="empty">E</div>
@@ -479,113 +487,113 @@
 
         <!--Floor Row F 4 Sections 46 seats-->
         <div class="empty">F</div>
-        <button class="box" title="available"  id="F_S4_F06" onclick="onClick(this)" type="button">6</button>
-        <button class="box" title="available"  id="F_S4_F05" onclick="onClick(this)" type="button">5</button>
-        <button class="box" title="available"  id="F_S4_F04" onclick="onClick(this)" type="button">4</button>
-        <button class="box" title="available"  id="F_S4_F03" onclick="onClick(this)" type="button">3</button>
-        <button class="box" title="available"  id="F_S4_F02" onclick="onClick(this)" type="button">2</button>
-        <button class="box" title="available"  id="F_S4_F01" onclick="onClick(this)" type="button">1</button>
+        <button class="box" title="available"  value = 8.50  id="F_S4_F06" onclick="onClick(this)" type="button">6</button>
+        <button class="box" title="available"  value = 8.50  id="F_S4_F05" onclick="onClick(this)" type="button">5</button>
+        <button class="box" title="available"  value = 8.50  id="F_S4_F04" onclick="onClick(this)" type="button">4</button>
+        <button class="box" title="available"  value = 8.50  id="F_S4_F03" onclick="onClick(this)" type="button">3</button>
+        <button class="box" title="available"  value = 8.50  id="F_S4_F02" onclick="onClick(this)" type="button">2</button>
+        <button class="box" title="available"  value = 8.50  id="F_S4_F01" onclick="onClick(this)" type="button">1</button>
         <div class="empty"></div>
         <div class="empty">F</div>
-        <button class="box" title="available"  id="F_S3_F17" onclick="onClick(this)" type="button">17</button>
-        <button class="box" title="available"  id="F_S3_F16" onclick="onClick(this)" type="button">16</button>
-        <button class="box" title="available"  id="F_S3_F15" onclick="onClick(this)" type="button">15</button>
-        <button class="box" title="available"  id="F_S3_F14" onclick="onClick(this)" type="button">14</button>
-        <button class="box" title="available"  id="F_S3_F13" onclick="onClick(this)" type="button">13</button>
-        <button class="box" title="available"  id="F_S3_F12" onclick="onClick(this)" type="button">12</button>
-        <button class="box" title="available"  id="F_S3_F11" onclick="onClick(this)" type="button">11</button>
-        <button class="box" title="available"  id="F_S3_F10" onclick="onClick(this)" type="button">10</button>
-        <button class="box" title="available"  id="F_S3_F09" onclick="onClick(this)" type="button">9</button>
-        <button class="box" title="available"  id="F_S3_F08" onclick="onClick(this)" type="button">8</button>
-        <button class="box" title="available"  id="F_S3_F07" onclick="onClick(this)" type="button">7</button>
-        <button class="box" title="available"  id="F_S3_F06" onclick="onClick(this)" type="button">6</button>
-        <button class="box" title="available"  id="F_S3_F05" onclick="onClick(this)" type="button">5</button>
-        <button class="box" title="available"  id="F_S3_F04" onclick="onClick(this)" type="button">4</button>
-        <button class="box" title="available"  id="F_S3_F03" onclick="onClick(this)" type="button">3</button>
-        <button class="box" title="available"  id="F_S3_F02" onclick="onClick(this)" type="button">2</button>
-        <button class="box" title="available"  id="F_S3_F01" onclick="onClick(this)" type="button">1</button>
+        <button class="box" title="available"  value = 8.50  id="F_S3_F17" onclick="onClick(this)" type="button">17</button>
+        <button class="box" title="available"  value = 8.50  id="F_S3_F16" onclick="onClick(this)" type="button">16</button>
+        <button class="box" title="available"  value = 8.50  id="F_S3_F15" onclick="onClick(this)" type="button">15</button>
+        <button class="box" title="available"  value = 8.50  id="F_S3_F14" onclick="onClick(this)" type="button">14</button>
+        <button class="box" title="available"  value = 8.50  id="F_S3_F13" onclick="onClick(this)" type="button">13</button>
+        <button class="box" title="available"  value = 8.50  id="F_S3_F12" onclick="onClick(this)" type="button">12</button>
+        <button class="box" title="available"  value = 8.50  id="F_S3_F11" onclick="onClick(this)" type="button">11</button>
+        <button class="box" title="available"  value = 8.50  id="F_S3_F10" onclick="onClick(this)" type="button">10</button>
+        <button class="box" title="available"  value = 8.50  id="F_S3_F09" onclick="onClick(this)" type="button">9</button>
+        <button class="box" title="available"  value = 8.50  id="F_S3_F08" onclick="onClick(this)" type="button">8</button>
+        <button class="box" title="available"  value = 8.50  id="F_S3_F07" onclick="onClick(this)" type="button">7</button>
+        <button class="box" title="available"  value = 8.50  id="F_S3_F06" onclick="onClick(this)" type="button">6</button>
+        <button class="box" title="available"  value = 8.50  id="F_S3_F05" onclick="onClick(this)" type="button">5</button>
+        <button class="box" title="available"  value = 8.50  id="F_S3_F04" onclick="onClick(this)" type="button">4</button>
+        <button class="box" title="available"  value = 8.50  id="F_S3_F03" onclick="onClick(this)" type="button">3</button>
+        <button class="box" title="available"  value = 8.50  id="F_S3_F02" onclick="onClick(this)" type="button">2</button>
+        <button class="box" title="available"  value = 8.50  id="F_S3_F01" onclick="onClick(this)" type="button">1</button>
         <div class="empty">F</div>
-        <button class="box" title="available"  id="F_S2_F17" onclick="onClick(this)" type="button">17</button>
-        <button class="box" title="available"  id="F_S2_F16" onclick="onClick(this)" type="button">16</button>
-        <button class="box" title="available"  id="F_S2_F15" onclick="onClick(this)" type="button">15</button>
-        <button class="box" title="available"  id="F_S2_F14" onclick="onClick(this)" type="button">14</button>
-        <button class="box" title="available"  id="F_S2_F13" onclick="onClick(this)" type="button">13</button>
-        <button class="box" title="available"  id="F_S2_F12" onclick="onClick(this)" type="button">12</button>
-        <button class="box" title="available"  id="F_S2_F11" onclick="onClick(this)" type="button">11</button>
-        <button class="box" title="available"  id="F_S2_F10" onclick="onClick(this)" type="button">10</button>
-        <button class="box" title="available"  id="F_S2_F09" onclick="onClick(this)" type="button">9</button>
-        <button class="box" title="available"  id="F_S2_F08" onclick="onClick(this)" type="button">8</button>
-        <button class="box" title="available"  id="F_S2_F07" onclick="onClick(this)" type="button">7</button>
-        <button class="box" title="available"  id="F_S2_F06" onclick="onClick(this)" type="button">6</button>
-        <button class="box" title="available"  id="F_S2_F05" onclick="onClick(this)" type="button">5</button>
-        <button class="box" title="available"  id="F_S2_F04" onclick="onClick(this)" type="button">4</button>
-        <button class="box" title="available"  id="F_S2_F03" onclick="onClick(this)" type="button">3</button>
-        <button class="box" title="available"  id="F_S2_F02" onclick="onClick(this)" type="button">2</button>
-        <button class="box" title="available"  id="F_S2_F01" onclick="onClick(this)" type="button">1</button>
+        <button class="box" title="available"  value = 8.50  id="F_S2_F17" onclick="onClick(this)" type="button">17</button>
+        <button class="box" title="available"  value = 8.50  id="F_S2_F16" onclick="onClick(this)" type="button">16</button>
+        <button class="box" title="available"  value = 8.50  id="F_S2_F15" onclick="onClick(this)" type="button">15</button>
+        <button class="box" title="available"  value = 8.50  id="F_S2_F14" onclick="onClick(this)" type="button">14</button>
+        <button class="box" title="available"  value = 8.50  id="F_S2_F13" onclick="onClick(this)" type="button">13</button>
+        <button class="box" title="available"  value = 8.50  id="F_S2_F12" onclick="onClick(this)" type="button">12</button>
+        <button class="box" title="available"  value = 8.50  id="F_S2_F11" onclick="onClick(this)" type="button">11</button>
+        <button class="box" title="available"  value = 8.50  id="F_S2_F10" onclick="onClick(this)" type="button">10</button>
+        <button class="box" title="available"  value = 8.50  id="F_S2_F09" onclick="onClick(this)" type="button">9</button>
+        <button class="box" title="available"  value = 8.50  id="F_S2_F08" onclick="onClick(this)" type="button">8</button>
+        <button class="box" title="available"  value = 8.50  id="F_S2_F07" onclick="onClick(this)" type="button">7</button>
+        <button class="box" title="available"  value = 8.50  id="F_S2_F06" onclick="onClick(this)" type="button">6</button>
+        <button class="box" title="available"  value = 8.50  id="F_S2_F05" onclick="onClick(this)" type="button">5</button>
+        <button class="box" title="available"  value = 8.50  id="F_S2_F04" onclick="onClick(this)" type="button">4</button>
+        <button class="box" title="available"  value = 8.50  id="F_S2_F03" onclick="onClick(this)" type="button">3</button>
+        <button class="box" title="available"  value = 8.50  id="F_S2_F02" onclick="onClick(this)" type="button">2</button>
+        <button class="box" title="available"  value = 8.50  id="F_S2_F01" onclick="onClick(this)" type="button">1</button>
         <div class="empty"></div>
         <div class="empty">F</div>
-        <button class="box" title="available"  id="F_S1_F06" onclick="onClick(this)" type="button">6</button>
-        <button class="box" title="available"  id="F_S1_F05" onclick="onClick(this)" type="button">5</button>
-        <button class="box" title="available"  id="F_S1_F04" onclick="onClick(this)" type="button">4</button>
-        <button class="box" title="available"  id="F_S1_F03" onclick="onClick(this)" type="button">3</button>
-        <button class="box" title="available"  id="F_S1_F02" onclick="onClick(this)" type="button">2</button>
-        <button class="box" title="available"  id="F_S1_F01" onclick="onClick(this)" type="button">1</button>
+        <button class="box" title="available"  value = 8.50  id="F_S1_F06" onclick="onClick(this)" type="button">6</button>
+        <button class="box" title="available"  value = 8.50  id="F_S1_F05" onclick="onClick(this)" type="button">5</button>
+        <button class="box" title="available"  value = 8.50  id="F_S1_F04" onclick="onClick(this)" type="button">4</button>
+        <button class="box" title="available"  value = 8.50  id="F_S1_F03" onclick="onClick(this)" type="button">3</button>
+        <button class="box" title="available"  value = 8.50  id="F_S1_F02" onclick="onClick(this)" type="button">2</button>
+        <button class="box" title="available"  value = 8.50  id="F_S1_F01" onclick="onClick(this)" type="button">1</button>
         <div class="empty">F</div>
 
 
         <!--Floor Row G 4 Sections 48 seats-->
         <div class="empty">G</div>
-        <button class="box" title="available"  id="F_S4_G06" onclick="onClick(this)" type="button">6</button>
-        <button class="box" title="available"  id="F_S4_G05" onclick="onClick(this)" type="button">5</button>
-        <button class="box" title="available"  id="F_S4_G04" onclick="onClick(this)" type="button">4</button>
-        <button class="box" title="available"  id="F_S4_G03" onclick="onClick(this)" type="button">3</button>
-        <button class="box" title="available"  id="F_S4_G02" onclick="onClick(this)" type="button">2</button>
-        <button class="box" title="available"  id="F_S4_G01" onclick="onClick(this)" type="button">1</button>
+        <button class="box" title="available"  value = 8.50  id="F_S4_G06" onclick="onClick(this)" type="button">6</button>
+        <button class="box" title="available"  value = 8.50  id="F_S4_G05" onclick="onClick(this)" type="button">5</button>
+        <button class="box" title="available"  value = 8.50  id="F_S4_G04" onclick="onClick(this)" type="button">4</button>
+        <button class="box" title="available"  value = 8.50  id="F_S4_G03" onclick="onClick(this)" type="button">3</button>
+        <button class="box" title="available"  value = 8.50  id="F_S4_G02" onclick="onClick(this)" type="button">2</button>
+        <button class="box" title="available"  value = 8.50  id="F_S4_G01" onclick="onClick(this)" type="button">1</button>
         <div class="empty">G</div>
-        <button class="box" title="available"  id="F_S3_G18" onclick="onClick(this)" type="button">18</button>
-        <button class="box" title="available"  id="F_S3_G17" onclick="onClick(this)" type="button">17</button>
-        <button class="box" title="available"  id="F_S3_G16" onclick="onClick(this)" type="button">16</button>
-        <button class="box" title="available"  id="F_S3_G15" onclick="onClick(this)" type="button">15</button>
-        <button class="box" title="available"  id="F_S3_G14" onclick="onClick(this)" type="button">14</button>
-        <button class="box" title="available"  id="F_S3_G13" onclick="onClick(this)" type="button">13</button>
-        <button class="box" title="available"  id="F_S3_G12" onclick="onClick(this)" type="button">12</button>
-        <button class="box" title="available"  id="F_S3_G11" onclick="onClick(this)" type="button">11</button>
-        <button class="box" title="available"  id="F_S3_G10" onclick="onClick(this)" type="button">10</button>
-        <button class="box" title="available"  id="F_S3_G09" onclick="onClick(this)" type="button">9</button>
-        <button class="box" title="available"  id="F_S3_G08" onclick="onClick(this)" type="button">8</button>
-        <button class="box" title="available"  id="F_S3_G07" onclick="onClick(this)" type="button">7</button>
-        <button class="box" title="available"  id="F_S3_G06" onclick="onClick(this)" type="button">6</button>
-        <button class="box" title="available"  id="F_S3_G05" onclick="onClick(this)" type="button">5</button>
-        <button class="box" title="available"  id="F_S3_G04" onclick="onClick(this)" type="button">4</button>
-        <button class="box" title="available"  id="F_S3_G03" onclick="onClick(this)" type="button">3</button>
-        <button class="box" title="available"  id="F_S3_G02" onclick="onClick(this)" type="button">2</button>
-        <button class="box" title="available"  id="F_S3_G01" onclick="onClick(this)" type="button">1</button>
+        <button class="box" title="available"  value = 8.50  id="F_S3_G18" onclick="onClick(this)" type="button">18</button>
+        <button class="box" title="available"  value = 8.50  id="F_S3_G17" onclick="onClick(this)" type="button">17</button>
+        <button class="box" title="available"  value = 8.50  id="F_S3_G16" onclick="onClick(this)" type="button">16</button>
+        <button class="box" title="available"  value = 8.50  id="F_S3_G15" onclick="onClick(this)" type="button">15</button>
+        <button class="box" title="available"  value = 8.50  id="F_S3_G14" onclick="onClick(this)" type="button">14</button>
+        <button class="box" title="available"  value = 8.50  id="F_S3_G13" onclick="onClick(this)" type="button">13</button>
+        <button class="box" title="available"  value = 8.50  id="F_S3_G12" onclick="onClick(this)" type="button">12</button>
+        <button class="box" title="available"  value = 8.50  id="F_S3_G11" onclick="onClick(this)" type="button">11</button>
+        <button class="box" title="available"  value = 8.50  id="F_S3_G10" onclick="onClick(this)" type="button">10</button>
+        <button class="box" title="available"  value = 8.50  id="F_S3_G09" onclick="onClick(this)" type="button">9</button>
+        <button class="box" title="available"  value = 8.50  id="F_S3_G08" onclick="onClick(this)" type="button">8</button>
+        <button class="box" title="available"  value = 8.50  id="F_S3_G07" onclick="onClick(this)" type="button">7</button>
+        <button class="box" title="available"  value = 8.50  id="F_S3_G06" onclick="onClick(this)" type="button">6</button>
+        <button class="box" title="available"  value = 8.50  id="F_S3_G05" onclick="onClick(this)" type="button">5</button>
+        <button class="box" title="available"  value = 8.50  id="F_S3_G04" onclick="onClick(this)" type="button">4</button>
+        <button class="box" title="available"  value = 8.50  id="F_S3_G03" onclick="onClick(this)" type="button">3</button>
+        <button class="box" title="available"  value = 8.50  id="F_S3_G02" onclick="onClick(this)" type="button">2</button>
+        <button class="box" title="available"  value = 8.50  id="F_S3_G01" onclick="onClick(this)" type="button">1</button>
         <div class="empty">G</div>
-        <button class="box" title="available"  id="F_S2_G18" onclick="onClick(this)" type="button">18</button>
-        <button class="box" title="available"  id="F_S2_G17" onclick="onClick(this)" type="button">17</button>
-        <button class="box" title="available"  id="F_S2_G16" onclick="onClick(this)" type="button">16</button>
-        <button class="box" title="available"  id="F_S2_G15" onclick="onClick(this)" type="button">15</button>
-        <button class="box" title="available"  id="F_S2_G14" onclick="onClick(this)" type="button">14</button>
-        <button class="box" title="available"  id="F_S2_G13" onclick="onClick(this)" type="button">13</button>
-        <button class="box" title="available"  id="F_S2_G12" onclick="onClick(this)" type="button">12</button>
-        <button class="box" title="available"  id="F_S2_G11" onclick="onClick(this)" type="button">11</button>
-        <button class="box" title="available"  id="F_S2_G10" onclick="onClick(this)" type="button">10</button>
-        <button class="box" title="available"  id="F_S2_G09" onclick="onClick(this)" type="button">9</button>
-        <button class="box" title="available"  id="F_S2_G08" onclick="onClick(this)" type="button">8</button>
-        <button class="box" title="available"  id="F_S2_G07" onclick="onClick(this)" type="button">7</button>
-        <button class="box" title="available"  id="F_S2_G06" onclick="onClick(this)" type="button">6</button>
-        <button class="box" title="available"  id="F_S2_G05" onclick="onClick(this)" type="button">5</button>
-        <button class="box" title="available"  id="F_S2_G04" onclick="onClick(this)" type="button">4</button>
-        <button class="box" title="available"  id="F_S2_G03" onclick="onClick(this)" type="button">3</button>
-        <button class="box" title="available"  id="F_S2_G02" onclick="onClick(this)" type="button">2</button>
-        <button class="box" title="available"  id="F_S2_G01" onclick="onClick(this)" type="button">1</button>
+        <button class="box" title="available"  value = 8.50  id="F_S2_G18" onclick="onClick(this)" type="button">18</button>
+        <button class="box" title="available"  value = 8.50  id="F_S2_G17" onclick="onClick(this)" type="button">17</button>
+        <button class="box" title="available"  value = 8.50  id="F_S2_G16" onclick="onClick(this)" type="button">16</button>
+        <button class="box" title="available"  value = 8.50  id="F_S2_G15" onclick="onClick(this)" type="button">15</button>
+        <button class="box" title="available"  value = 8.50  id="F_S2_G14" onclick="onClick(this)" type="button">14</button>
+        <button class="box" title="available"  value = 8.50  id="F_S2_G13" onclick="onClick(this)" type="button">13</button>
+        <button class="box" title="available"  value = 8.50  id="F_S2_G12" onclick="onClick(this)" type="button">12</button>
+        <button class="box" title="available"  value = 8.50  id="F_S2_G11" onclick="onClick(this)" type="button">11</button>
+        <button class="box" title="available"  value = 8.50  id="F_S2_G10" onclick="onClick(this)" type="button">10</button>
+        <button class="box" title="available"  value = 8.50  id="F_S2_G09" onclick="onClick(this)" type="button">9</button>
+        <button class="box" title="available"  value = 8.50  id="F_S2_G08" onclick="onClick(this)" type="button">8</button>
+        <button class="box" title="available"  value = 8.50  id="F_S2_G07" onclick="onClick(this)" type="button">7</button>
+        <button class="box" title="available"  value = 8.50  id="F_S2_G06" onclick="onClick(this)" type="button">6</button>
+        <button class="box" title="available"  value = 8.50  id="F_S2_G05" onclick="onClick(this)" type="button">5</button>
+        <button class="box" title="available"  value = 8.50  id="F_S2_G04" onclick="onClick(this)" type="button">4</button>
+        <button class="box" title="available"  value = 8.50  id="F_S2_G03" onclick="onClick(this)" type="button">3</button>
+        <button class="box" title="available"  value = 8.50  id="F_S2_G02" onclick="onClick(this)" type="button">2</button>
+        <button class="box" title="available"  value = 8.50  id="F_S2_G01" onclick="onClick(this)" type="button">1</button>
         <div class="empty">G</div>
-        <button class="box" title="available"  id="F_S1_G06" onclick="onClick(this)" type="button">6</button>
-        <button class="box" title="available"  id="F_S1_G05" onclick="onClick(this)" type="button">5</button>
-        <button class="box" title="available"  id="F_S1_G04" onclick="onClick(this)" type="button">4</button>
-        <button class="box" title="available"  id="F_S1_G03" onclick="onClick(this)" type="button">3</button>
-        <button class="box" title="available"  id="F_S1_G02" onclick="onClick(this)" type="button">2</button>
-        <button class="box" title="available"  id="F_S1_G01" onclick="onClick(this)" type="button">1</button>
+        <button class="box" title="available"  value = 8.50  id="F_S1_G06" onclick="onClick(this)" type="button">6</button>
+        <button class="box" title="available"  value = 8.50  id="F_S1_G05" onclick="onClick(this)" type="button">5</button>
+        <button class="box" title="available"  value = 8.50  id="F_S1_G04" onclick="onClick(this)" type="button">4</button>
+        <button class="box" title="available"  value = 8.50  id="F_S1_G03" onclick="onClick(this)" type="button">3</button>
+        <button class="box" title="available"  value = 8.50  id="F_S1_G02" onclick="onClick(this)" type="button">2</button>
+        <button class="box" title="available"  value = 8.50  id="F_S1_G01" onclick="onClick(this)" type="button">1</button>
         <div class="empty">G</div>
 
 
@@ -762,52 +770,52 @@
         <div class="empty"></div>
         <div class="empty"></div>
         <div class="empty">A</div>
-        <button class="box" title="available"  id="L_S4_A07" onclick="onClick(this)" type="button">7</button>
-        <button class="box" title="available"  id="L_S4_A06" onclick="onClick(this)" type="button">6</button>
-        <button class="box" title="available"  id="L_S4_A05" onclick="onClick(this)" type="button">5</button>
-        <button class="box" title="available"  id="L_S4_A04" onclick="onClick(this)" type="button">4</button>
-        <button class="box" title="available"  id="L_S4_A03" onclick="onClick(this)" type="button">3</button>
-        <button class="box" title="available"  id="L_S4_A02" onclick="onClick(this)" type="button">2</button>
-        <button class="box" title="available"  id="L_S4_A01" onclick="onClick(this)" type="button">1</button>
+        <button class="box" title="available"  value = 8.50  id="L_S4_A07" onclick="onClick(this)" type="button">7</button>
+        <button class="box" title="available"  value = 8.50  id="L_S4_A06" onclick="onClick(this)" type="button">6</button>
+        <button class="box" title="available"  value = 8.50  id="L_S4_A05" onclick="onClick(this)" type="button">5</button>
+        <button class="box" title="available"  value = 8.50  id="L_S4_A04" onclick="onClick(this)" type="button">4</button>
+        <button class="box" title="available"  value = 8.50  id="L_S4_A03" onclick="onClick(this)" type="button">3</button>
+        <button class="box" title="available"  value = 8.50  id="L_S4_A02" onclick="onClick(this)" type="button">2</button>
+        <button class="box" title="available"  value = 8.50  id="L_S4_A01" onclick="onClick(this)" type="button">1</button>
         <div class="empty">A</div>
         <div class="empty"></div>
         <div class="empty"></div>
         <div class="empty"></div>
         <div class="empty">A</div>
-        <button class="box" title="available"  id="L_S3_A10" onclick="onClick(this)" type="button">10</button>
-        <button class="box" title="available"  id="L_S3_A09" onclick="onClick(this)" type="button">9</button>
-        <button class="box" title="available"  id="L_S3_A08" onclick="onClick(this)" type="button">8</button>
-        <button class="box" title="available"  id="L_S3_A07" onclick="onClick(this)" type="button">7</button>
-        <button class="box" title="available"  id="L_S3_A06" onclick="onClick(this)" type="button">6</button>
-        <button class="box" title="available"  id="L_S3_A05" onclick="onClick(this)" type="button">5</button>
-        <button class="box" title="available"  id="L_S3_A04" onclick="onClick(this)" type="button">4</button>
-        <button class="box" title="available"  id="L_S3_A03" onclick="onClick(this)" type="button">3</button>
-        <button class="box" title="available"  id="L_S3_A02" onclick="onClick(this)" type="button">2</button>
-        <button class="box" title="available"  id="L_S3_A01" onclick="onClick(this)" type="button">1</button>
+        <button class="box" title="available"  value = 8.50  id="L_S3_A10" onclick="onClick(this)" type="button">10</button>
+        <button class="box" title="available"  value = 8.50  id="L_S3_A09" onclick="onClick(this)" type="button">9</button>
+        <button class="box" title="available"  value = 8.50  id="L_S3_A08" onclick="onClick(this)" type="button">8</button>
+        <button class="box" title="available"  value = 8.50  id="L_S3_A07" onclick="onClick(this)" type="button">7</button>
+        <button class="box" title="available"  value = 8.50  id="L_S3_A06" onclick="onClick(this)" type="button">6</button>
+        <button class="box" title="available"  value = 8.50  id="L_S3_A05" onclick="onClick(this)" type="button">5</button>
+        <button class="box" title="available"  value = 8.50  id="L_S3_A04" onclick="onClick(this)" type="button">4</button>
+        <button class="box" title="available"  value = 8.50  id="L_S3_A03" onclick="onClick(this)" type="button">3</button>
+        <button class="box" title="available"  value = 8.50  id="L_S3_A02" onclick="onClick(this)" type="button">2</button>
+        <button class="box" title="available"  value = 8.50  id="L_S3_A01" onclick="onClick(this)" type="button">1</button>
         <div class="empty">A</div>
-        <button class="box" title="available"  id="L_S2_A10" onclick="onClick(this)" type="button">10</button>
-        <button class="box" title="available"  id="L_S2_A09" onclick="onClick(this)" type="button">9</button>
-        <button class="box" title="available"  id="L_S2_A08" onclick="onClick(this)" type="button">8</button>
-        <button class="box" title="available"  id="L_S2_A07" onclick="onClick(this)" type="button">7</button>
-        <button class="box" title="available"  id="L_S2_A06" onclick="onClick(this)" type="button">6</button>
-        <button class="box" title="available"  id="L_S2_A05" onclick="onClick(this)" type="button">5</button>
-        <button class="box" title="available"  id="L_S2_A04" onclick="onClick(this)" type="button">4</button>
-        <button class="box" title="available"  id="L_S2_A03" onclick="onClick(this)" type="button">3</button>
-        <button class="box" title="available"  id="L_S2_A02" onclick="onClick(this)" type="button">2</button>
-        <button class="box" title="available"  id="L_S2_A01" onclick="onClick(this)" type="button">1</button>
+        <button class="box" title="available"  value = 8.50  id="L_S2_A10" onclick="onClick(this)" type="button">10</button>
+        <button class="box" title="available"  value = 8.50  id="L_S2_A09" onclick="onClick(this)" type="button">9</button>
+        <button class="box" title="available"  value = 8.50  id="L_S2_A08" onclick="onClick(this)" type="button">8</button>
+        <button class="box" title="available"  value = 8.50  id="L_S2_A07" onclick="onClick(this)" type="button">7</button>
+        <button class="box" title="available"  value = 8.50  id="L_S2_A06" onclick="onClick(this)" type="button">6</button>
+        <button class="box" title="available"  value = 8.50  id="L_S2_A05" onclick="onClick(this)" type="button">5</button>
+        <button class="box" title="available"  value = 8.50  id="L_S2_A04" onclick="onClick(this)" type="button">4</button>
+        <button class="box" title="available"  value = 8.50  id="L_S2_A03" onclick="onClick(this)" type="button">3</button>
+        <button class="box" title="available"  value = 8.50  id="L_S2_A02" onclick="onClick(this)" type="button">2</button>
+        <button class="box" title="available"  value = 8.50  id="L_S2_A01" onclick="onClick(this)" type="button">1</button>
         <div class="empty">A</div>
         <div class="empty"></div>
         <div class="empty"></div>
         <div class="empty"></div>
         <div class="empty"></div>
         <div class="empty">A</div>
-        <button class="box" title="available"  id="L_S1_A07" onclick="onClick(this)" type="button">7</button>
-        <button class="box" title="available"  id="L_S1_A06" onclick="onClick(this)" type="button">6</button>
-        <button class="box" title="available"  id="L_S1_A05" onclick="onClick(this)" type="button">5</button>
-        <button class="box" title="available"  id="L_S1_A04" onclick="onClick(this)" type="button">4</button>
-        <button class="box" title="available"  id="L_S1_A03" onclick="onClick(this)" type="button">3</button>
-        <button class="box" title="available"  id="L_S1_A02" onclick="onClick(this)" type="button">2</button>
-        <button class="box" title="available"  id="L_S1_A01" onclick="onClick(this)" type="button">1</button>
+        <button class="box" title="available"  value = 8.50  id="L_S1_A07" onclick="onClick(this)" type="button">7</button>
+        <button class="box" title="available"  value = 8.50  id="L_S1_A06" onclick="onClick(this)" type="button">6</button>
+        <button class="box" title="available"  value = 8.50  id="L_S1_A05" onclick="onClick(this)" type="button">5</button>
+        <button class="box" title="available"  value = 8.50  id="L_S1_A04" onclick="onClick(this)" type="button">4</button>
+        <button class="box" title="available"  value = 8.50  id="L_S1_A03" onclick="onClick(this)" type="button">3</button>
+        <button class="box" title="available"  value = 8.50  id="L_S1_A02" onclick="onClick(this)" type="button">2</button>
+        <button class="box" title="available"  value = 8.50  id="L_S1_A01" onclick="onClick(this)" type="button">1</button>
         <div class="empty">A</div>
         <div class="empty"></div>
         <div class="empty">A</div>
@@ -819,49 +827,49 @@
         <div class="empty"></div>
         <div class="empty"></div>
         <div class="empty">B</div>
-        <button class="box" title="available"  id="L_S4_B06" onclick="onClick(this)" type="button">6</button>
-        <button class="box" title="available"  id="L_S4_B05" onclick="onClick(this)" type="button">5</button>
-        <button class="box" title="available"  id="L_S4_B04" onclick="onClick(this)" type="button">4</button>
-        <button class="box" title="available"  id="L_S4_B03" onclick="onClick(this)" type="button">3</button>
-        <button class="box" title="available"  id="L_S4_B02" onclick="onClick(this)" type="button">2</button>
-        <button class="box" title="available"  id="L_S4_B01" onclick="onClick(this)" type="button">1</button>
+        <button class="box" title="available"  value = 8.50  id="L_S4_B06" onclick="onClick(this)" type="button">6</button>
+        <button class="box" title="available"  value = 8.50  id="L_S4_B05" onclick="onClick(this)" type="button">5</button>
+        <button class="box" title="available"  value = 8.50  id="L_S4_B04" onclick="onClick(this)" type="button">4</button>
+        <button class="box" title="available"  value = 8.50  id="L_S4_B03" onclick="onClick(this)" type="button">3</button>
+        <button class="box" title="available"  value = 8.50  id="L_S4_B02" onclick="onClick(this)" type="button">2</button>
+        <button class="box" title="available"  value = 8.50  id="L_S4_B01" onclick="onClick(this)" type="button">1</button>
         <div class="empty">B</div>
         <div class="empty"></div>
         <div class="empty">B</div>
-        <button class="box" title="available"  id="L_S3_B12" onclick="onClick(this)" type="button">12</button>
-        <button class="box" title="available"  id="L_S3_B11" onclick="onClick(this)" type="button">11</button>
-        <button class="box" title="available"  id="L_S3_B10" onclick="onClick(this)" type="button">10</button>
-        <button class="box" title="available"  id="L_S3_B09" onclick="onClick(this)" type="button">9</button>
-        <button class="box" title="available"  id="L_S3_B08" onclick="onClick(this)" type="button">8</button>
-        <button class="box" title="available"  id="L_S3_B07" onclick="onClick(this)" type="button">7</button>
-        <button class="box" title="available"  id="L_S3_B06" onclick="onClick(this)" type="button">6</button>
-        <button class="box" title="available"  id="L_S3_B05" onclick="onClick(this)" type="button">5</button>
-        <button class="box" title="available"  id="L_S3_B04" onclick="onClick(this)" type="button">4</button>
-        <button class="box" title="available"  id="L_S3_B03" onclick="onClick(this)" type="button">3</button>
-        <button class="box" title="available"  id="L_S3_B02" onclick="onClick(this)" type="button">2</button>
-        <button class="box" title="available"  id="L_S3_B01" onclick="onClick(this)" type="button">1</button>
+        <button class="box" title="available"  value = 8.50  id="L_S3_B12" onclick="onClick(this)" type="button">12</button>
+        <button class="box" title="available"  value = 8.50  id="L_S3_B11" onclick="onClick(this)" type="button">11</button>
+        <button class="box" title="available"  value = 8.50  id="L_S3_B10" onclick="onClick(this)" type="button">10</button>
+        <button class="box" title="available"  value = 8.50  id="L_S3_B09" onclick="onClick(this)" type="button">9</button>
+        <button class="box" title="available"  value = 8.50  id="L_S3_B08" onclick="onClick(this)" type="button">8</button>
+        <button class="box" title="available"  value = 8.50  id="L_S3_B07" onclick="onClick(this)" type="button">7</button>
+        <button class="box" title="available"  value = 8.50  id="L_S3_B06" onclick="onClick(this)" type="button">6</button>
+        <button class="box" title="available"  value = 8.50  id="L_S3_B05" onclick="onClick(this)" type="button">5</button>
+        <button class="box" title="available"  value = 8.50  id="L_S3_B04" onclick="onClick(this)" type="button">4</button>
+        <button class="box" title="available"  value = 8.50  id="L_S3_B03" onclick="onClick(this)" type="button">3</button>
+        <button class="box" title="available"  value = 8.50  id="L_S3_B02" onclick="onClick(this)" type="button">2</button>
+        <button class="box" title="available"  value = 8.50  id="L_S3_B01" onclick="onClick(this)" type="button">1</button>
         <div class="empty">B</div>
-        <button class="box" title="available"  id="L_S2_B12" onclick="onClick(this)" type="button">12</button>
-        <button class="box" title="available"  id="L_S2_B11" onclick="onClick(this)" type="button">11</button>
-        <button class="box" title="available"  id="L_S2_B10" onclick="onClick(this)" type="button">10</button>
-        <button class="box" title="available"  id="L_S2_B09" onclick="onClick(this)" type="button">9</button>
-        <button class="box" title="available"  id="L_S2_B08" onclick="onClick(this)" type="button">8</button>
-        <button class="box" title="available"  id="L_S2_B07" onclick="onClick(this)" type="button">7</button>
-        <button class="box" title="available"  id="L_S2_B06" onclick="onClick(this)" type="button">6</button>
-        <button class="box" title="available"  id="L_S2_B05" onclick="onClick(this)" type="button">5</button>
-        <button class="box" title="available"  id="L_S2_B04" onclick="onClick(this)" type="button">4</button>
-        <button class="box" title="available"  id="L_S2_B03" onclick="onClick(this)" type="button">3</button>
-        <button class="box" title="available"  id="L_S2_B02" onclick="onClick(this)" type="button">2</button>
-        <button class="box" title="available"  id="L_S2_B01" onclick="onClick(this)" type="button">1</button>
+        <button class="box" title="available"  value = 8.50  id="L_S2_B12" onclick="onClick(this)" type="button">12</button>
+        <button class="box" title="available"  value = 8.50  id="L_S2_B11" onclick="onClick(this)" type="button">11</button>
+        <button class="box" title="available"  value = 8.50  id="L_S2_B10" onclick="onClick(this)" type="button">10</button>
+        <button class="box" title="available"  value = 8.50  id="L_S2_B09" onclick="onClick(this)" type="button">9</button>
+        <button class="box" title="available"  value = 8.50  id="L_S2_B08" onclick="onClick(this)" type="button">8</button>
+        <button class="box" title="available"  value = 8.50  id="L_S2_B07" onclick="onClick(this)" type="button">7</button>
+        <button class="box" title="available"  value = 8.50  id="L_S2_B06" onclick="onClick(this)" type="button">6</button>
+        <button class="box" title="available"  value = 8.50  id="L_S2_B05" onclick="onClick(this)" type="button">5</button>
+        <button class="box" title="available"  value = 8.50  id="L_S2_B04" onclick="onClick(this)" type="button">4</button>
+        <button class="box" title="available"  value = 8.50  id="L_S2_B03" onclick="onClick(this)" type="button">3</button>
+        <button class="box" title="available"  value = 8.50  id="L_S2_B02" onclick="onClick(this)" type="button">2</button>
+        <button class="box" title="available"  value = 8.50  id="L_S2_B01" onclick="onClick(this)" type="button">1</button>
         <div class="empty">B</div>
         <div class="empty"></div>
         <div class="empty"></div>
         <div class="empty">B</div>
-        <button class="box" title="available"  id="L_S1_B05" onclick="onClick(this)" type="button">5</button>
-        <button class="box" title="available"  id="L_S1_B04" onclick="onClick(this)" type="button">4</button>
-        <button class="box" title="available"  id="L_S1_B03" onclick="onClick(this)" type="button">3</button>
-        <button class="box" title="available"  id="L_S1_B02" onclick="onClick(this)" type="button">2</button>
-        <button class="box" title="available"  id="L_S1_B01" onclick="onClick(this)" type="button">1</button>
+        <button class="box" title="available"  value = 8.50  id="L_S1_B05" onclick="onClick(this)" type="button">5</button>
+        <button class="box" title="available"  value = 8.50  id="L_S1_B04" onclick="onClick(this)" type="button">4</button>
+        <button class="box" title="available"  value = 8.50  id="L_S1_B03" onclick="onClick(this)" type="button">3</button>
+        <button class="box" title="available"  value = 8.50  id="L_S1_B02" onclick="onClick(this)" type="button">2</button>
+        <button class="box" title="available"  value = 8.50  id="L_S1_B01" onclick="onClick(this)" type="button">1</button>
         <div class="empty">B</div>
         <div class="empty"></div>
         <div class="empty"></div>
@@ -875,48 +883,48 @@
         <div class="empty"></div>
         <div class="empty"></div>
         <div class="empty">C</div>
-        <button class="box" title="available"  id="L_S4_C06" onclick="onClick(this)" type="button">6</button>
-        <button class="box" title="available"  id="L_S4_C05" onclick="onClick(this)" type="button">5</button>
-        <button class="box" title="available"  id="L_S4_C04" onclick="onClick(this)" type="button">4</button>
-        <button class="box" title="available"  id="L_S4_C03" onclick="onClick(this)" type="button">3</button>
-        <button class="box" title="available"  id="L_S4_C02" onclick="onClick(this)" type="button">2</button>
-        <button class="box" title="available"  id="L_S4_C01" onclick="onClick(this)" type="button">1</button>
+        <button class="box" title="available"  value = 8.50  id="L_S4_C06" onclick="onClick(this)" type="button">6</button>
+        <button class="box" title="available"  value = 8.50  id="L_S4_C05" onclick="onClick(this)" type="button">5</button>
+        <button class="box" title="available"  value = 8.50  id="L_S4_C04" onclick="onClick(this)" type="button">4</button>
+        <button class="box" title="available"  value = 8.50  id="L_S4_C03" onclick="onClick(this)" type="button">3</button>
+        <button class="box" title="available"  value = 8.50  id="L_S4_C02" onclick="onClick(this)" type="button">2</button>
+        <button class="box" title="available"  value = 8.50  id="L_S4_C01" onclick="onClick(this)" type="button">1</button>
         <div class="empty">C</div>
-        <button class="box" title="available"  id="L_S3_C14" onclick="onClick(this)" type="button">14</button>
-        <button class="box" title="available"  id="L_S3_C13" onclick="onClick(this)" type="button">13</button>
-        <button class="box" title="available"  id="L_S3_C12" onclick="onClick(this)" type="button">12</button>
-        <button class="box" title="available"  id="L_S3_C11" onclick="onClick(this)" type="button">11</button>
-        <button class="box" title="available"  id="L_S3_C10" onclick="onClick(this)" type="button">10</button>
-        <button class="box" title="available"  id="L_S3_C09" onclick="onClick(this)" type="button">9</button>
-        <button class="box" title="available"  id="L_S3_C08" onclick="onClick(this)" type="button">8</button>
-        <button class="box" title="available"  id="L_S3_C07" onclick="onClick(this)" type="button">7</button>
-        <button class="box" title="available"  id="L_S3_C06" onclick="onClick(this)" type="button">6</button>
-        <button class="box" title="available"  id="L_S3_C05" onclick="onClick(this)" type="button">5</button>
-        <button class="box" title="available"  id="L_S3_C04" onclick="onClick(this)" type="button">4</button>
-        <button class="box" title="available"  id="L_S3_C03" onclick="onClick(this)" type="button">3</button>
-        <button class="box" title="available"  id="L_S3_C02" onclick="onClick(this)" type="button">2</button>
-        <button class="box" title="available"  id="L_S3_C01" onclick="onClick(this)" type="button">1</button>
+        <button class="box" title="available"  value = 8.50  id="L_S3_C14" onclick="onClick(this)" type="button">14</button>
+        <button class="box" title="available"  value = 8.50  id="L_S3_C13" onclick="onClick(this)" type="button">13</button>
+        <button class="box" title="available"  value = 8.50  id="L_S3_C12" onclick="onClick(this)" type="button">12</button>
+        <button class="box" title="available"  value = 8.50  id="L_S3_C11" onclick="onClick(this)" type="button">11</button>
+        <button class="box" title="available"  value = 8.50  id="L_S3_C10" onclick="onClick(this)" type="button">10</button>
+        <button class="box" title="available"  value = 8.50  id="L_S3_C09" onclick="onClick(this)" type="button">9</button>
+        <button class="box" title="available"  value = 8.50  id="L_S3_C08" onclick="onClick(this)" type="button">8</button>
+        <button class="box" title="available"  value = 8.50  id="L_S3_C07" onclick="onClick(this)" type="button">7</button>
+        <button class="box" title="available"  value = 8.50  id="L_S3_C06" onclick="onClick(this)" type="button">6</button>
+        <button class="box" title="available"  value = 8.50  id="L_S3_C05" onclick="onClick(this)" type="button">5</button>
+        <button class="box" title="available"  value = 8.50  id="L_S3_C04" onclick="onClick(this)" type="button">4</button>
+        <button class="box" title="available"  value = 8.50  id="L_S3_C03" onclick="onClick(this)" type="button">3</button>
+        <button class="box" title="available"  value = 8.50  id="L_S3_C02" onclick="onClick(this)" type="button">2</button>
+        <button class="box" title="available"  value = 8.50  id="L_S3_C01" onclick="onClick(this)" type="button">1</button>
         <div class="empty">C</div>
-        <button class="box" title="available"  id="L_S2_C14" onclick="onClick(this)" type="button">14</button>
-        <button class="box" title="available"  id="L_S2_C13" onclick="onClick(this)" type="button">13</button>
-        <button class="box" title="available"  id="L_S2_C12" onclick="onClick(this)" type="button">12</button>
-        <button class="box" title="available"  id="L_S2_C11" onclick="onClick(this)" type="button">11</button>
-        <button class="box" title="available"  id="L_S2_C10" onclick="onClick(this)" type="button">10</button>
-        <button class="box" title="available"  id="L_S2_C09" onclick="onClick(this)" type="button">9</button>
-        <button class="box" title="available"  id="L_S2_C08" onclick="onClick(this)" type="button">8</button>
-        <button class="box" title="available"  id="L_S2_C07" onclick="onClick(this)" type="button">7</button>
-        <button class="box" title="available"  id="L_S2_C06" onclick="onClick(this)" type="button">6</button>
-        <button class="box" title="available"  id="L_S2_C05" onclick="onClick(this)" type="button">5</button>
-        <button class="box" title="available"  id="L_S2_C04" onclick="onClick(this)" type="button">4</button>
-        <button class="box" title="available"  id="L_S2_C03" onclick="onClick(this)" type="button">3</button>
-        <button class="box" title="available"  id="L_S2_C02" onclick="onClick(this)" type="button">2</button>
-        <button class="box" title="available"  id="L_S2_C01" onclick="onClick(this)" type="button">1</button>
+        <button class="box" title="available"  value = 8.50  id="L_S2_C14" onclick="onClick(this)" type="button">14</button>
+        <button class="box" title="available"  value = 8.50  id="L_S2_C13" onclick="onClick(this)" type="button">13</button>
+        <button class="box" title="available"  value = 8.50  id="L_S2_C12" onclick="onClick(this)" type="button">12</button>
+        <button class="box" title="available"  value = 8.50  id="L_S2_C11" onclick="onClick(this)" type="button">11</button>
+        <button class="box" title="available"  value = 8.50  id="L_S2_C10" onclick="onClick(this)" type="button">10</button>
+        <button class="box" title="available"  value = 8.50  id="L_S2_C09" onclick="onClick(this)" type="button">9</button>
+        <button class="box" title="available"  value = 8.50  id="L_S2_C08" onclick="onClick(this)" type="button">8</button>
+        <button class="box" title="available"  value = 8.50  id="L_S2_C07" onclick="onClick(this)" type="button">7</button>
+        <button class="box" title="available"  value = 8.50  id="L_S2_C06" onclick="onClick(this)" type="button">6</button>
+        <button class="box" title="available"  value = 8.50  id="L_S2_C05" onclick="onClick(this)" type="button">5</button>
+        <button class="box" title="available"  value = 8.50  id="L_S2_C04" onclick="onClick(this)" type="button">4</button>
+        <button class="box" title="available"  value = 8.50  id="L_S2_C03" onclick="onClick(this)" type="button">3</button>
+        <button class="box" title="available"  value = 8.50  id="L_S2_C02" onclick="onClick(this)" type="button">2</button>
+        <button class="box" title="available"  value = 8.50  id="L_S2_C01" onclick="onClick(this)" type="button">1</button>
         <div class="empty"></div>
         <div class="empty">C</div>
-        <button class="box" title="available"  id="L_S1_C04" onclick="onClick(this)" type="button">4</button>
-        <button class="box" title="available"  id="L_S1_C03" onclick="onClick(this)" type="button">3</button>
-        <button class="box" title="available"  id="L_S1_C02" onclick="onClick(this)" type="button">2</button>
-        <button class="box" title="available"  id="L_S1_C01" onclick="onClick(this)" type="button">1</button>
+        <button class="box" title="available"  value = 8.50  id="L_S1_C04" onclick="onClick(this)" type="button">4</button>
+        <button class="box" title="available"  value = 8.50  id="L_S1_C03" onclick="onClick(this)" type="button">3</button>
+        <button class="box" title="available"  value = 8.50  id="L_S1_C02" onclick="onClick(this)" type="button">2</button>
+        <button class="box" title="available"  value = 8.50  id="L_S1_C01" onclick="onClick(this)" type="button">1</button>
         <div class="empty">C</div>
         <div class="empty"></div>
         <div class="empty"></div>
