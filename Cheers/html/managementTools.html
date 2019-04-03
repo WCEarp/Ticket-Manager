@@ -42,10 +42,10 @@
     <div class="row">
         <div class="column left" style="background-color:#f1f1f1">
             <div class="tab">
-                <button class="tablinks" onclick="openTool(event, 'Create/Edit User')">Create/Edit</button>
-                <button class="tablinks" onclick="openTool(event, 'STH Manager')">STH Manager</button>
-                <button class="tablinks" onclick="openTool(event, 'Exchange Tickets')">Exchange Tickets</button>
-                <button class="tablinks" onclick="openTool(event, 'Ticket Manager')">Ticket Manager</button>
+                <button class="tablinks" onclick="openTool(event, 'Create/Edit User', 'ceTip')">Create/Edit</button>
+                <button class="tablinks" onclick="openTool(event, 'STH Manager', 'STHTip')">STH Manager</button>
+                <button class="tablinks" onclick="openTool(event, 'Exchange Tickets', 'etTip')">Exchange Tickets</button>
+                <button class="tablinks" onclick="openTool(event, 'Ticket Manager', 'tmTip')">Ticket Manager</button>
             </div>
 
             <!-- Tab content -->
@@ -160,14 +160,83 @@
         </div>
 
         <div class="column right" style="background-color:#aaa">
-            <h2>Helpful Tips</h2>
-            <p>Hilarious splashed goodness brief the much amoral far coldly more uncritically thought normal grave much
-                dear thus ouch far across less a pouted well excepting far goodness as falcon recast peaceful outgrew
-                much justly threw.
+                <div id="ceTip" class="tipcontent" >
+                    <h3>Create & Edit Users!</h3>
+                    <p>
+                        Manage and create users from this tab!
+                    </p>
+                    <br>
+                    <p>
+                       Enter an existing user's ID in the "User ID" field and click the "Grab User" button to edit their information.
+                    </p>
+                    <br>
+                    <p>
+                        Click "Add" after creating a new user to save their information.
+                    </p>
+                    <br>
+                    <p>
+                        Click "Update" after modifying an existing user to save their information.
+                    </p>
+                    <br>
+                    <p>
+                        Click "Delete" after fetching an existing user to delete their information.
+                    </p>
+                    <br>
+                    <p>
+                        Click "Display All User" to display all current users.
+                    </p>
+                </div>
 
-                Dear and far one rabbit yet spilled house far when one one alas out a jeez glibly pious compulsive ahead
-                popularly therefore.
-            </p>
+                <div id="STHTip" class="tipcontent" >
+                    <h3>Season Ticket Holder Manager!</h3>
+                    <p>
+                       Manage existing season ticket holders from this tab!
+                    </p>
+                    <br>
+                    <p>
+                        Enter an existing user ID in the "User ID" field.
+                    </p>
+                    <br>
+                    <p>
+                        A seat can be selected by either typing in the seat ID manually or by selecting a seat from either
+                        the Concert Hall or Playhouse by clicking their respective buttons.
+                    </p>
+                    <br>
+                    <p>
+                        When its time to notify all season ticket holders that it is time to renew their tickets,
+                        click "Notify All to Renew" to send out a reminder to all season ticket holders.
+                    </p>
+                </div>
+
+                <div id="etTip" class="tipcontent" >
+                    <h3>Exchange tickets!</h3>
+                    <p>
+                        Exchange tickets for different shows on tis tab!
+                    </p>
+                    <br>
+                    <p>
+                        Enter the customer's ticket ID into the "Ticket 1" field. Then select a ticket for exhange by
+                        either typing in the code manually, or clicking the "Display Available" button to add from a
+                        list of all available tickets.
+                    </p>
+                    <br>
+                    <p>
+                        Once both the customer's ticket ID, and the ticket ID of the exchange ticket are entered into
+                        their fields, click "Exchange" to finalize the exchange.
+                    </p>
+                </div>
+
+                <div id="tmTip" class="tipcontent" >
+                    <h3>Ticket Manager!</h3>
+                    <p>
+                        Manage the ticket sales from this tab!
+                    </p>
+                    <br>
+                    <p>
+                        Ticket IDs can be entered manually into the "Ticket ID" field or
+                        selected from a list of all sold tickets by clicking the "Display All Tickets" button.
+                    </p>
+                </div>
         </div>
     </div>
 
@@ -4203,21 +4272,27 @@
 
 
 <script>
-    function openTool(evt, toolName) {
+    function openTool(evt, toolName, tipName) {
         var i, tabcontent, tablinks;
         tabcontent = document.getElementsByClassName("tabcontent");
+        tipcontent = document.getElementsByClassName("tipcontent");
+
         for (i = 0; i < tabcontent.length; i++) {
             tabcontent[i].style.display = "none";
         }
+
+        for (i = 0; i < tipcontent.length; i++) {
+            tipcontent[i].style.display = "none";
+        }
+
         tablinks = document.getElementsByClassName("tablinks");
         for (i = 0; i < tablinks.length; i++) {
             tablinks[i].className = tablinks[i].className.replace(" active", "");
         }
         document.getElementById(toolName).style.display = "block";
+        document.getElementById(tipName).style.display = "block";
         evt.currentTarget.className += " active";
     }
-
-    document.getElementById("defaultOpen").click();
 </script>
 
 <script>

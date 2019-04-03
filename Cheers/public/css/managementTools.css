@@ -58,6 +58,12 @@
     border-top: none;
 }
 
+.tipcontent {
+    display: none;
+}
+
+
+
 #centCon {
     margin-top: 125px;
     margin-left: 200px;
