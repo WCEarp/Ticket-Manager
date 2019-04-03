@@ -56,24 +56,34 @@
     padding: 6px 12px;
     border: 1px solid #ccc;
     border-top: none;
-
 }
 
 #centCon {
-    margin-top: 500px;
+    margin-top: 125px;
     margin-left: 200px;
     margin-right: 200px;
-    vertical-align: middle
+    vertical-align: middle;
 }
 
-input[type=text] > UserID {
-    width: 200px;
-    margin: 8px;
 
+input[type=text] {
+    display: inline-block;
+}
+
+#address{
+    width: 450px;
 }
 
 #btnGrab {
-    margin-left: 100px;
+    margin-left: 85px;
+}
+
+#btnDisplayUsers {
+    margin-left: 85px;
+}
+
+#btnNotif {
+    float: right;
 }
 
 table {
@@ -90,4 +100,126 @@ td, th {
 
 tr:nth-child(even) {
     background-color: #dddddd;
+}
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+/* The Close Button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+.containerConcertHall {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-column-gap: 2px;
+    grid-row-gap: 4px;
+    justify-items: stretch;
+    align-items: stretch;
+}
+
+.containerPlayhouse {
+    display: grid;
+    grid-template-columns: 1fr  1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-column-gap: 2px;
+    grid-row-gap: 4px;
+    justify-items: stretch;
+    align-items: stretch;
+}
+
+.box {
+    background-color: #539752;
+    color: #fff;
+    border-radius: 1px;
+    padding: 0px;
+    font-size: 50%;
+}
+
+.box:hover {
+    cursor: pointer;
+}
+
+.disabled {
+    background-color: #28607f;
+    color: #fff;
+    border-radius: 1px;
+    padding: 0px;
+    font-size: 50%;
+}
+
+.disabled:hover {
+    cursor: pointer;
+}
+
+.reserved {
+    background-color: #747474;
+    color: #ffffff;
+    border-radius: 1px;
+    padding: 0px;
+    font-size: 50%;
+}
+
+
+.empty {
+    background-color: #ececec;
+    color: #000000;
+    border-radius: 5px;
+    padding: 0px;
+    font-size: 90%;
+}
+
+/* CSS for help table*/
+.input-color {
+    position: relative;
+}
+.input-color input {
+    padding-left: 20px;
+}
+.input-color .color-box {
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+    background-color: #ccc;
+    position: absolute;
+    left: 5px;
+    top: 5px;
+}
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
 }
