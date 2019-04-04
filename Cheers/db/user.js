@@ -11,12 +11,15 @@ module.exports.UserManager = function (database) {
                 callback(user)
             } else {
                 console.error(err);
+                callback(null)
             }
         });
     }
 };
 
-module.exports.User = function (userID, firstName, lastName, addressID, phoneNumber,
+
+
+let User = function (userID, firstName, lastName, addressID, phoneNumber,
                                 email, ccn, accountLoginID, seasonTicketSeat) {
     this.userID = userID;
     this.firstName = firstName;
@@ -27,14 +30,6 @@ module.exports.User = function (userID, firstName, lastName, addressID, phoneNum
     this.ccn = ccn;
     this.accountLoginID = accountLoginID;
     this.seasonTicketSeat = seasonTicketSeat;
-
-    //TODO implement function for serializing user and getting account
-
-    this.getAccount = function () {
-
-    };
-
-    this.serialize = function () {
-
-    }
 };
+
+module.exports.User = User;

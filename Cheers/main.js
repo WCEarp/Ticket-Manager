@@ -9,6 +9,7 @@ const fs = require('fs');
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
+const logger = require('morgan');
 
 const database_module = require('./db/database');
 const database_instance = new database_module.Database();
@@ -20,10 +21,13 @@ const homeRoutes = require('./routes/home_route');
 const loginRoutes = require('./routes/login_route');
 loginRoutes.setUserManager(userManager);
 
-var ticketRoutes = require('./routes/ticket_route');
-var manage_route = require('./routes/management_route');
+const ticketRoutes = require('./routes/ticket_route');
+const manage_route = require('./routes/management_route');
+manage_route.setUserManager(userManager);
 
 const app = express();
+
+app.use(logger('dev'));
 
 //Creates a url parser.
 app.use(bodyParser.urlencoded({extended: true}));

@@ -327,6 +327,11 @@ module.exports.Database = function () {
         });
     };
 
+    /**
+     * Updates what seats are taken for a show
+     * @param id
+     * @param seatsTaken
+     */
     this.update_show_seats_taken = function (id, seatsTaken) {
         let values = [seatsTaken, id];
         let sql_statement = `Update Show SET SeatsTaken = ? WHERE ShowID = ?`;
