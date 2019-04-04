@@ -10,7 +10,7 @@
     background-size: cover;
     background-repeat: repeat, no-repeat;
     background-position: center center, center top;
-    background-attachment: scroll, scroll;
+    background-attachment: fixed, fixed;
 }
 
 .header {
