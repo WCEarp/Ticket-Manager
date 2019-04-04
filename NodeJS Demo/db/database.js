@@ -145,6 +145,22 @@ module.exports.Database = function () {
     };
     //endregion
 
+    this.query_account_by_username_password = function (username, password, callback) {
+        let columns = "AccountLoginID accountLoginID, username username, UserType userType";
+
+        let sql_statement = `SELECT ${columns} FROM AccountLogin WHERE username = ? AND password = ?`;
+
+        db.get(sql_statement, [username, password], function (err, row) {
+            if (err || !row) {
+                if (err) {
+                    console.error(err.message);
+                }
+                callback("Unable to get account", null)
+            } else {
+                callback(null, row);
+            }
+        });
+    }
 
     //region Ticket Database Functions
     /**
