@@ -25,4 +25,8 @@ router.get('/about', function (req, res) {
     res.sendFile(path.join(__dirname, '..', 'html', 'aboutUs.html'))
 });
 
+router.get('/nav', function (req, res) {
+    res.sendFile(path.join(__dirname, '..', 'html', 'navbar.html'))
+});
+
 module.exports = router;
