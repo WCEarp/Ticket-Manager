@@ -4,9 +4,58 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE-edge">
     <meta name="viewport" content="width = device-width, initial-scale = 1">
+    <!------------------------------------------------------>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <title>Cheers</title>
     <link rel="stylesheet" type="text/css" href="/res/css/header.css"> <!--Our custom style sheet-->
     <link rel="stylesheet" type="text/css" href="/res/css/managementTools.css"> <!--Our custom style sheet-->
+
+    <script>
+        $(document).ready(function () {
+            $("#btnGrab").click(function () {
+                var userID = $("#uid").val();
+
+                //Get user object as JSON from server where result contains a user object or an errors object
+                $.getJSON("/manage/user?id=" + userID, function (result) {
+                    //Update user form
+                    let user = result.user;
+                    if (user) {
+                        $("#fname").val(user.firstName);
+                        $("#lname").val(user.lastName);
+                        $("#address").val(user.address);
+                        $("#pnum").val(user.phoneNumber);
+                        $("#email").val(user.email);
+                        $("#ccn").val(user.ccn);
+                        $("#sth_seats").val(user.seasonTicketSeat);
+                    }
+                    //Update error alert if there were any alerts.
+                    display_errors(result.errors);
+                });
+            });
+        });
+
+        function display_errors(errors) {
+            var errorHtml = '';
+            if (errors) {
+                errorHtml = '<div class="alert alert-danger fade in">' +
+                    '<a class="close" data-dismiss="alert">&times;</a>' +
+                    '<strong>Error!</strong>';
+                $.each(errors, function (index, value) {
+                    errorHtml += '<br>*' + value;
+                });
+                errorHtml += '</div>'
+            }
+            $("#create_edit_user_errors").html(errorHtml);
+
+        }
+    </script>
 </head>
 <body id="template">
 <header id=mainHeader class="header3">
@@ -38,7 +87,7 @@
 </header>
 
 <div id="centCon" class="container-fluid">
-
+    <div id="create_edit_user_errors"></div>
     <div class="row">
         <div class="column left" style="background-color:#f1f1f1">
             <div class="tab">
@@ -51,15 +100,15 @@
             <!-- Tab content -->
             <div id="Create/Edit User" class="tabcontent">
                 <h3>Manager Users</h3>
-                <form action="#THIS IS THE FUNCTION MAYB???">
+                <form>
                     <label for="uid">User ID:</label><br>
-                    <input type="text" id="uid" placeholder="A1234"> <span><input id="btnGrab" type="submit"
+                    <input type="text" id="uid" placeholder="A1234"> <span><input id="btnGrab" type="button"
                                                                                   value="Grab User"></span><br><br>
                     <label for="fname">First Name:</label><br>
                     <input type="text" id="fname"  placeholder="John"><br><br>
 
                     <label for="lname">Last Name:</label><br>
-                    <input type="text" id="lname" placeholder="Doe"><br><br></span>
+                    <input type="text" id="lname" placeholder="Doe"><br><br>
 
                     <label for="address">Address:</label><br>
                     <input type="text" id="address"  placeholder="101 Joy Dr. Apt #3, Placeholder XY, 12345"><br><br>
@@ -73,8 +122,8 @@
                     <label for="cnn">Credit Card Number:</label><br>
                     <input type="text" id="cnn" placeholder="1111222233334444"><br><br>
 
-                    <label for="utype">User Type</label><br>
-                    <input type="text" id="utype" placeholder="1"><br><br>
+                    <label for="sth_seats">Season Ticket Seat:</label><br>
+                    <input type="text" id="sth_seats"><br><br>
 
                 </form>
 
