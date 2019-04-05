@@ -1,5 +1,6 @@
 const sqlite3 = require('sqlite3').verbose();
 const ticket_module = require('./ticket');
+const path = require('path');
 
 /*
  * 'Object' for low level database access. Higher level operations should probably
@@ -10,12 +11,15 @@ module.exports.Database = function () {
     const SHOW_COLUMNS = `ShowID showID, StartDate startDate, EndDate endDate, Time time, 
         TheaterID theaterID, SeatsTaken seatsTaken, ProductionID productionID`;
 
-    let db = new sqlite3.Database('./db/database.db', sqlite3.OPEN_READWRITE,
+    console.log("Opening database at " + path.join(__dirname, 'database.db'));
+    let db = new sqlite3.Database(path.join(__dirname, 'database.db'), sqlite3.OPEN_READONLY,
         function (err) {
             if (err) {
-                console.error(err.message);
+                console.error(err);
             }
-            console.log('Connected to the database.');
+            else {
+                console.log('Connected to the database.');
+            }
         });
 
     //region User Database Functions

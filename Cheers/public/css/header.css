@@ -10,7 +10,7 @@
     background-size: cover;
     background-repeat: repeat, no-repeat;
     background-position: center center, center top;
-    background-attachment: scroll, scroll;
+    background-attachment: fixed, fixed;
 }
 
 .header {
@@ -80,7 +80,7 @@
 }
 
 #myCarousel {
-    margin-top: 500px;
+    margin-top: 125px;
     margin-left: auto;
     margin-right: auto;
     vertical-align: middle
