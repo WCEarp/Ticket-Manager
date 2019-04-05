@@ -8,6 +8,7 @@ const http = require('http');
 const fs = require('fs');
 const express = require('express');
 const bodyParser = require('body-parser');
+const cookieSession = require('cookie-session');
 const path = require('path');
 const logger = require('morgan');
 
@@ -17,9 +18,12 @@ const database_instance = new database_module.Database();
 const user_module = require('./db/user');
 const userManager = new user_module.UserManager(database_instance);
 
+const account_module = require('./db/accountLogin');
+const accountManager = new account_module.AccountManager(database_instance);
+
 const homeRoutes = require('./routes/home_route');
 const loginRoutes = require('./routes/login_route');
-loginRoutes.setUserManager(userManager);
+loginRoutes.setAccountManager(accountManager);
 
 const ticketRoutes = require('./routes/ticket_route');
 const manage_route = require('./routes/management_route');
@@ -28,6 +32,11 @@ manage_route.setUserManager(userManager);
 const app = express();
 
 app.use(logger('dev'));
+
+app.use(cookieSession({
+    name: 'cheers-session',
+    secret: 'keyboard-cat'
+}));
 
 //Creates a url parser.
 app.use(bodyParser.urlencoded({extended: true}));

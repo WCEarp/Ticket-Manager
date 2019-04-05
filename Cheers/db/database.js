@@ -149,6 +149,29 @@ module.exports.Database = function () {
     };
     //endregion
 
+    /**
+     * Get an account from the database with the specified username/password
+     *
+     * @param username The account username
+     * @param password The account password
+     * @param callback The function that any error and account is passed into.
+     */
+    this.query_account_by_username_password = function (username, password, callback) {
+        let columns = "AccountLoginID accountLoginID, username username, UserType userType";
+
+        let sql_statement = `SELECT ${columns} FROM AccountLogin WHERE username = ? AND password = ?`;
+
+        db.get(sql_statement, [username, password], function (err, row) {
+            if (err || !row) {
+                if (err) {
+                    console.error(err.message);
+                }
+                callback("Unable to get account", null)
+            } else {
+                callback(null, row);
+            }
+        });
+    };
 
     //region Ticket Database Functions
     /**
