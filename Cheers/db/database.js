@@ -12,7 +12,7 @@ module.exports.Database = function () {
         TheaterID theaterID, SeatsTaken seatsTaken, ProductionID productionID`;
 
     console.log("Opening database at " + path.join(__dirname, 'database.db'));
-    let db = new sqlite3.Database(path.join(__dirname, 'database.db'), sqlite3.OPEN_READONLY,
+    let db = new sqlite3.Database(path.join(__dirname, 'database.db'), sqlite3.OPEN_READWRITE,
         function (err) {
             if (err) {
                 console.error(err);
