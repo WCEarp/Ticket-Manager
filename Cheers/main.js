@@ -18,6 +18,9 @@ const database_instance = new database_module.Database();
 const user_module = require('./db/user');
 const userManager = new user_module.UserManager(database_instance);
 
+const ticket_module = require('./db/ticket');
+const ticketManager = new ticket_module.TicketManager(database_instance);
+
 const account_module = require('./db/accountLogin');
 const accountManager = new account_module.AccountManager(database_instance);
 
@@ -28,6 +31,7 @@ loginRoutes.setAccountManager(accountManager);
 const ticketRoutes = require('./routes/ticket_route');
 const manage_route = require('./routes/management_route');
 manage_route.setUserManager(userManager);
+manage_route.setTicketManager(ticketManager);
 
 const app = express();
 

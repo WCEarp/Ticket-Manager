@@ -17,7 +17,7 @@
     <link rel="stylesheet" type="text/css" href="/res/css/header.css"> <!--Our custom style sheet-->
     <link rel="stylesheet" type="text/css" href="/res/css/managementTools.css"> <!--Our custom style sheet-->
 
-   <script>
+    <script>
 
         function display_errors(errors) {
             var errorHtml = '';
@@ -88,6 +88,58 @@
 				
             });
         });
+
+        $(document).ready(function () {
+            $("#MU_dis").click(function () {
+                let x = document.getElementById('userTable');
+                x.style.display = "";
+                $.getJSON("/manage/users", function (result) {
+                    console.log(result);
+                    let users = result.users;
+                    html = '';
+                    $.each(users, function (index, value) {
+                        console.log(value);
+                        html += '<tr><td>' + value.userID + '</td><td>' + value.firstName + '</td><td>' + value.lastName + '</td><td>' + value.address + '</td><td>' + value.phoneNumber + '</td><td>' + value.email + '</td><td>' + value.ccn + '</td><td>' + value.seasonTicketSeat + '</td></tr>';
+                    });
+                    $("#tbody").html(html)
+                });
+            });
+        });
+
+        $(document).ready(function () {
+            $("#displayAllTickets").click(function () {
+
+                $.getJSON("/manage/tickets", function (result) {
+                    console.log(result);
+                    let tickets = result.tickets;
+                    html = '';
+                    $.each(tickets, function (index, value) {
+                        console.log(value);
+                        html += '<tr><td>' + value.ticketID + '</td><td>' + value.showID + '</td><td>' + value.userID + '</td><td>' + value.paymentMethodID + '</td><td>' + value.reservedSeats + '</td><td>' + value.numberOfSeats + '</td><td>' + value.totalPrice + '</td><td>' + value.paid + '</td><td><button>Set Paid</button></td></tr>';
+                    });
+                    $("#tbody2").html(html)
+                });
+            });
+        });
+
+        $(document).ready(function () {
+            $("#grabTicket").click(function () {
+                ticketID = $("#ticket").val();
+                $.getJSON("/manage/ticket?id=" + ticketID, function (result) {
+                    console.log(result);
+
+                    let ticket = result.ticket;
+                    if (ticket) {
+                        html = '';
+                        html += '<tr><td>' + ticket.ticketID + '</td><td>' + ticket.showID + '</td><td>' + ticket.userID + '</td><td>' + ticket.paymentMethodID + '</td><td>' + ticket.reservedSeats + '</td><td>' + ticket.numberOfSeats + '</td><td>' + ticket.totalPrice + '</td><td>' + ticket.paid + '</td><td><button>Set Paid</button></td></tr>';
+
+                        $("#tbody2").html(html)
+                    }
+                    display_errors(result.errors);
+                });
+            });
+        });
+		
 		
     </script>
 </head>
@@ -136,8 +188,8 @@
                 <h3>Manager Users</h3>
                 <form>
                     <label for="uid">User ID:</label><br>
-                    <input type="text" id="uid" placeholder="A1234"> <span><input id="btnGrab" type="button"
-                                                                                  value="Grab User"></span><br><br>
+                    <input type="text" id="uid" placeholder="1234"> <span><input id="btnGrab" type="button"
+                                                                                 value="Grab User"></span><br><br>
                     <label for="fname">First Name:</label><br>
                     <input type="text" id="fname"  placeholder="John"><br><br>
 
@@ -153,30 +205,36 @@
                     <label for="email">Email:</label><br>
                     <input type="text" id="email" placeholder="example@gmail.com"><br><br>
 
-                    <label for="cnn">Credit Card Number:</label><br>
-                    <input type="text" id="cnn" placeholder="1111222233334444"><br><br>
+                    <label for="ccn">Credit Card Number:</label><br>
+                    <input type="text" id="ccn" placeholder="1111222233334444"><br><br>
 
                     <label for="sth_seats">Season Ticket Seat:</label><br>
                     <input type="text" id="sth_seats"><br><br>
 
                 </form>
 
-                <button>Add</button>
-                <button>Update</button>
-                <button>Delete</button>
-                <button id="btnDisplayUsers">Display All Users</button>
+                <button id="MU_add" type="button">Add</button>
+                <button id="MU_upd" type="button">Update</button>
+                <button id="MU_del" type="button">Delete</button>
+                <button id="MU_dis">Display All Users</button>
+                <br></br>
+                <table id="userTable" name="userTable" style="display:none">
+                    <thead>
+                    <tr>
+                        <th>UserID</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Address</th>
+                        <th>Phone Number</th>
+                        <th>Email</th>
+                        <th>CCN</th>
+                        <th>Season Ticket Seat</th>
+                    </tr>
+                    </thead>
+                    <tbody id="tbody">
 
-                <table name="userTable" style="display:none"> <!-- THIS TABLE IS HIDDEN BY DEFAULT-->
-                    <tr>
-                        <th>WHAT</th>
-                        <th>FIELDS</th>
-                        <th>HERE?</th>
-                    </tr>
-                    <tr>
-                        <td>This should be</td>
-                        <td>Hidden</td>
-                        <td>By Default</td>
-                    </tr>
+                    </tbody>
+
                 </table>
 
             </div>
@@ -185,7 +243,7 @@
                 <h3>Manage Season Ticket Holders</h3>
 
                 <label for="sthid">User ID:</label><br>
-                <input type="text" id="sthid" placeholder="S0001"><br>
+                <input type="text" id="sthid" placeholder="0001"><br>
 
                 <br><label for="seat">Pick Seat:</label><br>
                 <input type="text" id="seat" placeholder="F_S0_A01"><span><button id="btnConHall">Show Concert Hall</button>
@@ -221,23 +279,31 @@
 
             <div id="Ticket Manager" class="tabcontent">
                 <h3>Manage Tickets</h3>
-                <label for="ticket">Ticket ID:</label><input type="text" id="ticket" placeholder="Ticket ID"><span><button>Check Status</button></span><br>
+                <label for="ticket">Ticket ID:</label><input type="text" id="ticket" placeholder="Ticket ID"><span><button
+                    id="grabTicket">Grab Ticket</button></span><br>
                 <br>
-                <button>Display All Tickets</button>
+                <button id="displayAllTickets">Display All Tickets</button>
                 <br>
-                <table name="managerTable"  style="display:none" > <!-- THIS TABLE IS HIDDEN BY DEFAULT-->
+                <table name="managerTable">
+                    <thead>
                     <tr>
-                        <th>WHAT</th>
-                        <th>FIELDS</th>
-                        <th>HERE?</th>
-                        <th>Check Paid Status</th>
+                        <th>TicketID</th>
+                        <th>ShowID</th>
+                        <th>UserID</th>
+                        <th>PaymentMethodID</th>
+                        <th>ReservedSeats</th>
+                        <th>NumberOfSeats</th>
+                        <th>TotalPrice</th>
+                        <th>Paid</th>
+                        <th></th>
+
                     </tr>
-                    <tr>
-                        <td>This should be</td>
-                        <td>Hidden</td>
-                        <td>By Default</td>
-                        <td><button>Check Status</button></td>
-                    </tr>
+                    </thead>
+
+                    <tbody id="tbody2">
+
+                    </tbody>
+
                 </table>
             </div>
         </div>

@@ -26,9 +26,23 @@ module.exports.TicketManager = function (database) {
                 callback(ticket)
             } else {
                 console.error(err);
+                callback(null);
+            }
+        });
+    };
+
+    this.getTickets = function (callback) {
+
+        db.query_tickets(function (err, rows) {
+            if (!err) {
+                callback(rows)
+            } else {
+                console.error(err);
+                callback(null);
             }
         });
     }
+
 };
 
 /**
@@ -43,7 +57,7 @@ module.exports.TicketManager = function (database) {
  * @param paid
  * @constructor
  */
-module.exports.Ticket = function (ticketID, showID, userID, paymentMethodID, reservedSeats, numberOfSeats, paid) {
+let Ticket = function (ticketID, showID, userID, paymentMethodID, reservedSeats, numberOfSeats, paid) {
     this.ticketID = ticketID;
     this.showID = showID;
     this.userID = userID;
@@ -52,3 +66,5 @@ module.exports.Ticket = function (ticketID, showID, userID, paymentMethodID, res
     this.numberOfSeats = numberOfSeats;
     this.paid = paid;
 };
+
+module.exports.Ticket = Ticket;
