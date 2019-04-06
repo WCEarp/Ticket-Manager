@@ -82,21 +82,26 @@
         }
         $("#errors_and_alerts").html(errorHtml)
     }
+
 </script>
 
-<nav class="navbar navbar-inverse">
+<link rel="stylesheet" type="text/css" href="/res/css/navbar.css"> <!--Our custom style sheet-->
+<nav class="top_navbar">
     <div class="container-fluid">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#top_navbar">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#top_navbar" onclick="aniBurger(this)">
+                <div class="bar1"></div>
+                <div class="bar2"></div>
+                <div class="bar3"></div>
             </button>
-            <a class="navbar-brand" href="/">Cheers</a>
+            <a href="/">
+                <img id="logoImg" src="/res/img/chargerLogo.png" alt="">
+                <span id="logoText">Cheers</span>
+            </a>
         </div>
-        <div class="collapse navbar-collapse" id="top_navbar">
-            <ul class="nav navbar-nav navbar-left">
-                <li><a href="/">Home</a></li>
+        <div class="collapse navbar-collapse" id="top_navbar" style="float: right">
+            <ul class="nav navbar-nav navbar-left" >
+                <li><a href="/" >Home</a></li>
                 <li><a href="/about">About Us</a></li>
                 <li><a href="/tickets">Tickets</a></li>
                 <li id="navbar_manage_tab"></li>
@@ -108,3 +113,9 @@
         </div>
     </div>
 </nav>
+
+<script>
+    function aniBurger(x) {
+        x.classList.toggle("change");
+    }
+</script>

@@ -139,8 +139,11 @@
                 });
             });
         });
-		
-		
+
+        $(document).ready(function () {
+            //Load the navbar
+            $("#nav_div").load("/nav");
+        });
     </script>
 </head>
 <body id="template">
@@ -314,13 +317,13 @@
                 <form method="post" action="/Tests/Post/">
                     <fieldset>
                         <legend>Select the information for users that you would like:</legend>
-                        <input type="checkbox" name="" value="Dogs">First Name
-                        <input type="checkbox" name="" value="Birds">Last Name
-                        <input type="checkbox" name="" value="Birds">Address
-                        <input type="checkbox" name="" value="Birds">Phone Number
-                        <input type="checkbox" name="" value="Birds">Email
-                        <input type="checkbox" name="" value="Birds">CCN
-                        <input type="checkbox" name="" value="Birds">Season Ticket Seat
+                        <input type="checkbox" name="" value="">First Name
+                        <input type="checkbox" name="" value="">Last Name
+                        <input type="checkbox" name="" value="">Address
+                        <input type="checkbox" name="" value="">Phone Number
+                        <input type="checkbox" name="" value="">Email
+                        <input type="checkbox" name="" value="">CCN
+                        <input type="checkbox" name="" value="">Season Ticket Seat
 
                         <br>
                         <input type="button" value="Export" /> <input type="button" value="Import" />
@@ -330,13 +333,13 @@
                 <form method="post" action="/Tests/Post/">
                     <fieldset>
                         <legend>Select the information for tickets that you would like::</legend>
-                        <input type="checkbox" name="" value="Cats">Ticket ID
-                        <input type="checkbox" name="" value="Dogs">Show ID
-                        <input type="checkbox" name="" value="Birds">User ID
-                        <input type="checkbox" name="" value="Birds">Payment Method
-                        <input type="checkbox" name="" value="Birds">Reserved Seat
-                        <input type="checkbox" name="" value="Birds">Num. of Seats
-                        <input type="checkbox" name="" value="Birds">Paid
+                        <input type="checkbox" name="" value="">Ticket ID
+                        <input type="checkbox" name="" value="">Show ID
+                        <input type="checkbox" name="" value="">User ID
+                        <input type="checkbox" name="" value="">Payment Method
+                        <input type="checkbox" name="" value="">Reserved Seat
+                        <input type="checkbox" name="" value="">Num. of Seats
+                        <input type="checkbox" name="" value="">Paid
 
                         <br>
                         <input type="button" value="Export" /> <input type="button" value="Import" />
