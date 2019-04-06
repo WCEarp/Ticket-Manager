@@ -53,6 +53,33 @@ module.exports.Database = function () {
     };
 
     /**
+     * Get all rows containing user data from the database.
+     *
+     * @param callback A function that user is passed into to be executed.
+     */
+    this.query_users = function (callback) {
+        let columns = "UserID userID, FirstName firstName, " +
+            "LastName lastName, AddressID addressID," +
+            "PhoneNumber phoneNumber, Email email," +
+            "CreditCardNumber creditCardNumber, " +
+            "SeasonTicketSeat seasonTicketSeat";
+
+        let sql_statement = `SELECT ` + columns +
+            ` FROM User`;
+
+        db.all(sql_statement, [], function (err, rows) {
+            if (err || !rows) {
+                if (err) {
+                    console.error(err.message);
+                }
+                callback("Unable to get users", null)
+            } else {
+                callback(null, rows);
+            }
+        });
+    };
+	
+    /**
      * Add a new user to the database containing the following info.
      *
      * @param firstName
@@ -164,7 +191,8 @@ module.exports.Database = function () {
             'PaymentMethodID paymentMethodID, ' +
             'ReservedSeats reservedSeats, ' +
             'NumberOfSeats numberOfSeats, ' +
-            'Paid paid';
+            'Paid paid, ' +
+            'TotalPrice = totalPrice';
 
         let sql = `SELECT ${TICKET_COLUMNS} FROM Ticket
         WHERE TicketID = ?`;
@@ -180,6 +208,36 @@ module.exports.Database = function () {
                 callback(null, row)
             }
         })
+    };
+
+    /**
+     * Get all rows containing ticket data from the database.
+     *
+     * @param callback A function that user is passed into to be executed.
+     */
+    this.query_tickets = function (callback) {
+        const TICKET_COLUMNS = 'TicketID ticketID, ' +
+            'ShowID showID, ' +
+            'UserID userID, ' +
+            'PaymentMethodID paymentMethodID, ' +
+            'ReservedSeats reservedSeats, ' +
+            'NumberOfSeats numberOfSeats, ' +
+            'Paid paid, ' +
+            'TotalPrice totalPrice';
+
+        let sql_statement = `SELECT ` + TICKET_COLUMNS +
+            ` FROM Ticket`;
+
+        db.all(sql_statement, [], function (err, rows) {
+            if (err || !rows) {
+                if (err) {
+                    console.error(err.message);
+                }
+                callback("Unable to get tickets", null)
+            } else {
+                callback(null, rows);
+            }
+        });
     };
 
     /**

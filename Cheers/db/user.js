@@ -11,11 +11,23 @@ module.exports.UserManager = function (database) {
                 callback(user)
             } else {
                 console.error(err);
-                callback(null)
+                callback(null);
             }
         });
-    }
-    
+    };
+
+    this.getUsers = function (callback) {
+
+        db.query_users(function (err, rows) {
+            if (!err) {
+                callback(rows)
+            } else {
+                console.error(err);
+                callback(null);
+            }
+        });
+    };
+
     this.add_user = function (firstName, lastName, addressID, phoneNumber, email, ccn, seasonTicketSeat) {
 		db.add_user(firstName, lastName, addressID, phoneNumber, email, ccn, seasonTicketSeat);
 	};
