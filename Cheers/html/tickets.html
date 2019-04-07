@@ -45,6 +45,7 @@
                 <button id='SelectShowTab'  class="tablinks" onclick="openTool(event, 'SelectShow', 'ceTip')">Select Show</button>
                 <button id='SelectSeatsTab' class="tablinks">Select Seats</button>
                 <button id='EnterInfoTab'   class="tablinks">Enter Information</button>
+                <button id='ConfirmTab'   class="tablinks">Confirmation Page</button>
             </div>
 
             <!-- Tab content -->
@@ -134,10 +135,27 @@
                     <label for="cnn">Credit Card Number:</label><br>
                     <input type="text" id="cnn" placeholder="1111222233334444"><br><br>
 
-                    <span><input class="button" id="btnGrab" type="button" onclick="EnterInfoButton()" value="Buy Tickets"/></span><br><br>
+                    <span><input class="button" id="btnGrab" type="button" onclick="EnterInfoButton(event, 'Confirm', 'STHTip')" value="Buy Tickets"/></span><br><br>
 
                 </form>
             </div>
+
+            <div id="Confirm" class="tabcontent">
+                <h1>Confirm Your Info</h1>
+
+                <h3 id="ticketsToBuy"></h3>
+                <h3 id="firstname"></h3>
+                <h3 id="lastname"></h3>
+                <h3 id="confirmAddress"></h3>
+                <h3 id="confirmPhone"></h3>
+                <h3 id="confirmEmail"></h3>
+                <h3 id="confirmCCN"></h3>
+
+                <br>
+
+                <br><button onclick="confirmBtn()">Confirm and Purchase</button>
+            </div>
+
         </div>
 
         <div class="column right" style="background-color:#aaa">
