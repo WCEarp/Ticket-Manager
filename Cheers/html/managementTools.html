@@ -14,8 +14,8 @@
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <title>Cheers</title>
-    <link rel="stylesheet" type="text/css" href="/res/css/header.css"> <!--Our custom style sheet-->
-    <link rel="stylesheet" type="text/css" href="/res/css/managementTools.css"> <!--Our custom style sheet-->
+    <link rel="stylesheet" type="text/css" href="/res/css/navbar.css"> <!--Our custom style sheet-->
+    <link rel="stylesheet" type="text/css" href="/res/css/managementTools.css">
 
     <script>
 
@@ -33,12 +33,12 @@
             $("#create_edit_user_errors").html(errorHtml);
 
         }
-		
+
 		$(document).ready(function () {
             $("#btnGrab").click(function () {
                 console.log($("#uid").val());
 				userID = $("#uid").val();
-				
+
                 $.getJSON("/manage/user?id=" + userID, function (result) {
 				console.log(result);
 				let user = result.user;
@@ -49,43 +49,43 @@
                         $("#pnum").val(user.phoneNumber);
                         $("#email").val(user.email);
                         $("#ccn").val(user.ccn);
-                        $("#sth_seats").val(user.seasonTicketSeat);			
+                    $("#sth_seats").val(user.seasonTicketSeat);
 					}
 					display_errors(result.errors);
                 });
-				
+
             });
         });
-		
-		$(document).ready(function () {
+
+        $(document).ready(function () {
             $("#MU_add").click(function () {
                 console.log($("#uid").val());
 				data = {firstName: $("#fname").val(), lastName: $("#lname").val(), address: $("#address").val(), phoneNumber: $("#pnum").val(), email: $("#email").val(), ccn: $("#ccn").val(), seasonTicketSeat: $("#sth_seats").val()}
 				$.post("/manage/user_add", data, function(result){
 				})
-				
+
             });
         });
-		
 
-		$(document).ready(function () {
+
+        $(document).ready(function () {
             $("#MU_del").click(function () {
                 console.log($("#uid").val());
 				data = {userID: $("#uid").val()}
 				$.post("/manage/user_delete", data, function(result){
 				})
-				
+
             });
         });
-		
-		
-		$(document).ready(function () {
+
+
+        $(document).ready(function () {
             $("#MU_upd").click(function () {
                 console.log($("#uid").val());
 				data = {userID: $("#uid").val(), firstName: $("#fname").val(), lastName: $("#lname").val(), address: $("#address").val(), phoneNumber: $("#pnum").val(), email: $("#email").val(), ccn: $("#ccn").val(), seasonTicketSeat: $("#sth_seats").val()}
 				$.post("/manage/user_update", data, function(result){
 				})
-				
+
             });
         });
 
@@ -146,34 +146,8 @@
         });
     </script>
 </head>
-<body id="template">
-<header id=mainHeader class="header3">
-    <div class="container-fluid">
-        <div id="header_Links" class="row">
-            <div id="links_Ham" class="burger">
-                <div class="burger-line">
-                </div>
-                <div class="burger-line">
-                </div>
-                <div class="burger-line">
-                </div>
-            </div>
-
-            <div class="topnav">
-                <a href="/">
-                    <img id="logoImg" src="/res/img/chargerLogo.png">
-                    <span id="logoText">Cheers</span>
-                </a>
-                <div class="topnav-right">
-                    <a href="/">Home</a>
-                    <a href="/about">About Us</a>
-                    <a href="/tickets">Tickets</a>
-                    <a href="/manage">Management Tools</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</header>
+<body id="main">
+<div id="nav_div"></div>
 
 <div id="centCon" class="container-fluid">
     <div id="create_edit_user_errors"></div>
@@ -4457,17 +4431,6 @@
     </div>
 
 </div>
-
-<!--------------------------------------------------------------------------------------------------------------------->
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<!-- Popper JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-<!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-
 
 <script>
     function openTool(evt, toolName, tipName) {
