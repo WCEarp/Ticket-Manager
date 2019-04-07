@@ -109,7 +109,7 @@
 
             <div id="EnterInfo" class="tabcontent">
                 <h3>Enter Information and Payment</h3>
-                <form id='EnterInfo_form' action="/home" onsubmit="EnterInfoButton()">
+                <form id='EnterInfo_form' action="/home">
 
                     <h3 id="EnterInfo_seats">Selected Seats: </h3>
                     <h3 id="EnterInfo_price">Total Price: </h3>
@@ -134,7 +134,7 @@
                     <label for="cnn">Credit Card Number:</label><br>
                     <input type="text" id="cnn" placeholder="1111222233334444"><br><br>
 
-                    <span><input class="submit" id="btnGrab" type="submit" value="Buy Tickets"/></span><br><br>
+                    <span><input class="button" id="btnGrab" type="button" onclick="EnterInfoButton()" value="Buy Tickets"/></span><br><br>
 
                 </form>
             </div>
