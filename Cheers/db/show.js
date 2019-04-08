@@ -11,14 +11,18 @@ module.exports.ShowManager = function (database) {
 
         db.query_show_by_id(showID,function (err, rows) {
             if (!err) {
-                let show = new Show(rows.ShowID, rows.StartDate, rows.EndDate,
-                    rows.Time, rows.TheaterID, rows.SeatsTaken, rows.ProductionID);
+                let show = new Show(rows.showID, rows.startDate, rows.endDate,
+                    rows.time, rows.theaterID, rows.seatsTaken, rows.productionID);
                 callback(show)
             } else {
                 console.error(err);
                 callback(null);
             }
         });
+    }
+
+    this.updateReservedTickets = function (showID,seatsTaken) {
+        db.update_show_seats_taken(showID,seatsTaken);
     }
 
 };

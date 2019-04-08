@@ -18,6 +18,10 @@
     <link rel="stylesheet" type="text/css" href="/res/css/managementTools.css"> <!--Our custom style sheet-->
 
     <script>
+        window.onload = function(){
+            openTool(event, 'Create/Edit User', 'ceTip');
+            document.getElementById('CreateTab').className += ' active';
+        }
 
         function display_errors(errors) {
             var errorHtml = '';
@@ -177,7 +181,7 @@
     <div class="row">
         <div class="column left" style="background-color:#f1f1f1">
             <div class="tab">
-                <button class="tablinks" onclick="openTool(event, 'Create/Edit User', 'ceTip')">Create/Edit</button>
+                <button id='CreateTab' class="tablinks" onclick="openTool(event, 'Create/Edit User', 'ceTip')">Create/Edit</button>
                 <button class="tablinks" onclick="openTool(event, 'STH Manager', 'STHTip')">STH Manager</button>
                 <button class="tablinks" onclick="openTool(event, 'Exchange Tickets', 'etTip')">Exchange Tickets</button>
                 <button class="tablinks" onclick="openTool(event, 'Ticket Manager', 'tmTip')">Ticket Manager</button>

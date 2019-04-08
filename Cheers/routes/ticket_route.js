@@ -39,4 +39,11 @@ router.get('/ShowTickets', function (req, res) {
     }
 });
 
+router.post('/show_update', function (req, res) {
+    console.log('**********');
+    console.log(req.body.seatsTaken);
+    showManager.updateReservedTickets(req.body.showID, req.body.seatsTaken);
+    res.send({});
+});
+
 module.exports = router;
