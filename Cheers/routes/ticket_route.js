@@ -7,15 +7,14 @@ let showManager;
  *
  * @type {Router|router}
  */
-var router = express.Router();
+let router = express.Router();
 
 //GET http://127.0.0.1/tickets -> Send ../html/tickets.html
 router.get('/', function (req, res) {
     res.sendFile(path.join(__dirname, '..', 'html', 'tickets.html'));
 });
 
-
-//Add ticket manager as a variable
+//Add show manager as a variable
 router.setShowManager = function (manager) {
     showManager = manager;
 };
@@ -28,6 +27,7 @@ router.get('/ShowTickets', function (req, res) {
         let showId = req.query.id;
         showManager.getReservedTickets(showId, function (show) {
             if (show) {
+                console.log(show);
                 console.log(`Sending show of id ${showId}`);
                 res.json({show: show});
             } else {
