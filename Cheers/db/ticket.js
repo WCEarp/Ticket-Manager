@@ -31,19 +31,17 @@ module.exports.TicketManager = function (database) {
         });
     };
 
-    this.getTickets = function (showID,callback) {
+    this.getTickets = function (callback) {
 
-        db.query_show_by_id(showID,function (err, rows) {
+        db.query_tickets(function (err, rows) {
             if (!err) {
-                let tickets = new Ticket(row.ticketID, row.showID, row.userID,
-                    row.paymentMethodID, row.reservedSeats, row.numberOfSeats, row.paid);
-                callback(tickets)
+                callback(rows)
             } else {
                 console.error(err);
                 callback(null);
             }
         });
-    }
+    };
 	
 	this.paid_update = function (ticketID) {
         db.set_ticket_paid(ticketID);
