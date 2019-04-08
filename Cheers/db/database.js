@@ -9,7 +9,7 @@ const path = require('path');
 module.exports.Database = function () {
     const THEATER_COLUMNS = "TheaterID theaterID, SeatsNum seatsNum, SeatsTotal seatsTotal";
     const SHOW_COLUMNS = `ShowID showID, StartDate startDate, EndDate endDate, Time time, 
-        TheaterID theaterID, SeatsTaken seatsTaken, ProductionID productionID, FloorPrice floorPrice, BalconyPrice balconyPrice`;
+        TheaterID theaterID, SeatsTaken seatsTaken, ProductionID productionID`;
 
     console.log("Opening database at " + path.join(__dirname, 'database.db'));
     let db = new sqlite3.Database(path.join(__dirname, 'database.db'), sqlite3.OPEN_READWRITE,
@@ -295,10 +295,10 @@ module.exports.Database = function () {
      * @param numberOfSeats
      * @param paid
      */
-    this.add_ticket = function (showID, userID, paymentMethodID, reservedSeats, numberOfSeats, paid) {
-        let sql = `INSERT INTO Ticket(ShowID, UserID, PaymentMethodID, ReservedSeats, NumberOfSeats, Paid) VALUES(?, ?, ?, ?, ?, ?)`;
+    this.add_ticket = function (showID, userID, paymentMethodID, reservedSeats, numberOfSeats, paid, totalPrice) {
+        let sql = `INSERT INTO Ticket(ShowID, UserID, PaymentMethodID, ReservedSeats, NumberOfSeats, Paid, TotalPrice) VALUES(?, ?, ?, ?, ?, ?)`;
 
-        let values = [showID, userID, paymentMethodID, reservedSeats, numberOfSeats, paid];
+        let values = [showID, userID, paymentMethodID, reservedSeats, numberOfSeats, paid, totalPrice];
         db.run(sql, values, function (err) {
 
             if (err) {

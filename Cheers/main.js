@@ -36,6 +36,8 @@ const manage_route = require('./routes/management_route');
 manage_route.setUserManager(userManager);
 manage_route.setTicketManager(ticketManager);
 
+
+ticketRoutes.setTicketManager(ticketManager);
 ticketRoutes.setShowManager(showManager);
 
 const app = express();
