@@ -14,8 +14,8 @@
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <title>Cheers</title>
-    <link rel="stylesheet" type="text/css" href="/res/css/header.css"> <!--Our custom style sheet-->
-    <link rel="stylesheet" type="text/css" href="/res/css/managementTools.css"> <!--Our custom style sheet-->
+    <link rel="stylesheet" type="text/css" href="/res/css/navbar.css"> <!--Our custom style sheet-->
+    <link rel="stylesheet" type="text/css" href="/res/css/managementTools.css">
 
     <script>
         window.onload = function(){
@@ -48,7 +48,6 @@
             $("#btnGrab").click(function () {
                 let userID = $("#uid").val();
                 console.log(userID);
-
                 $.getJSON("/manage/user?id=" + userID, function (result) {
                     console.log(result);
                     let user = result.user;
@@ -59,7 +58,7 @@
                         $("#pnum").val(user.phoneNumber);
                         $("#email").val(user.email);
                         $("#ccn").val(user.ccn);
-                        $("#sth_seats").val(user.seasonTicketSeat);
+                    $("#sth_seats").val(user.seasonTicketSeat);
                     }
                     display_errors(result.errors);
                 });
@@ -78,8 +77,8 @@
                     ccn: $("#ccn").val(),
                     seasonTicketSeat: $("#sth_seats").val()
                 };
-                $.post("/manage/user_add", data, function (result) {
-                })
+				$.post("/manage/user_add", data, function(result){
+				})
             });
         });
 
@@ -92,7 +91,6 @@
                 $.post("/manage/user_delete", data, function (result) {
                     console.log("User deleted with id " + userId);
                 })
-
             });
         });
 
@@ -113,7 +111,6 @@
                 };
                 $.post("/manage/user_update", data, function (result) {
                 })
-
             });
         });
 
@@ -176,37 +173,14 @@
             });
         });
 
-
+        $(document).ready(function () {
+            //Load the navbar
+            $("#nav_div").load("/nav");
+        });
     </script>
 </head>
-<body id="template">
-<header id=mainHeader class="header3">
-    <div class="container-fluid">
-        <div id="header_Links" class="row">
-            <div id="links_Ham" class="burger">
-                <div class="burger-line">
-                </div>
-                <div class="burger-line">
-                </div>
-                <div class="burger-line">
-                </div>
-            </div>
-
-            <div class="topnav">
-                <a href="/">
-                    <img id="logoImg" src="/res/img/chargerLogo.png">
-                    <span id="logoText">Cheers</span>
-                </a>
-                <div class="topnav-right">
-                    <a href="/">Home</a>
-                    <a href="/about">About Us</a>
-                    <a href="/tickets">Tickets</a>
-                    <a href="/manage">Management Tools</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</header>
+<body id="main">
+<div id="nav_div"></div>
 
 <div id="centCon" class="container-fluid">
     <div id="create_edit_user_errors"></div>
@@ -353,13 +327,13 @@
                 <form method="post" action="/Tests/Post/">
                     <fieldset>
                         <legend>Select the information for users that you would like:</legend>
-                        <input type="checkbox" name="" value="Dogs">First Name
-                        <input type="checkbox" name="" value="Birds">Last Name
-                        <input type="checkbox" name="" value="Birds">Address
-                        <input type="checkbox" name="" value="Birds">Phone Number
-                        <input type="checkbox" name="" value="Birds">Email
-                        <input type="checkbox" name="" value="Birds">CCN
-                        <input type="checkbox" name="" value="Birds">Season Ticket Seat
+                        <input type="checkbox" name="" value="">First Name
+                        <input type="checkbox" name="" value="">Last Name
+                        <input type="checkbox" name="" value="">Address
+                        <input type="checkbox" name="" value="">Phone Number
+                        <input type="checkbox" name="" value="">Email
+                        <input type="checkbox" name="" value="">CCN
+                        <input type="checkbox" name="" value="">Season Ticket Seat
 
                         <br>
                         <input type="button" value="Export" /> <input type="button" value="Import" />
@@ -369,13 +343,13 @@
                 <form method="post" action="/Tests/Post/">
                     <fieldset>
                         <legend>Select the information for tickets that you would like::</legend>
-                        <input type="checkbox" name="" value="Cats">Ticket ID
-                        <input type="checkbox" name="" value="Dogs">Show ID
-                        <input type="checkbox" name="" value="Birds">User ID
-                        <input type="checkbox" name="" value="Birds">Payment Method
-                        <input type="checkbox" name="" value="Birds">Reserved Seat
-                        <input type="checkbox" name="" value="Birds">Num. of Seats
-                        <input type="checkbox" name="" value="Birds">Paid
+                        <input type="checkbox" name="" value="">Ticket ID
+                        <input type="checkbox" name="" value="">Show ID
+                        <input type="checkbox" name="" value="">User ID
+                        <input type="checkbox" name="" value="">Payment Method
+                        <input type="checkbox" name="" value="">Reserved Seat
+                        <input type="checkbox" name="" value="">Num. of Seats
+                        <input type="checkbox" name="" value="">Paid
 
                         <br>
                         <input type="button" value="Export" /> <input type="button" value="Import" />
@@ -4493,17 +4467,6 @@
     </div>
 
 </div>
-
-<!--------------------------------------------------------------------------------------------------------------------->
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<!-- Popper JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-<!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-
 
 <script>
     function openTool(evt, toolName, tipName) {

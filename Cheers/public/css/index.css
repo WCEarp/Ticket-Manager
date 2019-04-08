@@ -1,0 +1,12 @@
+#myCarousel {
+    margin-top: 125px;
+    margin-left: auto;
+    margin-right: auto;
+    vertical-align: middle
+}
+
+/* Make the image fully responsive */
+.carousel-inner > .item > img {
+    width: 66%;
+    margin: auto;
+}

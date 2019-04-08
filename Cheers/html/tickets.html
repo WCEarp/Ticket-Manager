@@ -4,38 +4,28 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE-edge">
     <meta name="viewport" content="width = device-width, initial-scale = 1">
+    <!--------------------------------------------------------------------------------------------------------------------->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <!--Title in browser tab-->
     <title>Cheers</title>
-    <link rel="stylesheet" type="text/css" href="/res/css/header.css"> <!--Our custom style sheet-->
-    <link rel="stylesheet" type="text/css" href="/res/css/managementTools.css"> <!--Our custom style sheet-->
+    <link rel="stylesheet" type="text/css" href="/res/css/navbar.css">
+    <link rel="stylesheet" type="text/css" href="/res/css/managementTools.css">
+    <script>
+        $(document).ready(function () {
+            //Load the navbar
+            $("#nav_div").load("/nav");
+        });
+    </script>
 </head>
-<body id="template">
-<header id=mainHeader class="header3">
-    <div class="container-fluid">
-        <div id="header_Links" class="row">
-            <div id="links_Ham" class="burger">
-                <div class="burger-line">
-                </div>
-                <div class="burger-line">
-                </div>
-                <div class="burger-line">
-                </div>
-            </div>
-
-            <div class="topnav">
-                <a href="/">
-                    <img id="logoImg" src="/res/img/chargerLogo.png">
-                    <span id="logoText">Cheers</span>
-                </a>
-                <div class="topnav-right">
-                    <a href="/">Home</a>
-                    <a href="/about">About Us</a>
-                    <a href="/tickets">Tickets</a>
-                    <a href="/manage">Management Tools</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</header>
+<body id="main">
+<div id="nav_div"></div>
 
 <div id="centCon" class="container-fluid">
 
@@ -4240,17 +4230,6 @@
     </div>
 
 </div>
-
-<!--------------------------------------------------------------------------------------------------------------------->
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<!-- Popper JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-<!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-
 
 <script src="/res/scripts/tickets.js"></script>
 
