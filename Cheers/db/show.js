@@ -11,9 +11,9 @@ module.exports.ShowManager = function (database) {
 
         db.query_show_by_id(showID,function (err, rows) {
             if (!err) {
-                let tickets = new Show(rows.ShowID, rows.StartDate, rows.EndDate,
+                let show = new Show(rows.ShowID, rows.StartDate, rows.EndDate,
                     rows.Time, rows.TheaterID, rows.SeatsTaken, rows.ProductionID);
-                callback(tickets)
+                callback(show)
             } else {
                 console.error(err);
                 callback(null);
