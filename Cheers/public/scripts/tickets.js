@@ -104,6 +104,56 @@ function openSeat(evt, toolName, tipName, show) {
             display_errors(result.errors);
         });
     }
+    //get reserved seats from DB
+    if(show.id == 'PotO_2'){
+        $.getJSON("/tickets/ShowTickets?id=2", function (result) {
+            console.log(result);
+            let show = result.show;
+            console.log(show);
+            console.log(show.showID);
+            display_errors(result.errors);
+        });
+    }
+    //get reserved seats from DB
+    if(show.id == 'HSO'){
+        $.getJSON("/tickets/ShowTickets?id=3", function (result) {
+            console.log(result);
+            let show = result.show;
+            console.log(show);
+            console.log(show.showID);
+            display_errors(result.errors);
+        });
+    }
+    //get reserved seats from DB
+    if(show.id == 'TKaM'){
+        $.getJSON("/tickets/ShowTickets?id=4", function (result) {
+            console.log(result);
+            let show = result.show;
+            console.log(show);
+            console.log(show.showID);
+            display_errors(result.errors);
+        });
+    }
+    //get reserved seats from DB
+    if(show.id == 'Choir'){
+        $.getJSON("/tickets/ShowTickets?id=5", function (result) {
+            console.log(result);
+            let show = result.show;
+            console.log(show);
+            console.log(show.showID);
+            display_errors(result.errors);
+        });
+    }
+    //get reserved seats from DB
+    if(show.id == 'GDCB'){
+        $.getJSON("/tickets/ShowTickets?id=6", function (result) {
+            console.log(result);
+            let show = result.show;
+            console.log(show);
+            console.log(show.showID);
+            display_errors(result.errors);
+        });
+    }
 }
 
 // Get the modal
