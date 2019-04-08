@@ -1,3 +1,8 @@
+window.onload = function(){
+    openTool(event, 'SelectShow', 'pickTip');
+    document.getElementById('SelectShowTab').className += ' active';
+}
+
 function openTool(evt, toolName, tipName) {
     var i, tabcontent, tablinks;
     tabcontent = document.getElementsByClassName("tabcontent");
@@ -47,19 +52,23 @@ function openSeat(evt, toolName, tipName, show) {
     var modalConHall = document.getElementById('modalConHall');
     var modalPlayhouse = document.getElementById('modalPlayhouse');
 
-    // Get the button that opens the modal
-    var btnConHall = document.getElementById("btnConHall");
-    var btnPlayhouse = document.getElementById("btnPlayhouse");
-
     // Get the <span> element that closes the modal
     var span = document.getElementsByClassName("close")[0];
 
     // Hard code which seat map to open
-    if(show == 'PotO_1' || show == 'PotO_2' || show == 'HSO') {
+
+    //DB INFO
+    //PotO_1 = show 1
+    //PotO_2 = show 2
+    //HSO = show 3
+    if(show.id == 'PotO_1' || show.id == 'PotO_2' || show.id == 'HSO') {
         modalConHall.style.display = "block";
     }
 
-    if(show == 'TKaM' || show == "Choir" || show == 'GDCB') {
+    //TKaM = show 4
+    //Choir = show 5
+    //GDCB = show 6
+    if(show.id == 'TKaM' || show.id == "Choir" || show.id == 'GDCB') {
         modalPlayhouse.style.display = "block";
     }
 
@@ -83,6 +92,18 @@ function openSeat(evt, toolName, tipName, show) {
     totalPrice = 0;
     totalPriceText = "Total Price: ";
     clickedSeats = [];
+
+
+    //get reserved seats from DB
+    if(show.id == 'PotO_1'){
+        $.getJSON("/tickets/ShowTickets?id=1", function (result) {
+            console.log(result);
+            let tickets = result.tickets;
+            console.log(tickets);
+            console.log(tickets.showID);
+            display_errors(result.errors);
+        });
+    }
 }
 
 // Get the modal
@@ -134,10 +155,6 @@ function checkReserved()    {
             }
         }
     });
-}
-
-function testButton()   {
-    checkReserved();
 }
 
 
@@ -226,12 +243,9 @@ function buyButton(event, toolName, tipName) {
     document.getElementById(tipName).style.display = "block";
     document.getElementById('EnterInfoTab').className += " active";
 
-
-    //UPDATE DATABASE HERE
-
 }
 
-function EnterInfoButton() {
+function EnterInfoButton(event, toolName, tipName) {
     var input = document.getElementById("EnterInfo_form");
 
     fname =   input.elements[0].value;
@@ -241,7 +255,42 @@ function EnterInfoButton() {
     email =   input.elements[4].value;
     ccn =     input.elements[5].value;
 
-    alert('Congrats ' + fname + ', you have bought a ticket!');
+    document.getElementById('ticketsToBuy').innerHTML = 'Selected Tickets: ' + clickedSeats;
+    document.getElementById('firstname').innerHTML = 'First Name: ' + fname;
+    document.getElementById('lastname').innerHTML = 'Last Name: ' + lname;
+    document.getElementById('confirmAddress').innerHTML = 'Address: ' + address;
+    document.getElementById('confirmPhone').innerHTML = 'Phone: ' + phone;
+    document.getElementById('confirmEmail').innerHTML = 'Email: ' + email;
+    document.getElementById('confirmCCN').innerHTML = 'Credit Card: ' + ccn;
+
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    tipcontent = document.getElementsByClassName("tipcontent");
+
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+
+    for (i = 0; i < tipcontent.length; i++) {
+        tipcontent[i].style.display = "none";
+    }
+
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(toolName).style.display = "block";
+    document.getElementById(tipName).style.display = "block";
+    document.getElementById('ConfirmTab').className += " active";
+}
+
+function confirmBtn() {
+
+    //PUT TICKET INFO IN DB
+
+    alert('Congrats ' + fname + ', you bought ' + clickedSeats);
+    window.location.replace('/home');
+
 }
 
 function printTXT(value, index, array) {
