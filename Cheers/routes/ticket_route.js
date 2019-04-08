@@ -1,6 +1,6 @@
 var express = require('express');
 var path = require('path');
-let ticketManager;
+let showManager;
 
 /**
  * This router handles any requests from the ticket pages
@@ -16,20 +16,27 @@ router.get('/', function (req, res) {
 
 
 //Add ticket manager as a variable
-router.setTicketManager = function (manager) {
-    ticketManager = manager;
+router.setShowManager = function (manager) {
+    showManager = manager;
 };
 
 router.get('/ShowTickets', function (req, res) {
-    ticketManager.getTickets(reg,function (tickets) {
-        if (tickets) {
-            res.json({SeatsTaken: tickets});
-        } else {
-            let err = `Tickets not found`;
-            console.log(err);
-            res.json({errors: [err]})
-        }
-    });
+    if (!req.query.id || req.query.id === "") {
+        console.log("Id is required to get user");
+        res.json({errors: ["User ID is required to get user"]})
+    } else {
+        let showId = req.query.id;
+        showManager.getReservedTickets(showId, function (tickets) {
+            if (tickets) {
+                console.log(`Sending user of id ${showId}`);
+                res.json({tickets: tickets});
+            } else {
+                let err = `User with id ${showId} not found`;
+                console.log(err);
+                res.json({errors: [err]})
+            }
+        });
+    }
 });
 
 module.exports = router;

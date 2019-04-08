@@ -96,11 +96,12 @@ function openSeat(evt, toolName, tipName, show) {
 
     //get reserved seats from DB
     if(show.id == 'PotO_1'){
-        console.log('reached');
-        $.getJSON("/tickets/ShowTickets", 1, function (result) {
+        $.getJSON("/tickets/ShowTickets?id=1", function (result) {
             console.log(result);
             let tickets = result.tickets;
             console.log(tickets);
+            console.log(tickets.showID);
+            display_errors(result.errors);
         });
     }
 }

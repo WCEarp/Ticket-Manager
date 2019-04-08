@@ -31,11 +31,13 @@ module.exports.TicketManager = function (database) {
         });
     };
 
-    this.getTickets = function (callback) {
+    this.getTickets = function (showID,callback) {
 
-        db.query_show_by_id(function (err, rows) {
+        db.query_show_by_id(showID,function (err, rows) {
             if (!err) {
-                callback(rows)
+                let tickets = new Ticket(row.ticketID, row.showID, row.userID,
+                    row.paymentMethodID, row.reservedSeats, row.numberOfSeats, row.paid);
+                callback(tickets)
             } else {
                 console.error(err);
                 callback(null);
