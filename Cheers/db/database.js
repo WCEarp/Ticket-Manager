@@ -295,10 +295,10 @@ module.exports.Database = function () {
      * @param numberOfSeats
      * @param paid
      */
-    this.add_ticket = function (showID, userID, paymentMethodID, reservedSeats, numberOfSeats, paid) {
-        let sql = `INSERT INTO Ticket(ShowID, UserID, PaymentMethodID, ReservedSeats, NumberOfSeats, Paid) VALUES(?, ?, ?, ?, ?, ?)`;
+    this.add_ticket = function (showID, userID, paymentMethodID, reservedSeats, numberOfSeats, paid, totalPrice) {
+        let sql = `INSERT INTO Ticket(ShowID, UserID, PaymentMethodID, ReservedSeats, NumberOfSeats, Paid, TotalPrice) VALUES(?, ?, ?, ?, ?, ?)`;
 
-        let values = [showID, userID, paymentMethodID, reservedSeats, numberOfSeats, paid];
+        let values = [showID, userID, paymentMethodID, reservedSeats, numberOfSeats, paid, totalPrice];
         db.run(sql, values, function (err) {
 
             if (err) {

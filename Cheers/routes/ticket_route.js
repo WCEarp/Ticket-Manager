@@ -1,6 +1,7 @@
 var express = require('express');
 var path = require('path');
 let showManager;
+let ticketManager;
 
 /**
  * This router handles any requests from the ticket pages
@@ -17,6 +18,10 @@ router.get('/', function (req, res) {
 //Add show manager as a variable
 router.setShowManager = function (manager) {
     showManager = manager;
+};
+//Add ticket manager as a variable
+router.setTicketManager = function (manager) {
+    ticketManager = manager;
 };
 
 router.get('/ShowTickets', function (req, res) {
@@ -43,6 +48,12 @@ router.post('/show_update', function (req, res) {
     console.log('**********');
     console.log(req.body.seatsTaken);
     showManager.updateReservedTickets(req.body.showID, req.body.seatsTaken);
+    res.send({});
+});
+
+router.post('/add_ticket', function (req, res) {
+    console.log(req.body);
+    ticketManager.add_ticket(req.body.showID, req.body.userID, req.body.paymentMethodID, req.body.reservedSeats, req.body.numberOfSeats, req.body.paid, req.body.totalPrice);
     res.send({});
 });
 

@@ -402,6 +402,11 @@ function confirmBtn() {
     let data = {showID: showTickets.showID, seatsTaken: updatedSeatsTaken};
     $.post("/tickets/show_update", data, function(result){
     });
+    //add individual ticket to DB
+    let ticketData = {showID: showTickets.showID, userID: 0, paymentMethodID: null, reservedSeats: stringClickedSeats, numberOfSeats: clickedSeats.length, paid: null, totalPrice: totalPrice};
+    $.post("/tickets/add_ticket", ticketData, function(result){
+    });
+
 
     alert('Congrats ' + fname + ', you bought ' + clickedSeats);
     window.location.replace('/home');
