@@ -33,7 +33,7 @@ module.exports.TicketManager = function (database) {
 
     this.getTickets = function (callback) {
 
-        db.query_tickets(function (err, rows) {
+        db.query_show_by_id(function (err, rows) {
             if (!err) {
                 callback(rows)
             } else {

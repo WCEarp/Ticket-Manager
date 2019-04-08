@@ -56,11 +56,19 @@ function openSeat(evt, toolName, tipName, show) {
     var span = document.getElementsByClassName("close")[0];
 
     // Hard code which seat map to open
-    if(show == 'PotO_1' || show == 'PotO_2' || show == 'HSO') {
+
+    //DB INFO
+    //PotO_1 = show 1
+    //PotO_2 = show 2
+    //HSO = show 3
+    if(show.id == 'PotO_1' || show.id == 'PotO_2' || show.id == 'HSO') {
         modalConHall.style.display = "block";
     }
 
-    if(show == 'TKaM' || show == "Choir" || show == 'GDCB') {
+    //TKaM = show 4
+    //Choir = show 5
+    //GDCB = show 6
+    if(show.id == 'TKaM' || show.id == "Choir" || show.id == 'GDCB') {
         modalPlayhouse.style.display = "block";
     }
 
@@ -84,6 +92,17 @@ function openSeat(evt, toolName, tipName, show) {
     totalPrice = 0;
     totalPriceText = "Total Price: ";
     clickedSeats = [];
+
+
+    //get reserved seats from DB
+    if(show.id == 'PotO_1'){
+        console.log('reached');
+        $.getJSON("/tickets/ShowTickets", 1, function (result) {
+            console.log(result);
+            let tickets = result.tickets;
+            console.log(tickets);
+        });
+    }
 }
 
 // Get the modal
@@ -135,10 +154,6 @@ function checkReserved()    {
             }
         }
     });
-}
-
-function testButton()   {
-    checkReserved();
 }
 
 
@@ -280,18 +295,3 @@ function confirmBtn() {
 function printTXT(value, index, array) {
     txt = txt + value + ", ";
 }
-
-$(document).ready(function () {
-    $("#PotO_1").click(function () {
-
-        $.getJSON("/tickets/ShowTickets", function (result) {
-            console.log(result);
-            let tickets = result.tickets;
-            html = '';
-            $.each(tickets, function (index, value) {
-                console.log(value);
-                html += '<tr><td>' + value.ticketID + '</td><td>' + value.showID + '</td><td>' + value.userID + '</td><td>' + value.paymentMethodID + '</td><td>' + value.reservedSeats + '</td><td>' + value.numberOfSeats + '</td><td>' + value.totalPrice + '</td><td>' + value.paid + '</td><td><button>Set Paid</button></td></tr>';
-            });
-        });
-    });
-});
