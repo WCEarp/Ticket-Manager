@@ -20,7 +20,26 @@ module.exports.UserManager = function (database) {
 
         db.query_users(function (err, rows) {
             if (!err) {
-                callback(rows)
+                callback(rows);
+            } else {
+                console.error(err);
+                callback(null);
+            }
+        });
+    };
+	
+	this.getEmails = function (callback) {
+        db.query_emails(function (err, rows) {
+            if (!err) {
+                let emails = [];
+                for (let i in rows)
+                {
+                    if (rows[i].email != null && rows[i].email !== '')
+                    {
+                        emails.push(rows[i].email);
+                    }
+                }
+                callback(emails);
             } else {
                 console.error(err);
                 callback(null);

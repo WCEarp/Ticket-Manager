@@ -79,6 +79,29 @@ module.exports.Database = function () {
         });
     };
 	
+	/**
+     * Get all emails from user database.
+     *
+     * @param callback A function that user is passed into to be executed.
+     */
+    this.query_emails = function (callback) {
+        let columns = "Email email";
+
+        let sql_statement = `SELECT ` + columns +
+            ` FROM User`;
+
+        db.all(sql_statement, [], function (err, rows) {
+            if (err || !rows) {
+                if (err) {
+                    console.error(err.message);
+                }
+                callback("Unable to get emails", null)
+            } else {
+                callback(null, rows);
+            }
+        });
+    };
+	
     /**
      * Add a new user to the database containing the following info.
      *

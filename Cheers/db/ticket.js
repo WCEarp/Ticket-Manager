@@ -42,6 +42,10 @@ module.exports.TicketManager = function (database) {
             }
         });
     }
+	
+	this.paid_update = function (ticketID) {
+        db.set_ticket_paid(ticketID);
+    };
 
 };
 
