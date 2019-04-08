@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path');
+const emailer = require('../db/emailer.js');
 let userManager;
 let ticketManager;
 
@@ -90,19 +91,34 @@ router.get('/tickets', function (req, res) {
 });
 
 router.post('/user_add', function (req, res) {
-	userManager.add_user(req.body.firstName, req.body.lastName, req.body.addressID, req.body.phoneNumber, req.body.email, req.body.ccn, req.body.accountLoginID, req.body.seasonTicketSeat);
-	res.send({});
+    userManager.add_user(req.body.firstName, req.body.lastName, req.body.addressID, req.body.phoneNumber, req.body.email, req.body.ccn, req.body.accountLoginID, req.body.seasonTicketSeat);
+    res.send({});
 });
 
 
 router.post('/user_delete', function (req, res) {
-	userManager.delete_user(req.body.userID);
-	res.send({});
+    userManager.delete_user(req.body.userID);
+    res.send({});
 });
 
 router.post('/user_update', function (req, res) {
-	userManager.update_user(req.body.userID, req.body.firstName, req.body.lastName, req.body.addressID, req.body.phoneNumber, req.body.email, req.body.ccn, req.body.accountLoginID, req.body.seasonTicketSeat);
-	res.send({});
+    userManager.update_user(req.body.userID, req.body.firstName, req.body.lastName, req.body.addressID, req.body.phoneNumber, req.body.email, req.body.ccn, req.body.accountLoginID, req.body.seasonTicketSeat);
+    res.send({});
 });
+
+router.post('/update_paid', function (req, res) {
+    ticketManager.paid_update(req.body.ticketID);
+    res.send({});
+});
+
+router.post('/notifyRenew', function (req, res) {
+    userManager.getEmails(function (emails) {
+        if (emails) {
+            emailer.notify(emails);
+        }
+    });
+    res.send({});
+});
+
 
 module.exports = router;

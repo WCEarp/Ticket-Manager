@@ -20,7 +20,7 @@
     <script>
 
         function display_errors(errors) {
-            var errorHtml = '';
+            let errorHtml = '';
             if (errors) {
                 errorHtml = '<div class="alert alert-danger fade in">' +
                     '<a class="close" data-dismiss="alert">&times;</a>' +
@@ -31,18 +31,23 @@
                 errorHtml += '</div>'
             }
             $("#create_edit_user_errors").html(errorHtml);
-
         }
 
-		$(document).ready(function () {
-            $("#btnGrab").click(function () {
-                console.log($("#uid").val());
-				userID = $("#uid").val();
+        function set_paid_value(ticket_ID) {
+            let data = {ticketID: ticket_ID};
+            $.post("/manage/update_paid", data, function (result) {
+                alert("Ticket row updated, refresh table to view change.");
+            });
+        }
 
+        $(document).ready(function () {
+            $("#btnGrab").click(function () {
+                let userID = $("#uid").val();
+                console.log(userID);
                 $.getJSON("/manage/user?id=" + userID, function (result) {
-				console.log(result);
-				let user = result.user;
-				if (user) {
+                    console.log(result);
+                    let user = result.user;
+                    if (user) {
                         $("#fname").val(user.firstName);
                         $("#lname").val(user.lastName);
                         $("#address").val(user.address);
@@ -50,42 +55,58 @@
                         $("#email").val(user.email);
                         $("#ccn").val(user.ccn);
                     $("#sth_seats").val(user.seasonTicketSeat);
-					}
-					display_errors(result.errors);
+                    }
+                    display_errors(result.errors);
                 });
-
             });
         });
 
         $(document).ready(function () {
             $("#MU_add").click(function () {
                 console.log($("#uid").val());
-				data = {firstName: $("#fname").val(), lastName: $("#lname").val(), address: $("#address").val(), phoneNumber: $("#pnum").val(), email: $("#email").val(), ccn: $("#ccn").val(), seasonTicketSeat: $("#sth_seats").val()}
+                let data = {
+                    firstName: $("#fname").val(),
+                    lastName: $("#lname").val(),
+                    address: $("#address").val(),
+                    phoneNumber: $("#pnum").val(),
+                    email: $("#email").val(),
+                    ccn: $("#ccn").val(),
+                    seasonTicketSeat: $("#sth_seats").val()
+                };
 				$.post("/manage/user_add", data, function(result){
 				})
-
             });
         });
 
 
         $(document).ready(function () {
             $("#MU_del").click(function () {
-                console.log($("#uid").val());
-				data = {userID: $("#uid").val()}
-				$.post("/manage/user_delete", data, function(result){
-				})
-
+                let userId = $("#uid").val();
+                console.log(userId);
+                let data = {userID: userId};
+                $.post("/manage/user_delete", data, function (result) {
+                    console.log("User deleted with id " + userId);
+                })
             });
         });
 
 
         $(document).ready(function () {
             $("#MU_upd").click(function () {
-                console.log($("#uid").val());
-				data = {userID: $("#uid").val(), firstName: $("#fname").val(), lastName: $("#lname").val(), address: $("#address").val(), phoneNumber: $("#pnum").val(), email: $("#email").val(), ccn: $("#ccn").val(), seasonTicketSeat: $("#sth_seats").val()}
-				$.post("/manage/user_update", data, function(result){
-				})
-
+                let userId = $("#uid").val();
+                console.log(userId);
+                let data = {
+                    userID: userId,
+                    firstName: $("#fname").val(),
+                    lastName: $("#lname").val(),
+                    address: $("#address").val(),
+                    phoneNumber: $("#pnum").val(),
+                    email: $("#email").val(),
+                    ccn: $("#ccn").val(),
+                    seasonTicketSeat: $("#sth_seats").val()
+                };
+                $.post("/manage/user_update", data, function (result) {
+                })
             });
         });
 
@@ -96,7 +117,7 @@
                 $.getJSON("/manage/users", function (result) {
                     console.log(result);
                     let users = result.users;
-                    html = '';
+                    let html = '';
                     $.each(users, function (index, value) {
                         console.log(value);
                         html += '<tr><td>' + value.userID + '</td><td>' + value.firstName + '</td><td>' + value.lastName + '</td><td>' + value.address + '</td><td>' + value.phoneNumber + '</td><td>' + value.email + '</td><td>' + value.ccn + '</td><td>' + value.seasonTicketSeat + '</td></tr>';
@@ -112,10 +133,10 @@
                 $.getJSON("/manage/tickets", function (result) {
                     console.log(result);
                     let tickets = result.tickets;
-                    html = '';
+                    let html = '';
                     $.each(tickets, function (index, value) {
                         console.log(value);
-                        html += '<tr><td>' + value.ticketID + '</td><td>' + value.showID + '</td><td>' + value.userID + '</td><td>' + value.paymentMethodID + '</td><td>' + value.reservedSeats + '</td><td>' + value.numberOfSeats + '</td><td>' + value.totalPrice + '</td><td>' + value.paid + '</td><td><button>Set Paid</button></td></tr>';
+                        html += `<tr><td id="ticketID">${value.ticketID}</td><td>${value.showID}</td><td>${value.userID}</td><td>${value.paymentMethodID}</td><td>${value.reservedSeats}</td><td>${value.numberOfSeats}</td><td>${value.totalPrice}</td><td>${value.paid}</td><td><button type="button" class="setPaid" onclick="set_paid_value(${value.ticketID})">Set Paid</button></td></tr>`;
                     });
                     $("#tbody2").html(html)
                 });
@@ -124,19 +145,27 @@
 
         $(document).ready(function () {
             $("#grabTicket").click(function () {
-                ticketID = $("#ticket").val();
+                let ticketID = $("#ticket").val();
+                //document.write("test");
                 $.getJSON("/manage/ticket?id=" + ticketID, function (result) {
                     console.log(result);
 
                     let ticket = result.ticket;
                     if (ticket) {
-                        html = '';
-                        html += '<tr><td>' + ticket.ticketID + '</td><td>' + ticket.showID + '</td><td>' + ticket.userID + '</td><td>' + ticket.paymentMethodID + '</td><td>' + ticket.reservedSeats + '</td><td>' + ticket.numberOfSeats + '</td><td>' + ticket.totalPrice + '</td><td>' + ticket.paid + '</td><td><button>Set Paid</button></td></tr>';
+                        let html = `<tr><td>${ticket.ticketID}</td><td>${ticket.showID}</td><td>${ticket.userID}</td><td>${ticket.paymentMethodID}</td><td>${ticket.reservedSeats}</td><td>${ticket.numberOfSeats}</td><td>${ticket.totalPrice}</td><td>${ticket.paid}</td><td><button class="setPaid" onclick="set_paid_value(${ticket.ticketID})">Set Paid</button></td></tr>`;
 
                         $("#tbody2").html(html)
                     }
                     display_errors(result.errors);
                 });
+            });
+        });
+
+        $(document).ready(function () {
+            $("#btnNotify").click(function () {
+                $.post('/manage/notifyRenew', {}, function (result) {
+                    alert('notifying everyone')
+                })
             });
         });
 
@@ -156,7 +185,8 @@
             <div class="tab">
                 <button class="tablinks" onclick="openTool(event, 'Create/Edit User', 'ceTip')">Create/Edit</button>
                 <button class="tablinks" onclick="openTool(event, 'STH Manager', 'STHTip')">STH Manager</button>
-                <button class="tablinks" onclick="openTool(event, 'Exchange Tickets', 'etTip')">Exchange Tickets</button>
+                <button class="tablinks" onclick="openTool(event, 'Exchange Tickets', 'etTip')">Exchange Tickets
+                </button>
                 <button class="tablinks" onclick="openTool(event, 'Ticket Manager', 'tmTip')">Ticket Manager</button>
                 <button class="tablinks" onclick="openTool(event, 'Export/Import', 'eiTip')">Export/Import</button>
             </div>
@@ -169,16 +199,16 @@
                     <input type="text" id="uid" placeholder="1234"> <span><input id="btnGrab" type="button"
                                                                                  value="Grab User"></span><br><br>
                     <label for="fname">First Name:</label><br>
-                    <input type="text" id="fname"  placeholder="John"><br><br>
+                    <input type="text" id="fname" placeholder="John"><br><br>
 
                     <label for="lname">Last Name:</label><br>
                     <input type="text" id="lname" placeholder="Doe"><br><br>
 
                     <label for="address">Address:</label><br>
-                    <input type="text" id="address"  placeholder="101 Joy Dr. Apt #3, Placeholder XY, 12345"><br><br>
+                    <input type="text" id="address" placeholder="101 Joy Dr. Apt #3, Placeholder XY, 12345"><br><br>
 
                     <label for="pnum">Phone Number:</label><br>
-                    <input type="text" id="pnum"  placeholder="1234567890"><br><br>
+                    <input type="text" id="pnum" placeholder="1234567890"><br><br>
 
                     <label for="email">Email:</label><br>
                     <input type="text" id="email" placeholder="example@gmail.com"><br><br>
@@ -196,7 +226,7 @@
                 <button id="MU_del" type="button">Delete</button>
                 <button id="MU_dis">Display All Users</button>
                 <br></br>
-                <table id="userTable" name="userTable" style="display:none">
+                <table id="userTable" style="display:none">
                     <thead>
                     <tr>
                         <th>UserID</th>
@@ -224,11 +254,13 @@
                 <input type="text" id="sthid" placeholder="0001"><br>
 
                 <br><label for="seat">Pick Seat:</label><br>
-                <input type="text" id="seat" placeholder="F_S0_A01"><span><button id="btnConHall">Show Concert Hall</button>
+                <input type="text" id="seat" placeholder="F_S0_A01"><span><button
+                    id="btnConHall">Show Concert Hall</button>
                 <button id="btnPlayhouse">Show Playhouse</button></span><br>
 
-                <br><button>Submit</button>
-                <button id="btnNotif">Notify All to Renew</button>
+                <br>
+                <button>Submit</button>
+                <button id="btnNotify">Notify All to Renew</button>
             </div>
 
             <div id="Exchange Tickets" class="tabcontent">
