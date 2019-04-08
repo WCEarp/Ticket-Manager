@@ -47,6 +47,10 @@ module.exports.TicketManager = function (database) {
         db.set_ticket_paid(ticketID);
     };
 
+    this.add_ticket = function (showID, userID, paymentMethodID, reservedSeats, numberOfSeats, paid, totalPrice) {
+        db.add_ticket(showID, userID, paymentMethodID, reservedSeats, numberOfSeats, paid, totalPrice);
+    };
+
 };
 
 /**
