@@ -98,9 +98,9 @@ function openSeat(evt, toolName, tipName, show) {
     if(show.id == 'PotO_1'){
         $.getJSON("/tickets/ShowTickets?id=1", function (result) {
             console.log(result);
-            let tickets = result.tickets;
-            console.log(tickets);
-            console.log(tickets.showID);
+            let show = result.show;
+            console.log(show);
+            console.log(show.showID);
             display_errors(result.errors);
         });
     }
