@@ -22,13 +22,13 @@ router.setShowManager = function (manager) {
 
 router.get('/ShowTickets', function (req, res) {
     if (!req.query.id || req.query.id === "") {
-        console.log("Id is required to get user");
-        res.json({errors: ["User ID is required to get user"]})
+        console.log("Id is required to get show");
+        res.json({errors: ["Show ID is required to get show"]})
     } else {
         let showId = req.query.id;
         showManager.getReservedTickets(showId, function (tickets) {
             if (tickets) {
-                console.log(`Sending user of id ${showId}`);
+                console.log(`Sending show of id ${showId}`);
                 res.json({tickets: tickets});
             } else {
                 let err = `User with id ${showId} not found`;
