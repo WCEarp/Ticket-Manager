@@ -25,6 +25,7 @@ function openTool(evt, toolName, tipName) {
     evt.currentTarget.className += " active";
 }
 
+let showTickets;
 function openSeat(evt, toolName, tipName, show) {
 
     var i, tabcontent, tablinks;
@@ -97,10 +98,126 @@ function openSeat(evt, toolName, tipName, show) {
     //get reserved seats from DB
     if(show.id == 'PotO_1'){
         $.getJSON("/tickets/ShowTickets?id=1", function (result) {
-            console.log(result);
-            let tickets = result.tickets;
-            console.log(tickets);
-            console.log(tickets.showID);
+            showTickets = result.show;
+            showTickets.showID = 1;
+            let seatsArray = showTickets.SeatsTaken.match(/.{1,8}/g);
+            console.log(seatsArray);
+            //iterate through all elements on page
+            document.querySelectorAll('*').forEach(function(node) {
+                // Do whatever you want with the node object.
+                for(var i=0; i < seatsArray.length; i++) {
+                    if (node.id == seatsArray[i]){
+                        node.className = "reserved";
+                        node.title = "reserved";
+                        node.onclick = "";
+                    }
+                }
+            });
+            display_errors(result.errors);
+        });
+    }
+    //get reserved seats from DB
+    if(show.id == 'PotO_2'){
+        $.getJSON("/tickets/ShowTickets?id=2", function (result) {
+            showTickets = result.show;
+            showTickets.showID = 2;
+            let seatsArray = showTickets.SeatsTaken.match(/.{1,8}/g);
+            console.log(seatsArray);
+            //iterate through all elements on page
+            document.querySelectorAll('*').forEach(function(node) {
+                // Do whatever you want with the node object.
+                for(var i=0; i < seatsArray.length; i++) {
+                    if (node.id == seatsArray[i]){
+                        node.className = "reserved";
+                        node.title = "reserved";
+                        node.onclick = "";
+                    }
+                }
+            });
+            display_errors(result.errors);
+        });
+    }
+    //get reserved seats from DB
+    if(show.id == 'HSO'){
+        $.getJSON("/tickets/ShowTickets?id=3", function (result) {
+            showTickets = result.show;
+            showTickets.showID = 3;
+            let seatsArray = showTickets.SeatsTaken.match(/.{1,8}/g);
+            console.log(seatsArray);
+            //iterate through all elements on page
+            document.querySelectorAll('*').forEach(function(node) {
+                // Do whatever you want with the node object.
+                for(var i=0; i < seatsArray.length; i++) {
+                    if (node.id == seatsArray[i]){
+                        node.className = "reserved";
+                        node.title = "reserved";
+                        node.onclick = "";
+                    }
+                }
+            });
+            display_errors(result.errors);
+        });
+    }
+    //get reserved seats from DB
+    if(show.id == 'TKaM'){
+        $.getJSON("/tickets/ShowTickets?id=4", function (result) {
+            showTickets = result.show;
+            showTickets.showID = 4;
+            let seatsArray = showTickets.SeatsTaken.match(/.{1,8}/g);
+            console.log(seatsArray);
+            //iterate through all elements on page
+            document.querySelectorAll('*').forEach(function(node) {
+                // Do whatever you want with the node object.
+                for(var i=0; i < seatsArray.length; i++) {
+                    if (node.id == seatsArray[i]){
+                        node.className = "reserved";
+                        node.title = "reserved";
+                        node.onclick = "";
+                    }
+                }
+            });
+            display_errors(result.errors);
+        });
+    }
+    //get reserved seats from DB
+    if(show.id == 'Choir'){
+        $.getJSON("/tickets/ShowTickets?id=5", function (result) {
+            showTickets = result.show;
+            showTickets.showID = 5;
+            let seatsArray = showTickets.SeatsTaken.match(/.{1,8}/g);
+            console.log(seatsArray);
+            //iterate through all elements on page
+            document.querySelectorAll('*').forEach(function(node) {
+                // Do whatever you want with the node object.
+                for(var i=0; i < seatsArray.length; i++) {
+                    if (node.id == seatsArray[i]){
+                        node.className = "reserved";
+                        node.title = "reserved";
+                        node.onclick = "";
+                    }
+                }
+            });
+            display_errors(result.errors);
+        });
+    }
+    //get reserved seats from DB
+    if(show.id == 'GDCB'){
+        $.getJSON("/tickets/ShowTickets?id=6", function (result) {
+            showTickets = result.show;
+            showTickets.showID = 6;
+            let seatsArray = showTickets.SeatsTaken.match(/.{1,8}/g);
+            console.log(seatsArray);
+            //iterate through all elements on page
+            document.querySelectorAll('*').forEach(function(node) {
+                // Do whatever you want with the node object.
+                for(var i=0; i < seatsArray.length; i++) {
+                    if (node.id == seatsArray[i]){
+                        node.className = "reserved";
+                        node.title = "reserved";
+                        node.onclick = "";
+                    }
+                }
+            });
             display_errors(result.errors);
         });
     }
@@ -155,12 +272,6 @@ function checkReserved()    {
             }
         }
     });
-}
-
-
-//this function will somehow check the DB to figure out which seats are available and apply that to the map
-function loadDB()   {
-    //use something like document.getElementsByTagName("*"); to iterate
 }
 
 //txt var will be string of seats
@@ -285,8 +396,12 @@ function EnterInfoButton(event, toolName, tipName) {
 }
 
 function confirmBtn() {
-
     //PUT TICKET INFO IN DB
+    let stringClickedSeats = clickedSeats.join('');
+    let updatedSeatsTaken = showTickets.SeatsTaken + stringClickedSeats;
+    let data = {showID: showTickets.showID, seatsTaken: updatedSeatsTaken};
+    $.post("/tickets/show_update", data, function(result){
+    });
 
     alert('Congrats ' + fname + ', you bought ' + clickedSeats);
     window.location.replace('/home');
