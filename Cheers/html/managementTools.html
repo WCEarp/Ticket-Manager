@@ -214,6 +214,7 @@
                 <button class="tablinks" onclick="openTool(event, 'Exchange Tickets', 'etTip')">Exchange Tickets
                 </button>
                 <button class="tablinks" onclick="openTool(event, 'Ticket Manager', 'tmTip')">Ticket Manager</button>
+                <button class="tablinks" onclick="openTool(event, 'Export/Import', 'eiTip')">Export/Import</button>
             </div>
 
             <!-- Tab content -->
@@ -341,6 +342,42 @@
 
                 </table>
             </div>
+
+            <div id="Export/Import" class="tabcontent">
+                <h3>Export/Import Data</h3>
+                <br>
+                <form method="post" action="/Tests/Post/">
+                    <fieldset>
+                        <legend>Select the information for users that you would like:</legend>
+                        <input type="checkbox" name="" value="Dogs">First Name
+                        <input type="checkbox" name="" value="Birds">Last Name
+                        <input type="checkbox" name="" value="Birds">Address
+                        <input type="checkbox" name="" value="Birds">Phone Number
+                        <input type="checkbox" name="" value="Birds">Email
+                        <input type="checkbox" name="" value="Birds">CCN
+                        <input type="checkbox" name="" value="Birds">Season Ticket Seat
+
+                        <br>
+                        <input type="button" value="Export" /> <input type="button" value="Import" />
+                    </fieldset>
+                </form>
+                <br>
+                <form method="post" action="/Tests/Post/">
+                    <fieldset>
+                        <legend>Select the information for tickets that you would like::</legend>
+                        <input type="checkbox" name="" value="Cats">Ticket ID
+                        <input type="checkbox" name="" value="Dogs">Show ID
+                        <input type="checkbox" name="" value="Birds">User ID
+                        <input type="checkbox" name="" value="Birds">Payment Method
+                        <input type="checkbox" name="" value="Birds">Reserved Seat
+                        <input type="checkbox" name="" value="Birds">Num. of Seats
+                        <input type="checkbox" name="" value="Birds">Paid
+
+                        <br>
+                        <input type="button" value="Export" /> <input type="button" value="Import" />
+                    </fieldset>
+                </form>
+            </div>
         </div>
 
         <div class="column right" style="background-color:#aaa">
@@ -419,6 +456,15 @@
                     <p>
                         Ticket IDs can be entered manually into the "Ticket ID" field or
                         selected from a list of all sold tickets by clicking the "Display All Tickets" button.
+                    </p>
+                </div>
+
+                <div id="eiTip" class="tipcontent" >
+                    <h3>Export/Import!</h3>
+                    <br>
+                    <br>
+                    <p>
+                        Nothing for now
                     </p>
                 </div>
         </div>
