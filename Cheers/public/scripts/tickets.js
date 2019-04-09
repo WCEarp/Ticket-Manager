@@ -103,6 +103,21 @@ function openSeat(evt, toolName, tipName, show) {
     clickedSeats = [];
 
 
+    let stProd1 = '';
+    let stProd2 = '';
+    //get sth reserved seats
+    $.getJSON("/manage/users", function (result) {
+        console.log(result);
+        let users = result.users;
+        $.each(users, function (index, value) {
+            console.log(value);
+            if(value.sthProductionID === 1) {
+                stProd1 = stProd1 + value.seasonTicketSeat;
+            }
+            if(value.sthProductionID === 2) {
+                stProd2 = stProd2 + value.seasonTicketSeat;
+            }});
+    });
     //get reserved seats from DB
     if(show.id === 'PotO_1'){
         $.getJSON("/tickets/ShowTickets?id=1", function (result) {
@@ -110,7 +125,8 @@ function openSeat(evt, toolName, tipName, show) {
             showTickets.showID = 1;
             let floorprice = showTickets.FloorPrice;
             let balconyprice = showTickets.BalconyPrice;
-            let seatsArray = showTickets.SeatsTaken.match(/.{1,8}/g);
+            let reservedSeats = showTickets.SeatsTaken + stProd1;
+            let seatsArray = reservedSeats.match(/.{1,8}/g);
             console.log(seatsArray);
             //iterate through all elements on page
             document.querySelectorAll('*').forEach(function(node) {
@@ -151,7 +167,8 @@ function openSeat(evt, toolName, tipName, show) {
             showTickets.showID = 2;
             let floorprice = showTickets.FloorPrice;
             let balconyprice = showTickets.BalconyPrice;
-            let seatsArray = showTickets.SeatsTaken.match(/.{1,8}/g);
+            let reservedSeats = showTickets.SeatsTaken + stProd1;
+            let seatsArray = reservedSeats.match(/.{1,8}/g);
             console.log(seatsArray);
             //iterate through all elements on page
             document.querySelectorAll('*').forEach(function(node) {
@@ -191,7 +208,8 @@ function openSeat(evt, toolName, tipName, show) {
             showTickets.showID = 3;
             let floorprice = showTickets.FloorPrice;
             let balconyprice = showTickets.BalconyPrice;
-            let seatsArray = showTickets.SeatsTaken.match(/.{1,8}/g);
+            let reservedSeats = showTickets.SeatsTaken + stProd1;
+            let seatsArray = reservedSeats.match(/.{1,8}/g);
             console.log(seatsArray);
             //iterate through all elements on page
             document.querySelectorAll('*').forEach(function(node) {
@@ -231,7 +249,8 @@ function openSeat(evt, toolName, tipName, show) {
             showTickets.showID = 4;
             let floorprice = showTickets.FloorPrice;
             let balconyprice = showTickets.BalconyPrice;
-            let seatsArray = showTickets.SeatsTaken.match(/.{1,8}/g);
+            let reservedSeats = showTickets.SeatsTaken + stProd2;
+            let seatsArray = reservedSeats.match(/.{1,8}/g);
             console.log(seatsArray);
             //iterate through all elements on page
             document.querySelectorAll('*').forEach(function(node) {
@@ -271,7 +290,8 @@ function openSeat(evt, toolName, tipName, show) {
             showTickets.showID = 5;
             let floorprice = showTickets.FloorPrice;
             let balconyprice = showTickets.BalconyPrice;
-            let seatsArray = showTickets.SeatsTaken.match(/.{1,8}/g);
+            let reservedSeats = showTickets.SeatsTaken + stProd2;
+            let seatsArray = reservedSeats.match(/.{1,8}/g);
             console.log(seatsArray);
             //iterate through all elements on page
             document.querySelectorAll('*').forEach(function(node) {
@@ -311,7 +331,8 @@ function openSeat(evt, toolName, tipName, show) {
             showTickets.showID = 6;
             let floorprice = showTickets.FloorPrice;
             let balconyprice = showTickets.BalconyPrice;
-            let seatsArray = showTickets.SeatsTaken.match(/.{1,8}/g);
+            let reservedSeats = showTickets.SeatsTaken + stProd2;
+            let seatsArray = reservedSeats.match(/.{1,8}/g);
             console.log(seatsArray);
             //iterate through all elements on page
             document.querySelectorAll('*').forEach(function(node) {
