@@ -280,28 +280,32 @@
             </div>
 
             <div id="SSPrice" class="tabcontent">
-                <h3>Set Show Prices!</h3>
+                <h3>Set Show Prices</h3>
                 <form>
                         <p>Select a Production</p>
-                        <select>
-                            <option>Temp 1</option>
-                            <option>Temp 2</option>
+                        <select id="selectSet">
+                            <option value="PotO_1">Phantom of the Opera Night 1</option>
+                            <option value="PotO_2">Phantom of the Opera Night 1</option>
+                            <option value="HSO">Huntsville Symphony Plays Bach</option>
+                            <option value="TKaM">To Kill a Mockingbird</option>
+                            <option value="Choir">UAH Choir</option>
+                            <option value="GDCB">Grateful Dead Cover Band</option>
                         </select><br><br>
 
 
                         <div style="float:left;margin-right:20px;">
-                            <label>Floor Price:</label>
-                            <input type="text" placeholder="$0.00">
+                            <label for="floorPrice">Floor Price:</label>
+                            <input id='floorPrice' type="text" placeholder="$40.00">
                         </div>
 
                         <div style="float:left;">
-                            <label>Balcony Price:</label>
-                            <input type="text" placeholder="$0.00">
+                            <label for="balconyPrice">Balcony Price:</label>
+                            <input id='balconyPrice' type="text" placeholder="$20.00">
                         </div>
                     <br>
                     <br>
                     <br style="clear:both;" />
-                    <button>Submit</button>
+                    <button onclick="setPriceButton()">Set Prices</button>
                 </form>
             </div>
 

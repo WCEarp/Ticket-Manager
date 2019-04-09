@@ -19,11 +19,15 @@ module.exports.ShowManager = function (database) {
                 callback(null);
             }
         });
-    }
+    };
 
     this.updateReservedTickets = function (showID,seatsTaken) {
         db.update_show_seats_taken(showID,seatsTaken);
-    }
+    };
+
+    this.updateShowPrice = function (showID,floorPrice,balconyPrice) {
+        db.update_show_setPrice(showID,floorPrice,balconyPrice);
+    };
 
 };
 

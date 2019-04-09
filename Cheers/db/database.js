@@ -459,5 +459,19 @@ module.exports.Database = function () {
             }
         });
     }
+    //update show price
+    this.update_show_setPrice = function (id, floorPrice, balconyPrice) {
+        let values = [floorPrice, balconyPrice, id];
+        let sql_statement = `Update Show SET FloorPrice = ?, BalconyPrice = ? WHERE ShowID = ?`;
+
+        db.run(sql_statement, values, function (err) {
+            if (err) {
+                console.error(err.message);
+            } else {
+                //Log how many rows were updated. Should be 0-1.
+                console.log(`Show rows updated: ${this.changes}`);
+            }
+        });
+    }
     //endregion
 };
