@@ -3,6 +3,7 @@ const path = require('path');
 const emailer = require('../db/emailer.js');
 let userManager;
 let ticketManager;
+let showManager;
 
 /**
  * This router handles any requests from the management page. Requests here
@@ -25,6 +26,10 @@ router.setUserManager = function (manager) {
 //Add ticket manager as a variable
 router.setTicketManager = function (manager) {
     ticketManager = manager;
+};
+//Add show manager as a variable
+router.setShowManager = function (manager) {
+    showManager = manager;
 };
 
 //GET http://127.0.0.1/manage/user?id=<id value>  ->  A json object containing either user or errors (a list of errors)
@@ -123,6 +128,11 @@ router.post('/notifyRenew', function (req, res) {
             emailer.notify(emails);
         }
     });
+    res.send({});
+});
+
+router.post('/show_update_setPrice', function (req, res) {
+    showManager.updateShowPrice(req.body.showID,  req.body.floorPrice, req.body.balconyPrice);
     res.send({});
 });
 

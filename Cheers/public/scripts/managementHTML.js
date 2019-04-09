@@ -163,6 +163,28 @@ function mySelectChange() {
     }
 }
 
+function setPriceButton() {
+    let showVal = document.getElementById('selectSet').value;
+    let showID = 1;
+    if(showVal === 'PotO_2')
+        showID = 2;
+    if(showVal === 'HSO')
+        showID = 3;
+    if(showVal === 'TKaM')
+        showID = 4;
+    if(showVal === 'Choir')
+        showID = 5;
+    if(showVal === 'GDCB')
+        showID = 6;
+    let data = {
+        showID: showID,
+        floorPrice: document.getElementById('floorPrice').value,
+        balconyPrice: document.getElementById('balconyPrice').value
+    };
+    $.post("/manage/show_update_setPrice", data, function (result) {
+    })
+}
+
 function printTXT(value, index, array)    {
     txt = txt + value + ", ";
 }
