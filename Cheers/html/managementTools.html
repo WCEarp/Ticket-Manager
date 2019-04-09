@@ -192,7 +192,7 @@
             <div class="tab">
                 <button id='CreateTab' class="tablinks" onclick="openTool(event, 'Create/Edit User', 'ceTip')">Create/Edit</button>
                 <button class="tablinks" onclick="openTool(event, 'STH Manager', 'STHTip')">STH Manager</button>
-                <button class="tablinks" onclick="openTool(event, 'Exchange Tickets', 'etTip')">Exchange Tickets
+                <button class="tablinks" onclick="openTool(event, 'SSPrice', 'ssTip')">Set Show Prices
                 </button>
                 <button class="tablinks" onclick="openTool(event, 'Ticket Manager', 'tmTip')">Ticket Manager</button>
                 <button class="tablinks" onclick="openTool(event, 'Export/Import', 'eiTip')">Export/Import</button>
@@ -202,28 +202,28 @@
             <div id="Create/Edit User" class="tabcontent">
                 <h3>Manager Users</h3>
                 <form>
-                    <label for="uid">User ID:</label><br>
+                    <label for="uid">User ID:</label>
                     <input type="text" id="uid" placeholder="1234"> <span><input id="btnGrab" type="button"
                                                                                  value="Grab User"></span><br><br>
-                    <label for="fname">First Name:</label><br>
+                    <label for="fname">First Name:</label>
                     <input type="text" id="fname" placeholder="John"><br><br>
 
-                    <label for="lname">Last Name:</label><br>
+                    <label for="lname">Last Name:</label>
                     <input type="text" id="lname" placeholder="Doe"><br><br>
 
-                    <label for="address">Address:</label><br>
+                    <label for="address">Address:</label>
                     <input type="text" id="address" placeholder="101 Joy Dr. Apt #3, Placeholder XY, 12345"><br><br>
 
-                    <label for="pnum">Phone Number:</label><br>
+                    <label for="pnum">Phone Number:</label>
                     <input type="text" id="pnum" placeholder="1234567890"><br><br>
 
-                    <label for="email">Email:</label><br>
+                    <label for="email">Email:</label>
                     <input type="text" id="email" placeholder="example@gmail.com"><br><br>
 
-                    <label for="ccn">Credit Card Number:</label><br>
+                    <label for="ccn">Credit Card Number:</label>
                     <input type="text" id="ccn" placeholder="1111222233334444"><br><br>
 
-                    <label for="sth_seats">Season Ticket Seat:</label><br>
+                    <label for="sth_seats">Season Ticket Seat:</label>
                     <input type="text" id="sth_seats"><br><br>
 
                     <label for="sth_seats">Season Ticket Production ID:</label><br>
@@ -266,10 +266,10 @@
                     <option value="play">Playhouse Productions</option>
                 </select><br><br>
 
-                <label for="sthid">User ID:</label><br>
+                <label for="sthid">User ID:</label>
                 <input type="text" id="sthid" placeholder="0001"><br>
 
-                <br><label for="seat">Pick Seat:</label><br>
+                <br><label for="seat">Pick Seat:</label>
                 <input type="text" id="seat" placeholder="F_S0_A01"><span><button
                     id="btnConHall">Show Concert Hall</button><button
                     id="btnPlayhouse">Show Playhouse</button></span><br>
@@ -279,28 +279,30 @@
                 <button id="btnNotify">Notify All to Renew</button>
             </div>
 
-            <div id="Exchange Tickets" class="tabcontent">
-                <h3>Exchange Tickets</h3>
-                <label for="tick1">Ticket 1:</label><input type="text" id="tick1" placeholder="Ticket 1 ID"><br>
-                <label for="tick2">Ticket 2:</label><input type="text" id="tick2" placeholder="Ticket 2 ID"><span><button>Exchange</button></span><br>
-                <br>
+            <div id="SSPrice" class="tabcontent">
+                <h3>Set Show Prices!</h3>
+                <form>
+                        <p>Select a Production</p>
+                        <select>
+                            <option>Temp 1</option>
+                            <option>Temp 2</option>
+                        </select><br><br>
 
-                <button>Display Available</button>
-                <br>
-                <table name="ticketTable"  style="display:none" > <!-- THIS TABLE IS HIDDEN BY DEFAULT-->
-                    <tr>
-                        <th>WHAT</th>
-                        <th>FIELDS</th>
-                        <th>HERE?</th>
-                        <th>    </th>
-                    </tr>
-                    <tr>
-                        <td>This should be</td>
-                        <td>Hidden</td>
-                        <td>By Default</td>
-                        <td><button>Add</button></td>
-                    </tr>
-                </table>
+
+                        <div style="float:left;margin-right:20px;">
+                            <label>Floor Price:</label>
+                            <input type="text" placeholder="$0.00">
+                        </div>
+
+                        <div style="float:left;">
+                            <label>Balcony Price:</label>
+                            <input type="text" placeholder="$0.00">
+                        </div>
+                    <br>
+                    <br>
+                    <br style="clear:both;" />
+                    <button>Submit</button>
+                </form>
             </div>
 
             <div id="Ticket Manager" class="tabcontent">
@@ -419,21 +421,18 @@
                     </p>
                 </div>
 
-                <div id="etTip" class="tipcontent" >
-                    <h3>Exchange tickets!</h3>
+                <div id="ssTip" class="tipcontent" >
+                    <h3>Set Show Prices!</h3>
                     <p>
-                        Exchange tickets for different shows on tis tab!
+                        Blank
                     </p>
                     <br>
                     <p>
-                        Enter the customer's ticket ID into the "Ticket 1" field. Then select a ticket for exhange by
-                        either typing in the code manually, or clicking the "Display Available" button to add from a
-                        list of all available tickets.
+                        Blank
                     </p>
                     <br>
                     <p>
-                        Once both the customer's ticket ID, and the ticket ID of the exchange ticket are entered into
-                        their fields, click "Exchange" to finalize the exchange.
+                        Blank
                     </p>
                 </div>
 

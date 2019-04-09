@@ -71,6 +71,9 @@
     vertical-align: middle;
 }
 
+#SSPrice input, label {
+    display:block;
+}
 
 input[type=text] {
     display: inline-block;
