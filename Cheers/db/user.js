@@ -7,7 +7,7 @@ module.exports.UserManager = function (database) {
             if (!err) {
                 let user = new User(row.userID, row.firstName, row.lastName,
                     row.addressID, row.phoneNumber, row.email, row.creditCardNumber,
-                    row.accountLoginID, row.seasonTicketSeat);
+                    row.accountLoginID, row.seasonTicketSeat, row.sthProductionID);
                 callback(user)
             } else {
                 console.error(err);
@@ -47,27 +47,27 @@ module.exports.UserManager = function (database) {
         });
     };
 
-    this.add_user = function (firstName, lastName, addressID, phoneNumber, email, ccn, seasonTicketSeat) {
-		db.add_user(firstName, lastName, addressID, phoneNumber, email, ccn, seasonTicketSeat);
+    this.add_user = function (firstName, lastName, addressID, phoneNumber, email, ccn, seasonTicketSeat, sthProductionID) {
+		db.add_user(firstName, lastName, addressID, phoneNumber, email, ccn, seasonTicketSeat, sthProductionID);
 	};
 	
 	this.delete_user = function (userID) {
         db.delete_user(userID);
     };
 	
-	this.update_user = function (userID, firstName, lastName, addressID, phoneNumber, email, ccn, accountLoginID, seasonTicketSeat) {
-        db.update_user(userID, firstName, lastName, addressID, phoneNumber, email, ccn, accountLoginID, seasonTicketSeat) ;
+	this.update_user = function (userID, firstName, lastName, addressID, phoneNumber, email, ccn, accountLoginID, seasonTicketSeat, sthProductionID) {
+        db.update_user(userID, firstName, lastName, addressID, phoneNumber, email, ccn, accountLoginID, seasonTicketSeat, sthProductionID) ;
     };
 
-    this.update_user_sth_seat = function (userID, seasonTicketSeat) {
-        db.update_user_sth_seat(userID, seasonTicketSeat) ;
+    this.update_user_sth_seat = function (userID, seasonTicketSeat, sthProductionID) {
+        db.update_user_sth_seat(userID, seasonTicketSeat, sthProductionID) ;
     };
 };
 
 
 
 let User = function (userID, firstName, lastName, addressID, phoneNumber,
-                                email, ccn, accountLoginID, seasonTicketSeat) {
+                                email, ccn, accountLoginID, seasonTicketSeat, sthProductionID) {
     this.userID = userID;
     this.firstName = firstName;
     this.lastName = lastName;
@@ -77,6 +77,7 @@ let User = function (userID, firstName, lastName, addressID, phoneNumber,
     this.ccn = ccn;
     this.accountLoginID = accountLoginID;
     this.seasonTicketSeat = seasonTicketSeat;
+    this.sthProductionID = sthProductionID;
 };
 
 module.exports.User = User;

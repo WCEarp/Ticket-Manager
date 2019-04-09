@@ -122,8 +122,14 @@
                     <label for="email">Email:</label><br>
                     <input type="text" id="email" placeholder="example@gmail.com"><br><br>
 
-                    <label for="cnn">Credit Card Number:</label><br>
-                    <input type="text" id="cnn" placeholder="1111222233334444"><br><br>
+                    <label for="mySelect">Select Payment Method: </label><select id="mySelect" onchange="mySelectChange()">
+                        <option value="creditCard">Credit Card</option>
+                        <option value="door">Pay at Door</option>
+                        <option value="exchangeTickets">Exchange Tickets</option>
+                    </select><br><br>
+
+                    <label id='paymentLabel' for="payment">Credit Card Number:</label><br>
+                    <input type="text" id="payment" placeholder="1111222233334444"><br><br>
 
                     <span><input class="button" id="btnGrab" type="button" onclick="EnterInfoButton(event, 'Confirm', 'confirmTip')" value="Buy Tickets"/></span><br><br>
 

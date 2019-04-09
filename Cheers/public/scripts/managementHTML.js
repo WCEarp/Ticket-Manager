@@ -135,9 +135,15 @@ function buyButton()    {
 }
 
 function sthSubmitBtn() {
+    let sthProd = 1;
+    let regex1 = /(F_S(?!0))/g;
+    let regex2 = /(^L)/g;
+    if(regex1.test(document.getElementById('seat').value) || regex2.test(document.getElementById('seat').value))
+        sthProd = 2;
     let data = {
         userID: document.getElementById('sthid').value,
-        seasonTicketSeat: document.getElementById('seat').value
+        seasonTicketSeat: document.getElementById('seat').value,
+        sthProductionID: sthProd
     };
     $.post("/manage/user_update_sth_seat", data, function (result) {
     });
