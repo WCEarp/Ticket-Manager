@@ -9,7 +9,8 @@ const path = require('path');
 module.exports.Database = function () {
     const THEATER_COLUMNS = "TheaterID theaterID, SeatsNum seatsNum, SeatsTotal seatsTotal";
     const SHOW_COLUMNS = `ShowID showID, StartDate startDate, EndDate endDate, Time time, 
-        TheaterID theaterID, SeatsTaken seatsTaken, ProductionID productionID`;
+        TheaterID theaterID, SeatsTaken seatsTaken, ProductionID productionID, FloorPrice floorPrice, 
+        BalconyPrice balconyPrice`;
 
     console.log("Opening database at " + path.join(__dirname, 'database.db'));
     let db = new sqlite3.Database(path.join(__dirname, 'database.db'), sqlite3.OPEN_READWRITE,
