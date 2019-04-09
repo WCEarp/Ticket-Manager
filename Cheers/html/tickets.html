@@ -212,21 +212,22 @@
         <div class="modal-content">
             <span class="close">&times;</span>
             <div>
+                <p id="seatPriceText"></p>
                 <p id="selected_concert">Selected Seats: </p>
                 <p id="price_concert">Total Price: </p><br>
 
                 <button id="buyButton_concert" onclick="buyButton(event, 'EnterInfo', 'infoTip')" type="button">Buy Selected Seats</button><br>
 
                 <div class="input-color">
-                    <input type="text" value="Available" />
+                    <input type="text" value="Available" readonly/>
                     <div class="color-box" style="background-color: #539752;"></div>
                 </div>
                 <div class="input-color">
-                    <input type="text" value="Disabled" />
+                    <input type="text" value="Disabled" readonly/>
                     <div class="color-box" style="background-color: #28607f;"></div>
                 </div>
                 <div class="input-color">
-                    <input type="text" value="Reserved" />
+                    <input type="text" value="Reserved" readonly/>
                     <div class="color-box" style="background-color: #747474;"></div>
                 </div>
 
@@ -3296,7 +3297,6 @@
                     <div class="empty"></div>
                     <div class="empty">L</div>
                 </div>
-                <button>Add Selected Seat</button>
             </div>
         </div>
     </div>
@@ -3306,6 +3306,7 @@
         <div class="modal-content">
             <span class="close">&times;</span>
             <div>
+                <p id="seatPriceText2"></p>
                 <p id="selected_play">Tickets Selected: </p>
                 <p id="price_play">Total Price: </p>
                 <br>
@@ -3313,15 +3314,15 @@
                 <br>
 
                 <div class="input-color">
-                    <input type="text" value="Available" />
+                    <input type="text" value="Available" readonly/>
                     <div class="color-box" style="background-color: #539752;"></div>
                 </div>
                 <div class="input-color">
-                    <input type="text" value="Disabled" />
+                    <input type="text" value="Disabled" readonly/>
                     <div class="color-box" style="background-color: #28607f;"></div>
                 </div>
                 <div class="input-color">
-                    <input type="text" value="Reserved" />
+                    <input type="text" value="Reserved" readonly/>
                     <div class="color-box" style="background-color: #747474;"></div>
                 </div>
                 <div class="containerPlayhouse">

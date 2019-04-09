@@ -58,6 +58,10 @@ module.exports.UserManager = function (database) {
 	this.update_user = function (userID, firstName, lastName, addressID, phoneNumber, email, ccn, accountLoginID, seasonTicketSeat) {
         db.update_user(userID, firstName, lastName, addressID, phoneNumber, email, ccn, accountLoginID, seasonTicketSeat) ;
     };
+
+    this.update_user_sth_seat = function (userID, seasonTicketSeat) {
+        db.update_user_sth_seat(userID, seasonTicketSeat) ;
+    };
 };
 
 

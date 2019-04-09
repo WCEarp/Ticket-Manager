@@ -62,14 +62,14 @@ function openSeat(evt, toolName, tipName, show) {
     //PotO_1 = show 1
     //PotO_2 = show 2
     //HSO = show 3
-    if(show.id == 'PotO_1' || show.id == 'PotO_2' || show.id == 'HSO') {
+    if(show.id === 'PotO_1' || show.id === 'PotO_2' || show.id === 'HSO') {
         modalConHall.style.display = "block";
     }
 
     //TKaM = show 4
     //Choir = show 5
     //GDCB = show 6
-    if(show.id == 'TKaM' || show.id == "Choir" || show.id == 'GDCB') {
+    if(show.id === 'TKaM' || show.id === "Choir" || show.id === 'GDCB') {
         modalPlayhouse.style.display = "block";
     }
 
@@ -78,16 +78,16 @@ function openSeat(evt, toolName, tipName, show) {
         modalConHall.style.display = "none";
         modalPlayhouse.style.display = "none";
         alert('If You Selected No Tickets, Go Back to Select Show and Try Again');
-    }
+    };
 
     // When the user clicks anywhere outside of the modal, close it
     window.onclick = function(event) {
-        if (event.target == modalConHall || event.target == modalPlayhouse) {
+        if (event.target === modalConHall || event.target === modalPlayhouse) {
             modalConHall.style.display = "none";
             modalPlayhouse.style.display = "none";
             alert('If You Selected No Tickets, Go Back to Select Show and Try Again');
         }
-    }
+    };
 
     txt = "Selected Seats: ";
     totalPrice = 0;
@@ -96,131 +96,248 @@ function openSeat(evt, toolName, tipName, show) {
 
 
     //get reserved seats from DB
-    if(show.id == 'PotO_1'){
+    if(show.id === 'PotO_1'){
         $.getJSON("/tickets/ShowTickets?id=1", function (result) {
             showTickets = result.show;
             showTickets.showID = 1;
+            let floorprice = showTickets.FloorPrice;
+            let balconyprice = showTickets.BalconyPrice;
             let seatsArray = showTickets.SeatsTaken.match(/.{1,8}/g);
             console.log(seatsArray);
             //iterate through all elements on page
             document.querySelectorAll('*').forEach(function(node) {
                 // Do whatever you want with the node object.
                 for(var i=0; i < seatsArray.length; i++) {
-                    if (node.id == seatsArray[i]){
+                    if (node.id === seatsArray[i]){
                         node.className = "reserved";
                         node.title = "reserved";
                         node.onclick = "";
                     }
                 }
             });
+            //update ticket prices
+            //get all floor seats
+            document.querySelectorAll('[id^=F]').forEach(function(node) {
+                // Do whatever you want with the node object.
+                node.value = floorprice;
+            });
+            //get all balcony
+            document.querySelectorAll('[id^=B]').forEach(function(node) {
+                // Do whatever you want with the node object.
+                node.value = balconyprice;
+            });
+            //get all loge
+            document.querySelectorAll('[id^=L]').forEach(function(node) {
+                // Do whatever you want with the node object.
+                node.value = balconyprice;
+            });
+            document.getElementById('seatPriceText').innerHTML = 'Floor Price: $' + floorprice + ' Balcony Price: $' + balconyprice;
+
             display_errors(result.errors);
         });
     }
     //get reserved seats from DB
-    if(show.id == 'PotO_2'){
+    if(show.id === 'PotO_2'){
         $.getJSON("/tickets/ShowTickets?id=2", function (result) {
             showTickets = result.show;
             showTickets.showID = 2;
+            let floorprice = showTickets.FloorPrice;
+            let balconyprice = showTickets.BalconyPrice;
             let seatsArray = showTickets.SeatsTaken.match(/.{1,8}/g);
             console.log(seatsArray);
             //iterate through all elements on page
             document.querySelectorAll('*').forEach(function(node) {
                 // Do whatever you want with the node object.
                 for(var i=0; i < seatsArray.length; i++) {
-                    if (node.id == seatsArray[i]){
+                    if (node.id === seatsArray[i]){
                         node.className = "reserved";
                         node.title = "reserved";
                         node.onclick = "";
                     }
                 }
             });
+            //update ticket prices
+            //get all floor seats
+            document.querySelectorAll('[id^=F]').forEach(function(node) {
+                // Do whatever you want with the node object.
+                node.value = floorprice;
+            });
+            //get all balcony
+            document.querySelectorAll('[id^=B]').forEach(function(node) {
+                // Do whatever you want with the node object.
+                node.value = balconyprice;
+            });
+            //get all loge
+            document.querySelectorAll('[id^=L]').forEach(function(node) {
+                // Do whatever you want with the node object.
+                node.value = balconyprice;
+            });
+            document.getElementById('seatPriceText').innerHTML = 'Floor Price: $' + floorprice + ' Balcony Price: $' + balconyprice;
             display_errors(result.errors);
         });
     }
     //get reserved seats from DB
-    if(show.id == 'HSO'){
+    if(show.id === 'HSO'){
         $.getJSON("/tickets/ShowTickets?id=3", function (result) {
             showTickets = result.show;
             showTickets.showID = 3;
+            let floorprice = showTickets.FloorPrice;
+            let balconyprice = showTickets.BalconyPrice;
             let seatsArray = showTickets.SeatsTaken.match(/.{1,8}/g);
             console.log(seatsArray);
             //iterate through all elements on page
             document.querySelectorAll('*').forEach(function(node) {
                 // Do whatever you want with the node object.
                 for(var i=0; i < seatsArray.length; i++) {
-                    if (node.id == seatsArray[i]){
+                    if (node.id === seatsArray[i]){
                         node.className = "reserved";
                         node.title = "reserved";
                         node.onclick = "";
                     }
                 }
             });
+            //update ticket prices
+            //get all floor seats
+            document.querySelectorAll('[id^=F]').forEach(function(node) {
+                // Do whatever you want with the node object.
+                node.value = floorprice;
+            });
+            //get all balcony
+            document.querySelectorAll('[id^=B]').forEach(function(node) {
+                // Do whatever you want with the node object.
+                node.value = balconyprice;
+            });
+            //get all loge
+            document.querySelectorAll('[id^=L]').forEach(function(node) {
+                // Do whatever you want with the node object.
+                node.value = balconyprice;
+            });
+            document.getElementById('seatPriceText').innerHTML = 'Floor Price: $' + floorprice + ' Balcony Price: $' + balconyprice;
             display_errors(result.errors);
         });
     }
     //get reserved seats from DB
-    if(show.id == 'TKaM'){
+    if(show.id === 'TKaM'){
         $.getJSON("/tickets/ShowTickets?id=4", function (result) {
             showTickets = result.show;
             showTickets.showID = 4;
+            let floorprice = showTickets.FloorPrice;
+            let balconyprice = showTickets.BalconyPrice;
             let seatsArray = showTickets.SeatsTaken.match(/.{1,8}/g);
             console.log(seatsArray);
             //iterate through all elements on page
             document.querySelectorAll('*').forEach(function(node) {
                 // Do whatever you want with the node object.
                 for(var i=0; i < seatsArray.length; i++) {
-                    if (node.id == seatsArray[i]){
+                    if (node.id === seatsArray[i]){
                         node.className = "reserved";
                         node.title = "reserved";
                         node.onclick = "";
                     }
                 }
             });
+            //update ticket prices
+            //get all floor seats
+            document.querySelectorAll('[id^=F]').forEach(function(node) {
+                // Do whatever you want with the node object.
+                node.value = floorprice;
+            });
+            //get all balcony
+            document.querySelectorAll('[id^=B]').forEach(function(node) {
+                // Do whatever you want with the node object.
+                node.value = balconyprice;
+            });
+            //get all loge
+            document.querySelectorAll('[id^=L]').forEach(function(node) {
+                // Do whatever you want with the node object.
+                node.value = balconyprice;
+            });
+            document.getElementById('seatPriceText2').innerHTML = 'Floor Price: $' + floorprice + ' Balcony Price: $' + balconyprice;
             display_errors(result.errors);
         });
     }
     //get reserved seats from DB
-    if(show.id == 'Choir'){
+    if(show.id === 'Choir'){
         $.getJSON("/tickets/ShowTickets?id=5", function (result) {
             showTickets = result.show;
             showTickets.showID = 5;
+            let floorprice = showTickets.FloorPrice;
+            let balconyprice = showTickets.BalconyPrice;
             let seatsArray = showTickets.SeatsTaken.match(/.{1,8}/g);
             console.log(seatsArray);
             //iterate through all elements on page
             document.querySelectorAll('*').forEach(function(node) {
                 // Do whatever you want with the node object.
                 for(var i=0; i < seatsArray.length; i++) {
-                    if (node.id == seatsArray[i]){
+                    if (node.id === seatsArray[i]){
                         node.className = "reserved";
                         node.title = "reserved";
                         node.onclick = "";
                     }
                 }
             });
+            //update ticket prices
+            //get all floor seats
+            document.querySelectorAll('[id^=F]').forEach(function(node) {
+                // Do whatever you want with the node object.
+                node.value = floorprice;
+            });
+            //get all balcony
+            document.querySelectorAll('[id^=B]').forEach(function(node) {
+                // Do whatever you want with the node object.
+                node.value = balconyprice;
+            });
+            //get all loge
+            document.querySelectorAll('[id^=L]').forEach(function(node) {
+                // Do whatever you want with the node object.
+                node.value = balconyprice;
+            });
+            document.getElementById('seatPriceText2').innerHTML = 'Floor Price: $' + floorprice + ' Balcony Price: $' + balconyprice;
             display_errors(result.errors);
         });
     }
     //get reserved seats from DB
-    if(show.id == 'GDCB'){
+    if(show.id === 'GDCB'){
         $.getJSON("/tickets/ShowTickets?id=6", function (result) {
             showTickets = result.show;
             showTickets.showID = 6;
+            let floorprice = showTickets.FloorPrice;
+            let balconyprice = showTickets.BalconyPrice;
             let seatsArray = showTickets.SeatsTaken.match(/.{1,8}/g);
             console.log(seatsArray);
             //iterate through all elements on page
             document.querySelectorAll('*').forEach(function(node) {
                 // Do whatever you want with the node object.
                 for(var i=0; i < seatsArray.length; i++) {
-                    if (node.id == seatsArray[i]){
+                    if (node.id === seatsArray[i]){
                         node.className = "reserved";
                         node.title = "reserved";
                         node.onclick = "";
                     }
                 }
             });
+            //update ticket prices
+            //get all floor seats
+            console.log('**'+floorprice);
+            document.querySelectorAll('[id^=F]').forEach(function(node) {
+                // Do whatever you want with the node object.
+                node.value = floorprice;
+            });
+            //get all balcony
+            document.querySelectorAll('[id^=B]').forEach(function(node) {
+                // Do whatever you want with the node object.
+                node.value = balconyprice;
+            });
+            //get all loge
+            document.querySelectorAll('[id^=L]').forEach(function(node) {
+                // Do whatever you want with the node object.
+                node.value = balconyprice;
+            });
+            document.getElementById('seatPriceText2').innerHTML = 'Floor Price: $' + floorprice + ' Balcony Price: $' + balconyprice;
             display_errors(result.errors);
         });
     }
+
 }
 
 // Get the modal

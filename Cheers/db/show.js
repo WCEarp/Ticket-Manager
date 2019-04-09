@@ -12,7 +12,7 @@ module.exports.ShowManager = function (database) {
         db.query_show_by_id(showID,function (err, rows) {
             if (!err) {
                 let show = new Show(rows.showID, rows.startDate, rows.endDate,
-                    rows.time, rows.theaterID, rows.seatsTaken, rows.productionID);
+                    rows.time, rows.theaterID, rows.seatsTaken, rows.productionID, rows.floorPrice, rows.balconyPrice);
                 callback(show)
             } else {
                 console.error(err);
@@ -39,7 +39,7 @@ module.exports.ShowManager = function (database) {
  * @param ProductionID
  * @constructor
  */
-let Show = function (ShowID, StartDate, EndDate, Time, TheaterID, SeatsTaken, ProductionID) {
+let Show = function (ShowID, StartDate, EndDate, Time, TheaterID, SeatsTaken, ProductionID, FloorPrice, BalconyPrice) {
     this.ShowID = ShowID;
     this.StartDate = StartDate;
     this.EndDate = EndDate;
@@ -47,6 +47,8 @@ let Show = function (ShowID, StartDate, EndDate, Time, TheaterID, SeatsTaken, Pr
     this.TheaterID = TheaterID;
     this.SeatsTaken = SeatsTaken;
     this.ProductionID = ProductionID;
+    this.FloorPrice = FloorPrice;
+    this.BalconyPrice = BalconyPrice;
 };
 
 module.exports.Show = Show;
