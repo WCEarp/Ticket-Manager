@@ -136,5 +136,10 @@ router.post('/show_update_setPrice', function (req, res) {
     res.send({});
 });
 
+router.post('/ticketseat_update', function (req, res) {
+    ticketManager.update_ticket_seat(req.body.ticketID, req.body.seats, req.body.numSeats);
+    res.send({});
+});
+
 
 module.exports = router;

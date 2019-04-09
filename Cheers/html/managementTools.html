@@ -118,6 +118,24 @@
         });
 
         $(document).ready(function () {
+            $("#exhangeTickets").click(function () {
+                let ticketID = $("#ticketID1").val();
+
+                $.getJSON("/manage/ticket?id=" + ticketID, function (result) {
+                    let ticket = result.ticket;
+                    let price1 = ticket.totalPrice;
+                    console.log(price1);
+
+
+                    let data = {ticketID: $("#ticketID1").val(), seats: $("#ticketID2").val(), numSeats: 55};
+                    console.log('data', data);
+                    $.post("/manage/ticketseat_update", data, function (result) {
+                    })
+                });
+            });
+        });
+
+        $(document).ready(function () {
             $("#MU_dis").click(function () {
                 let x = document.getElementById('userTable');
                 x.style.display = "";
@@ -279,32 +297,58 @@
                 <button id="btnNotify">Notify All to Renew</button>
             </div>
 
+            <div id="Exchange Tickets" class="tabcontent">
+                <h3>Exchange Tickets</h3>
+                <label for="tick1">Ticket 1:</label><input type="text" id="ticketID1" placeholder="Ticket 1 ID"><br>
+                <label for="tick2">Ticket 2:</label><input type="text" id="ticketID2" placeholder="Ticket 2 ID"><span><button
+                    id="exhangeTickets">Exchange</button></span><br>
+                <br>
+
+                <button>Display Available</button>
+                <br>
+                <table name="ticketTable" style="display:none"> <!-- THIS TABLE IS HIDDEN BY DEFAULT-->
+                    <tr>
+                        <th>WHAT</th>
+                        <th>FIELDS</th>
+                        <th>HERE?</th>
+                        <th></th>
+                    </tr>
+                    <tr>
+                        <td>This should be</td>
+                        <td>Hidden</td>
+                        <td>By Default</td>
+                        <td>
+                            <button>Add</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
             <div id="SSPrice" class="tabcontent">
                 <h3>Set Show Prices</h3>
                 <form>
-                        <p>Select a Production</p>
-                        <select id="selectSet">
-                            <option value="PotO_1">Phantom of the Opera Night 1</option>
-                            <option value="PotO_2">Phantom of the Opera Night 1</option>
-                            <option value="HSO">Huntsville Symphony Plays Bach</option>
-                            <option value="TKaM">To Kill a Mockingbird</option>
-                            <option value="Choir">UAH Choir</option>
-                            <option value="GDCB">Grateful Dead Cover Band</option>
-                        </select><br><br>
+                    <p>Select a Production</p>
+                    <select id="selectSet">
+                        <option value="PotO_1">Phantom of the Opera Night 1</option>
+                        <option value="PotO_2">Phantom of the Opera Night 1</option>
+                        <option value="HSO">Huntsville Symphony Plays Bach</option>
+                        <option value="TKaM">To Kill a Mockingbird</option>
+                        <option value="Choir">UAH Choir</option>
+                        <option value="GDCB">Grateful Dead Cover Band</option>
+                    </select><br><br>
 
 
-                        <div style="float:left;margin-right:20px;">
-                            <label for="floorPrice">Floor Price:</label>
-                            <input id='floorPrice' type="text" placeholder="$40.00">
-                        </div>
+                    <div style="float:left;margin-right:20px;">
+                        <label for="floorPrice">Floor Price:</label>
+                        <input id='floorPrice' type="text" placeholder="$40.00">
+                    </div>
 
-                        <div style="float:left;">
-                            <label for="balconyPrice">Balcony Price:</label>
-                            <input id='balconyPrice' type="text" placeholder="$20.00">
-                        </div>
+                    <div style="float:left;">
+                        <label for="balconyPrice">Balcony Price:</label>
+                        <input id='balconyPrice' type="text" placeholder="$20.00">
+                    </div>
                     <br>
                     <br>
-                    <br style="clear:both;" />
+                    <br style="clear:both;"/>
                     <button onclick="setPriceButton()">Set Prices</button>
                 </form>
             </div>

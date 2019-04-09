@@ -19,11 +19,11 @@ module.exports.TicketManager = function (database) {
     this.getTicket = function (ticketID, callback) {
 
         db.query_ticket_by_id(ticketID, function (err, row) {
-
+            //console.log(row);
             if (!err) {
-                let ticket = new Ticket(row.ticketID, row.showID, row.userID,
-                    row.paymentMethodID, row.reservedSeats, row.numberOfSeats, row.paid);
-                callback(ticket)
+                //let ticket = new Ticket(row.ticketID, row.showID, row.userID,
+                //   row.paymentMethodID, row.reservedSeats, row.numberOfSeats, row.paid, row.totalPrice);
+                callback(row)
             } else {
                 console.error(err);
                 callback(null);
@@ -34,6 +34,7 @@ module.exports.TicketManager = function (database) {
     this.getTickets = function (callback) {
 
         db.query_tickets(function (err, rows) {
+            //console.log(rows);
             if (!err) {
                 callback(rows)
             } else {
@@ -51,6 +52,10 @@ module.exports.TicketManager = function (database) {
         db.add_ticket(showID, userID, paymentMethodID, reservedSeats, numberOfSeats, paid, totalPrice);
     };
 
+    this.update_ticket_seat = function (ticketID, seats, numSeats) {
+        db.update_ticket_seat(ticketID, seats, numSeats);
+    };
+
 };
 
 /**
@@ -65,7 +70,7 @@ module.exports.TicketManager = function (database) {
  * @param paid
  * @constructor
  */
-let Ticket = function (ticketID, showID, userID, paymentMethodID, reservedSeats, numberOfSeats, paid) {
+let Ticket = function (ticketID, showID, userID, paymentMethodID, reservedSeats, numberOfSeats, paid, totalPrice) {
     this.ticketID = ticketID;
     this.showID = showID;
     this.userID = userID;
@@ -73,6 +78,7 @@ let Ticket = function (ticketID, showID, userID, paymentMethodID, reservedSeats,
     this.reservedSeats = reservedSeats;
     this.numberOfSeats = numberOfSeats;
     this.paid = paid;
+    this.totalPrice = totalPrice;
 };
 
 module.exports.Ticket = Ticket;
