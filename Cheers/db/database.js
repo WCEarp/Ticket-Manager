@@ -169,7 +169,7 @@ module.exports.Database = function () {
      * @param sthProductionID
      */
     this.update_user_sth_seat = function (userID, seasonTicketSeat, sthProductionID) {
-        let data = [seasonTicketSeat, userID, sthProductionID];
+        let data = [seasonTicketSeat, sthProductionID, userID];
 
         let sql = `UPDATE User SET SeasonTicketSeat = ?, STHProductionID = ? 
                     WHERE UserID = ?`;
