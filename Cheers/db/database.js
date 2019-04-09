@@ -35,7 +35,7 @@ module.exports.Database = function () {
             "LastName lastName, AddressID addressID," +
             "PhoneNumber phoneNumber, Email email," +
             "CreditCardNumber creditCardNumber, AccountLoginID accountLoginID," +
-            "SeasonTicketSeat seasonTicketSeat";
+            "SeasonTicketSeat seasonTicketSeat, STHProductionID sthProductionID";
 
         let sql_statement = `SELECT ` + columns +
             ` FROM User
@@ -63,7 +63,7 @@ module.exports.Database = function () {
             "LastName lastName, AddressID addressID," +
             "PhoneNumber phoneNumber, Email email," +
             "CreditCardNumber creditCardNumber, " +
-            "SeasonTicketSeat seasonTicketSeat";
+            "SeasonTicketSeat seasonTicketSeat, STHProductionID sthProductionID";
 
         let sql_statement = `SELECT ` + columns +
             ` FROM User`;
@@ -114,12 +114,13 @@ module.exports.Database = function () {
      * @param ccn
      * @param accountLoginID
      * @param seasonTicketSeat
+     * @param sthProductionID
      */
-    this.add_user = function (firstName, lastName, addressID, phoneNumber, email, ccn, accountLoginID, seasonTicketSeat) {
+    this.add_user = function (firstName, lastName, addressID, phoneNumber, email, ccn, accountLoginID, seasonTicketSeat, sthProductionID) {
         let sql = `INSERT INTO User(FirstName, LastName, AddressID, PhoneNumber, 
-        Email, CreditCardNumber, AccountLoginID, SeasonTicketSeat) VALUES(?, ?, ?, ?, ?, ?, ?, ?)`;
+        Email, CreditCardNumber, AccountLoginID, SeasonTicketSeat, STHProductionID) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)`;
 
-        let values = [firstName, lastName, addressID, phoneNumber, email, ccn, accountLoginID, seasonTicketSeat];
+        let values = [firstName, lastName, addressID, phoneNumber, email, ccn, accountLoginID, seasonTicketSeat, sthProductionID];
         db.run(sql, values, function (err) {
 
             if (err) {
@@ -142,12 +143,13 @@ module.exports.Database = function () {
      * @param ccn
      * @param accountLoginID
      * @param seasonTicketSeat
+     * @param sthProductionID
      */
-    this.update_user = function (userID, firstName, lastName, addressID, phoneNumber, email, ccn, accountLoginID, seasonTicketSeat) {
-        let data = [firstName, lastName, addressID, phoneNumber, email, ccn, accountLoginID, seasonTicketSeat, userID];
+    this.update_user = function (userID, firstName, lastName, addressID, phoneNumber, email, ccn, accountLoginID, seasonTicketSeat, sthProductionID) {
+        let data = [firstName, lastName, addressID, phoneNumber, email, ccn, accountLoginID, seasonTicketSeat, sthProductionID, userID];
 
         let sql = `UPDATE User SET FirstName = ?, LastName = ?, AddressID = ?, PhoneNumber = ?, 
-                    Email = ?, CreditCardNumber = ?, AccountLoginID = ?, SeasonTicketSeat = ? 
+                    Email = ?, CreditCardNumber = ?, AccountLoginID = ?, SeasonTicketSeat = ?, STHProductionID = ? 
                     WHERE UserID = ?`;
 
         db.run(sql, data, function (err) {
@@ -164,11 +166,12 @@ module.exports.Database = function () {
      *
      * @param userID The id of the user.
      * @param seasonTicketSeat The season ticket seats
+     * @param sthProductionID
      */
-    this.update_user_sth_seat = function (userID, seasonTicketSeat) {
-        let data = [seasonTicketSeat, userID];
+    this.update_user_sth_seat = function (userID, seasonTicketSeat, sthProductionID) {
+        let data = [seasonTicketSeat, userID, sthProductionID];
 
-        let sql = `UPDATE User SET SeasonTicketSeat = ? 
+        let sql = `UPDATE User SET SeasonTicketSeat = ?, STHProductionID = ? 
                     WHERE UserID = ?`;
 
         db.run(sql, data, function (err) {

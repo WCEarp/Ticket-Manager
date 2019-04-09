@@ -59,6 +59,7 @@
                         $("#email").val(user.email);
                         $("#ccn").val(user.ccn);
                     $("#sth_seats").val(user.seasonTicketSeat);
+                        $("#sth_prod").val(user.sthProductionID);
                     }
                     display_errors(result.errors);
                 });
@@ -75,7 +76,8 @@
                     phoneNumber: $("#pnum").val(),
                     email: $("#email").val(),
                     ccn: $("#ccn").val(),
-                    seasonTicketSeat: $("#sth_seats").val()
+                    seasonTicketSeat: $("#sth_seats").val(),
+                    sthProductionID: $("#sth_prod").val()
                 };
 				$.post("/manage/user_add", data, function(result){
 				})
@@ -107,7 +109,8 @@
                     phoneNumber: $("#pnum").val(),
                     email: $("#email").val(),
                     ccn: $("#ccn").val(),
-                    seasonTicketSeat: $("#sth_seats").val()
+                    seasonTicketSeat: $("#sth_seats").val(),
+                    sthProductionID: $("#sth_prod").val()
                 };
                 $.post("/manage/user_update", data, function (result) {
                 })
@@ -124,7 +127,7 @@
                     let html = '';
                     $.each(users, function (index, value) {
                         console.log(value);
-                        html += '<tr><td>' + value.userID + '</td><td>' + value.firstName + '</td><td>' + value.lastName + '</td><td>' + value.address + '</td><td>' + value.phoneNumber + '</td><td>' + value.email + '</td><td>' + value.ccn + '</td><td>' + value.seasonTicketSeat + '</td></tr>';
+                        html += '<tr><td>' + value.userID + '</td><td>' + value.firstName + '</td><td>' + value.lastName + '</td><td>' + value.address + '</td><td>' + value.phoneNumber + '</td><td>' + value.email + '</td><td>' + value.ccn + '</td><td>' + value.seasonTicketSeat + '</td><td>' + value.sthProductionID + '</td></tr>';
                     });
                     $("#tbody").html(html)
                 });
@@ -222,6 +225,9 @@
 
                     <label for="sth_seats">Season Ticket Seat:</label><br>
                     <input type="text" id="sth_seats"><br><br>
+
+                    <label for="sth_seats">Season Ticket Production ID:</label><br>
+                    <input type="text" id="sth_prod"><br><br>
 
                 </form>
 

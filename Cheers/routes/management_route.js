@@ -91,7 +91,7 @@ router.get('/tickets', function (req, res) {
 });
 
 router.post('/user_add', function (req, res) {
-    userManager.add_user(req.body.firstName, req.body.lastName, req.body.addressID, req.body.phoneNumber, req.body.email, req.body.ccn, req.body.accountLoginID, req.body.seasonTicketSeat);
+    userManager.add_user(req.body.firstName, req.body.lastName, req.body.addressID, req.body.phoneNumber, req.body.email, req.body.ccn, req.body.accountLoginID, req.body.seasonTicketSeat, req.body.sthProductionID);
     res.send({});
 });
 
@@ -102,12 +102,12 @@ router.post('/user_delete', function (req, res) {
 });
 
 router.post('/user_update', function (req, res) {
-    userManager.update_user(req.body.userID, req.body.firstName, req.body.lastName, req.body.addressID, req.body.phoneNumber, req.body.email, req.body.ccn, req.body.accountLoginID, req.body.seasonTicketSeat);
+    userManager.update_user(req.body.userID, req.body.firstName, req.body.lastName, req.body.addressID, req.body.phoneNumber, req.body.email, req.body.ccn, req.body.accountLoginID, req.body.seasonTicketSeat, req.body.sthProductionID);
     res.send({});
 });
 
 router.post('/user_update_sth_seat', function (req, res) {
-    userManager.update_user_sth_seat(req.body.userID,  req.body.seasonTicketSeat);
+    userManager.update_user_sth_seat(req.body.userID,  req.body.seasonTicketSeat, req.body.sthProductionID);
     res.send({});
 });
 

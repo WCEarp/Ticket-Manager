@@ -1,6 +1,14 @@
 window.onload = function(){
     openTool(event, 'SelectShow', 'pickTip');
     document.getElementById('SelectShowTab').className += ' active';
+
+    document.getElementById('ccnLabel').style.display = 'none';
+    document.getElementById('ccn').style.display = 'none';
+
+    document.getElementById('cashLabel').style.display = 'none';
+
+    document.getElementById('exchangeLabel').style.display = 'none';
+    document.getElementById('exchange').style.display = 'none';
 }
 
 function openTool(evt, toolName, tipName) {
@@ -481,15 +489,26 @@ function EnterInfoButton(event, toolName, tipName) {
     address = input.elements[2].value;
     phone =   input.elements[3].value;
     email =   input.elements[4].value;
-    ccn =     input.elements[5].value;
-
+    paymentMethod =     input.elements[5].value;
+    exhcanged = input.elements[6].value;
+    if (paymentMethod === 'creditCard'){
+        ccn =     input.elements[6].value;
+        document.getElementById('confirmCCN').innerHTML = 'Credit Card: ' + ccn;
+    }
+    else if (paymentMethod === 'door'){
+        ccn = 0;
+        document.getElementById('confirmCCN').innerHTML = 'Pay at Door: Not Paid Yet';
+    }
+    else{
+        ccn = 1;
+        document.getElementById('confirmCnn').innerHTML = 'Exchanged Tickets: ' + exhcanged;
+    }
     document.getElementById('ticketsToBuy').innerHTML = 'Selected Tickets: ' + clickedSeats;
     document.getElementById('firstname').innerHTML = 'First Name: ' + fname;
     document.getElementById('lastname').innerHTML = 'Last Name: ' + lname;
     document.getElementById('confirmAddress').innerHTML = 'Address: ' + address;
     document.getElementById('confirmPhone').innerHTML = 'Phone: ' + phone;
     document.getElementById('confirmEmail').innerHTML = 'Email: ' + email;
-    document.getElementById('confirmCCN').innerHTML = 'Credit Card: ' + ccn;
 
     var i, tabcontent, tablinks;
     tabcontent = document.getElementsByClassName("tabcontent");
@@ -520,7 +539,17 @@ function confirmBtn() {
     $.post("/tickets/show_update", data, function(result){
     });
     //add individual ticket to DB
-    let ticketData = {showID: showTickets.showID, userID: 0, paymentMethodID: 0, reservedSeats: stringClickedSeats, numberOfSeats: clickedSeats.length, paid: 1, totalPrice: totalPrice};
+    let paidTicket = 0;
+    let paymentMethodIDval = 2;
+    if(paymentMethod === 'creditCard') {
+        paidTicket = 1;
+        paymentMethodIDval = 1;
+    }
+    else if(paymentMethod === 'exchangeTickets') {
+        paidTicket = 1;
+        paymentMethodIDval = 3;
+    }
+    let ticketData = {showID: showTickets.showID, userID: 0, paymentMethodID: paymentMethodIDval, reservedSeats: stringClickedSeats, numberOfSeats: clickedSeats.length, paid: paidTicket, totalPrice: totalPrice};
     $.post("/tickets/add_ticket", ticketData, function(result){
     });
 
@@ -528,6 +557,27 @@ function confirmBtn() {
     alert('Congrats ' + fname + ', you bought ' + clickedSeats);
     window.location.replace('/home');
 
+}
+
+function mySelectChange(){
+    if(document.getElementById('mySelect').value === 'creditCard') {
+
+        document.getElementById('paymentLabel').innerText = 'Credit Card Number: ';
+        document.getElementById('payment').style.display = 'block';
+        document.getElementById('payment').placeholder = '111222333444';
+    }
+
+    else if(document.getElementById('mySelect').value === 'door'){
+
+        document.getElementById('paymentLabel').innerText = 'Pay At The Door';
+        document.getElementById('payment').style.display = 'none';
+    }
+    else{
+
+        document.getElementById('paymentLabel').innerText = 'Exchange Tickets';
+        document.getElementById('payment').style.display = 'block';
+        document.getElementById('payment').placeholder = 'F_S0_A22,F_S0_A23';
+    }
 }
 
 function printTXT(value, index, array) {
