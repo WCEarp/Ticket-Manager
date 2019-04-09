@@ -131,6 +131,7 @@ function openSeat(evt, toolName, tipName, show) {
                 // Do whatever you want with the node object.
                 node.value = balconyprice;
             });
+            document.getElementById('seatPriceText').innerHTML = 'Floor Price: $' + floorprice + ' Balcony Price: $' + balconyprice;
 
             display_errors(result.errors);
         });
@@ -171,6 +172,7 @@ function openSeat(evt, toolName, tipName, show) {
                 // Do whatever you want with the node object.
                 node.value = balconyprice;
             });
+            document.getElementById('seatPriceText').innerHTML = 'Floor Price: $' + floorprice + ' Balcony Price: $' + balconyprice;
             display_errors(result.errors);
         });
     }
@@ -210,6 +212,7 @@ function openSeat(evt, toolName, tipName, show) {
                 // Do whatever you want with the node object.
                 node.value = balconyprice;
             });
+            document.getElementById('seatPriceText').innerHTML = 'Floor Price: $' + floorprice + ' Balcony Price: $' + balconyprice;
             display_errors(result.errors);
         });
     }
@@ -249,6 +252,7 @@ function openSeat(evt, toolName, tipName, show) {
                 // Do whatever you want with the node object.
                 node.value = balconyprice;
             });
+            document.getElementById('seatPriceText2').innerHTML = 'Floor Price: $' + floorprice + ' Balcony Price: $' + balconyprice;
             display_errors(result.errors);
         });
     }
@@ -288,6 +292,7 @@ function openSeat(evt, toolName, tipName, show) {
                 // Do whatever you want with the node object.
                 node.value = balconyprice;
             });
+            document.getElementById('seatPriceText2').innerHTML = 'Floor Price: $' + floorprice + ' Balcony Price: $' + balconyprice;
             display_errors(result.errors);
         });
     }
@@ -328,9 +333,11 @@ function openSeat(evt, toolName, tipName, show) {
                 // Do whatever you want with the node object.
                 node.value = balconyprice;
             });
+            document.getElementById('seatPriceText2').innerHTML = 'Floor Price: $' + floorprice + ' Balcony Price: $' + balconyprice;
             display_errors(result.errors);
         });
     }
+
 }
 
 // Get the modal

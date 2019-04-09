@@ -106,6 +106,12 @@ router.post('/user_update', function (req, res) {
     res.send({});
 });
 
+router.post('/user_update_sth_seat', function (req, res) {
+    userManager.update_user_sth_seat(req.body.userID,  req.body.seasonTicketSeat);
+    res.send({});
+});
+
+
 router.post('/update_paid', function (req, res) {
     ticketManager.paid_update(req.body.ticketID);
     res.send({});
