@@ -1,6 +1,9 @@
 const express = require('express');
 const path = require('path');
 const emailer = require('../db/emailer.js');
+const csvHandler = require('../db/userExporter');
+const multer = require('multer');
+const upload = multer({storage: multer.memoryStorage()});
 let userManager;
 let ticketManager;
 let showManager;
@@ -73,7 +76,6 @@ router.get('/ticket', function (req, res) {
         ticketManager.getTicket(ticketID, function (ticket) {
             if (ticket) {
                 console.log(`Sending ticket of id ${ticketID}`);
-                console.log(ticket);
                 res.json({ticket: ticket});
             } else {
                 let err = `ticket with id ${ticketID} not found`;
@@ -97,7 +99,8 @@ router.get('/tickets', function (req, res) {
 });
 
 router.post('/user_add', function (req, res) {
-    userManager.add_user(req.body.firstName, req.body.lastName, req.body.addressID, req.body.phoneNumber, req.body.email, req.body.ccn, req.body.accountLoginID, req.body.seasonTicketSeat, req.body.sthProductionID);
+    let body = req.body;
+    userManager.add_user(body.firstName, body.lastName, body.street, body.city, body.state, body.zipCode, body.phoneNumber, body.email, body.ccn, body.accountLoginID, body.seasonTicketSeat, body.sthProductionID);
     res.send({});
 });
 
@@ -113,7 +116,8 @@ router.post('/user_delete', function (req, res) {
 });
 
 router.post('/user_update', function (req, res) {
-    userManager.update_user(req.body.userID, req.body.firstName, req.body.lastName, req.body.addressID, req.body.phoneNumber, req.body.email, req.body.ccn, req.body.accountLoginID, req.body.seasonTicketSeat, req.body.sthProductionID);
+    let body = req.body;
+    userManager.update_user(body.userID, body.firstName, body.lastName, body.street, body.city, body.state, body.zipCode, body.phoneNumber, body.email, body.ccn, body.accountLoginID, body.seasonTicketSeat, body.sthProductionID);
     res.send({});
 });
 
@@ -145,6 +149,34 @@ router.post('/show_update_setPrice', function (req, res) {
 router.post('/ticketseat_update', function (req, res) {
     ticketManager.update_ticket_seat(req.body.ticketID, req.body.showID, req.body.seats, req.body.numSeats);
     res.send({});
+});
+
+router.get('/exportUsers', function (req, res) {
+    let options = {};
+    options.fname = req.query.fname === '1';
+    options.lname = req.query.lname === '1';
+    options.address = req.query.address === '1';
+    options.pnum = req.query.pnum === '1';
+    options.email = req.query.email === '1';
+    options.ccn = req.query.ccn === '1';
+    options.sthSeat = req.query.sthSeat === '1';
+    csvHandler.exportCSV(res, userManager, options);
+});
+
+
+router.post('/importUsers', upload.single('importUserFile'), function (req, res) {
+    let csvLines = req.file.buffer.toString().trim().split('\n');
+    for (let i = 0; i < csvLines.length; i++) {
+        console.log("Parsing csv line containing: " + csvLines[i]);
+        let fields = csvLines[i].split(",");
+        if (fields.length === 11) {
+            userManager.add_user(fields[0].trim(), fields[1].trim(), fields[2].trim(),
+                fields[3].trim(), fields[4].trim(), fields[5].trim(), fields[6].trim(),
+                fields[7].trim(), fields[8].trim(), fields[9].trim(), fields[10].trim());
+        } else {
+            console.log("Line " + (i + 1) + " has an incorrect number of fields.");
+        }
+    }
 });
 
 
