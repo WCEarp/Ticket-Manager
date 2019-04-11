@@ -9,8 +9,7 @@ const path = require('path');
 module.exports.Database = function () {
     const THEATER_COLUMNS = "TheaterID theaterID, SeatsNum seatsNum, SeatsTotal seatsTotal";
     const SHOW_COLUMNS = `ShowID showID, StartDate startDate, EndDate endDate, Time time, 
-        TheaterID theaterID, SeatsTaken seatsTaken, ProductionID productionID, FloorPrice floorPrice, 
-        BalconyPrice balconyPrice`;
+        TheaterID theaterID, SeatsTaken seatsTaken, ProductionID productionID, SectionInfo sectionInfo`;
 
     console.log("Opening database at " + path.join(__dirname, 'database.db'));
     let db = new sqlite3.Database(path.join(__dirname, 'database.db'), sqlite3.OPEN_READWRITE,
@@ -482,7 +481,7 @@ module.exports.Database = function () {
                 console.log(`Show rows updated: ${this.changes}`);
             }
         });
-    }
+    };
     //update show price
     this.update_show_setPrice = function (id, floorPrice, balconyPrice) {
         let values = [floorPrice, balconyPrice, id];
@@ -496,6 +495,20 @@ module.exports.Database = function () {
                 console.log(`Show rows updated: ${this.changes}`);
             }
         });
-    }
+    };
+    //update show Section info
+    this.update_show_setSectionInfo = function (id, sectionInfo) {
+        let values = [sectionInfo, id];
+        let sql_statement = `Update Show SET SectionInfo = ? WHERE ShowID = ?`;
+
+        db.run(sql_statement, values, function (err) {
+            if (err) {
+                console.error(err.message);
+            } else {
+                //Log how many rows were updated. Should be 0-1.
+                console.log(`Show rows updated: ${this.changes}`);
+            }
+        });
+    };
     //endregion
 };

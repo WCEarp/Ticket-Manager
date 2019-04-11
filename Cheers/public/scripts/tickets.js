@@ -413,23 +413,6 @@ window.onclick = function(event) {
     }
 }
 
-//test array variable to mimic DB
-var reservedSeats = ["F_S0_B02", "F_S0_B03", "F_S0_D02", "F_S0_D03", "F_S0_D04", "F_S0_D05", "B_S3_B02", "B_S3_B03", "F_S0_G23", "F_S0_G24", "F_S0_G25", "F_S0_Z03", "F_S0_Z04", "F_Z0_D05", "B_S3_K02", "B_S3_K03"];
-//test function to check seats
-function checkReserved()    {
-    //iterate through all elements on page
-    document.querySelectorAll('*').forEach(function(node) {
-        // Do whatever you want with the node object.
-        for(var i=0; i < reservedSeats.length; i++) {
-            if (node.id == reservedSeats[i]){
-                node.className = "reserved";
-                node.title = "reserved";
-                node.onclick = "";
-            }
-        }
-    });
-}
-
 //txt var will be string of seats
 var txt;
 var totalPrice;
