@@ -22,7 +22,7 @@ module.exports.TicketManager = function (database) {
 
             if (!err) {
                 let ticket = new Ticket(row.ticketID, row.showID, row.userID,
-                    row.paymentMethodID, row.reservedSeats, row.numberOfSeats, row.paid);
+                    row.paymentMethodID, row.reservedSeats, row.numberOfSeats, row.paid, row.totalPrice);
                 callback(ticket)
             } else {
                 console.error(err);
@@ -51,6 +51,10 @@ module.exports.TicketManager = function (database) {
         db.add_ticket(showID, userID, paymentMethodID, reservedSeats, numberOfSeats, paid, totalPrice);
     };
 
+    this.update_ticket_seat = function (ticketID, showID, seats, numSeats) {
+        db.update_ticket_seat(ticketID, showID, seats, numSeats);
+    };
+
 };
 
 /**
@@ -63,9 +67,10 @@ module.exports.TicketManager = function (database) {
  * @param reservedSeats
  * @param numberOfSeats
  * @param paid
+ * @param totalPrice
  * @constructor
  */
-let Ticket = function (ticketID, showID, userID, paymentMethodID, reservedSeats, numberOfSeats, paid) {
+let Ticket = function (ticketID, showID, userID, paymentMethodID, reservedSeats, numberOfSeats, paid, totalPrice) {
     this.ticketID = ticketID;
     this.showID = showID;
     this.userID = userID;
@@ -73,6 +78,7 @@ let Ticket = function (ticketID, showID, userID, paymentMethodID, reservedSeats,
     this.reservedSeats = reservedSeats;
     this.numberOfSeats = numberOfSeats;
     this.paid = paid;
+    this.totalPrice = totalPrice;
 };
 
 module.exports.Ticket = Ticket;

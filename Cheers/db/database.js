@@ -332,7 +332,7 @@ module.exports.Database = function () {
             'ReservedSeats reservedSeats, ' +
             'NumberOfSeats numberOfSeats, ' +
             'Paid paid, ' +
-            'TotalPrice = totalPrice';
+            'TotalPrice totalPrice';
 
         let sql = `SELECT ${TICKET_COLUMNS} FROM Ticket
         WHERE TicketID = ?`;
@@ -422,6 +422,30 @@ module.exports.Database = function () {
             } else {
                 //Log how many rows were updated. Should be 0-1.
                 console.log(`Ticket rows updated: ${this.changes}`);
+            }
+        });
+    };
+
+    /**
+     * Update the seats of the ticket.
+     *
+     * @param ticketID The id of the ticket.
+     * @param showID
+     * @param seats The new seats variable to update
+     * @param numSeats
+     */
+    this.update_ticket_seat = function (ticketID, showID, seats, numSeats) {
+        let data = [showID, seats, numSeats, ticketID];
+
+        let sql = `UPDATE Ticket SET ShowID = ?, ReservedSeats = ?, NumberOFSeats = ? 
+                    WHERE TicketID = ?`;
+
+        db.run(sql, data, function (err) {
+            if (err) {
+                console.error(err.message);
+            } else {
+                //Log how many rows were updated. Should be 0-1.
+                console.log(`Ticket row updated: ${this.changes}`);
             }
         });
     };
