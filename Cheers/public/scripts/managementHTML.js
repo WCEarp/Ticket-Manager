@@ -255,7 +255,7 @@ function setClass() {
     $.post("/manage/show_update_setSectionInfo", data, function (result) {
     });
 
-    alert('hi');
+    alert('Your changes to ' + showID + ' have been saved');
 }
 
 function selectSetChange() {
