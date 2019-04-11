@@ -139,6 +139,16 @@ function openSeat(evt, toolName, tipName, show) {
                     }
                 }
             });
+
+            //ADD NEW SEAT SECTION UPDATE
+            /*something like:
+            //get balcony section 1
+            document.querySelectorAll('[id^=B_S1]').forEach(function(node) {
+                // Do whatever you want with the node object.
+                node.value = bal1price;
+                node.className = bal1class;
+            });*/
+
             //update ticket prices
             //get all floor seats
             document.querySelectorAll('[id^=F]').forEach(function(node) {
@@ -451,6 +461,10 @@ function onClick(element) {
         //recolor seat to its unselected color
         if (element.className == "disabled")
             document.getElementById(element.id).style.backgroundColor = "#28607f";
+        else if (element.className == "student")
+            document.getElementById(element.id).style.backgroundColor = "#97950c";
+        else if (element.className == "veteran")
+            document.getElementById(element.id).style.backgroundColor = "#7f0c00";
         else
             document.getElementById(element.id).style.backgroundColor = "#539752";
         document.getElementById(element.id).style.color = "#fff";
