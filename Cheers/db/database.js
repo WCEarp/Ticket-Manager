@@ -17,8 +17,7 @@ module.exports.Database = function () {
         function (err) {
             if (err) {
                 console.error(err);
-            }
-            else {
+            } else {
                 console.log('Connected to the database.');
             }
         });
@@ -79,8 +78,50 @@ module.exports.Database = function () {
             }
         });
     };
-	
-	/**
+
+    this.query_address_by_id = function (id, callback) {
+        let columns = "AddressID addressID, Street street, " +
+            "City city, State state, ZipCode zipCode";
+
+        let sql_statement = `SELECT ` + columns +
+            ` FROM Address
+        WHERE AddressID = ?`;
+
+        db.get(sql_statement, [id], function (err, row) {
+            if (err || !row) {
+                if (err) {
+                    console.error(err.message);
+                }
+                callback("Unable to get address", null)
+            } else {
+                callback(null, row);
+            }
+        });
+    };
+
+
+    this.query_addresses = function (callback) {
+        let columns = "AddressID addressID, Street street, " +
+            "City city, State state, ZipCode zipCode";
+
+        let sql_statement = `SELECT ` + columns +
+            ` FROM Address`;
+
+        console.log(sql_statement);
+        db.all(sql_statement, [], function (err, rows) {
+            console.log(rows);
+            if (err || !rows) {
+                if (err) {
+                    console.error(err.message);
+                }
+                callback("Unable to get address", null)
+            } else {
+                callback(null, rows);
+            }
+        });
+    };
+
+    /**
      * Get all emails from user database.
      *
      * @param callback A function that user is passed into to be executed.
@@ -102,7 +143,7 @@ module.exports.Database = function () {
             }
         });
     };
-	
+
     /**
      * Add a new user to the database containing the following info.
      *
@@ -127,6 +168,22 @@ module.exports.Database = function () {
                 console.log(err.message);
             } else {
                 console.log(`A row has been inserted with rowid ${this.lastID}`);
+            }
+        })
+    };
+
+    this.add_address = function (street, city, state, zipCode, callback) {
+        let sql = `INSERT INTO Address(Street, City, State, ZipCode)
+         VALUES(?, ?, ?, ?)`;
+
+        let values = [street, city, state, zipCode];
+        db.run(sql, values, function (err) {
+            if (err) {
+                console.log(err.message);
+                callback("Failed to insert address", null);
+            } else {
+                console.log(`A row has been inserted with rowid ${this.lastID}`);
+                callback(null, this.lastID);
             }
         })
     };
@@ -157,6 +214,21 @@ module.exports.Database = function () {
                 console.error(err.message);
             } else {
                 console.log(`User row updated: ${this.changes}`);
+            }
+        });
+    };
+
+    this.update_address = function (addressID, street, city, state, zipCode) {
+        let data = [street, city, state, zipCode, addressID];
+
+        let sql = `UPDATE Address SET Street = ?, City = ?, State = ?, ZipCode = ?
+                    WHERE AddressID = ?`;
+
+        db.run(sql, data, function (err) {
+            if (err) {
+                console.error(err.message);
+            } else {
+                console.log(`Address row updated: ${this.changes}`);
             }
         });
     };
@@ -194,6 +266,24 @@ module.exports.Database = function () {
         let sql = `DELETE FROM User WHERE UserID = ?`;
 
         db.run(sql, userID, function (err) {
+            if (err) {
+                return console.error(err.message);
+            } else {
+                console.log(`Row(s) deleted ${this.changes}`);
+            }
+        });
+    };
+
+    /**
+     * Remove an address from the database.
+     *
+     * @param addressID The id of the address.
+     */
+    this.delete_address = function (addressID) {
+        // delete a address based on id
+        let sql = `DELETE FROM Address WHERE AddressID = ?`;
+
+        db.run(sql, addressID, function (err) {
             if (err) {
                 return console.error(err.message);
             } else {
