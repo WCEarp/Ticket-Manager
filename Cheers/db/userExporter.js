@@ -72,7 +72,7 @@ module.exports.exportCSV = function (res, userManager, options,) {
 
             let sthProductionID = user.sthProductionID;
             if (exportSeasonTicketSeat && sthProductionID && sthProductionID !== "") {
-                csv += seasonTicketSeat
+                csv += sthProductionID
             }
             csv += "\n";
         }
