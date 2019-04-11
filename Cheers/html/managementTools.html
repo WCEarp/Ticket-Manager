@@ -241,7 +241,7 @@
                     Create/Edit
                 </button>
                 <button class="tablinks" onclick="openTool(event, 'STH Manager', 'STHTip')">STH Manager</button>
-                <button class="tablinks" onclick="openTool(event, 'SSPrice', 'ssTip')">Set Show Prices
+                <button class="tablinks" onclick="openTool(event, 'SSPrice', 'ssTip')">Manage Show Sections and Pricing
                 </button>
                 <button class="tablinks" onclick="openTool(event, 'Ticket Manager', 'tmTip')">Ticket Manager</button>
                 <button class="tablinks" onclick="openTool(event, 'Export/Import', 'eiTip')">Export/Import</button>
@@ -339,32 +339,157 @@
             </div>
 
             <div id="SSPrice" class="tabcontent">
-                <h3>Set Show Prices</h3>
+                <h3>Manage Show Sections and Pricing</h3>
                 <form>
-                    <p>Select a Production</p>
-                    <select id="selectSet">
-                        <option value="PotO_1">Phantom of the Opera Night 1</option>
-                        <option value="PotO_2">Phantom of the Opera Night 1</option>
-                        <option value="HSO">Huntsville Symphony Plays Bach</option>
-                        <option value="TKaM">To Kill a Mockingbird</option>
-                        <option value="Choir">UAH Choir</option>
-                        <option value="GDCB">Grateful Dead Cover Band</option>
-                    </select><br><br>
-
-
-                    <div style="float:left;margin-right:20px;">
-                        <label for="floorPrice">Floor Price:</label>
-                        <input id='floorPrice' type="text" placeholder="$40.00">
-                    </div>
-
-                    <div style="float:left;">
-                        <label for="balconyPrice">Balcony Price:</label>
-                        <input id='balconyPrice' type="text" placeholder="$20.00">
-                    </div>
-                    <br>
-                    <br>
-                    <br style="clear:both;"/>
-                    <button onclick="setPriceButton()">Set Prices</button>
+                        <p>Select a Production</p>
+                        <select id="selectSet" onchange="selectSetChange()">
+                            <option value="PotO_1">Phantom of the Opera Night 1</option>
+                            <option value="PotO_2">Phantom of the Opera Night 2</option>
+                            <option value="HSO">Huntsville Symphony Plays Bach</option>
+                            <option value="TKaM">To Kill a Mockingbird</option>
+                            <option value="Choir">UAH Choir</option>
+                            <option value="GDCB">Grateful Dead Cover Band</option>
+                        </select><br><br>
+                </form>
+                <form id="setClassesForm" onsubmit="setClass()">
+                    <table name="setClasses">
+                        <tr>
+                            <th>Section Name</th>
+                            <th>Not Available</th>
+                            <th>Regular</th>
+                            <th>Handicap</th>
+                            <th>Student</th>
+                            <th>Veteran</th>
+                            <th>Section Price</th>
+                        </tr>
+                        <tr id="concertHallRow">
+                            <td>Concert Hall Floor</td>
+                            <td><input name="cHallFloor" type="radio" value="0" id="cHallNA" title="NA" /></td>
+                            <td><input name="cHallFloor" type="radio" value="1" id="cHallR" title="R" checked="checked"/></td>
+                            <td><input name="cHallFloor" type="radio" value="2" id="cHallH" title="H" /></td>
+                            <td><input name="cHallFloor" type="radio" value="3" id="cHallS" title="S" /></td>
+                            <td><input name="cHallFloor" type="radio" value="4" id="cHallV" title="V" /></td>
+                            <td><input name="cHallFloor" type="number" value="5" id="cHallPrice"/></td>
+                        </tr>
+                        <tr id="balcony1Row">
+                            <td>Balcony Section 1</td>
+                            <td><input name="bal1" type="radio" value="0" id="bal1NA" title="NA" /></td>
+                            <td><input name="bal1" type="radio" value="1" id="bal1R" title="R" checked="checked"/></td>
+                            <td><input name="bal1" type="radio" value="2" id="bal1H" title="H" /></td>
+                            <td><input name="bal1" type="radio" value="3" id="bal1S" title="S" /></td>
+                            <td><input name="bal1" type="radio" value="4" id="bal1V" title="V" /></td>
+                            <td><input name="bal1" type="number" value="5" id="bal1Price"/></td>
+                        </tr>
+                        <tr id="balcony2Row">
+                            <td>Balcony Section 2</td>
+                            <td><input name="bal2" type="radio" value="0" id="bal2NA" title="NA" /></td>
+                            <td><input name="bal2" type="radio" value="1" id="bal2R" title="R" checked="checked"/></td>
+                            <td><input name="bal2" type="radio" value="2" id="bal2H" title="H" /></td>
+                            <td><input name="bal2" type="radio" value="3" id="bal2S" title="S" /></td>
+                            <td><input name="bal2" type="radio" value="4" id="bal2V" title="V" /></td>
+                            <td><input name="bal2" type="number" value="5" id="bal2Price"/></td>
+                        </tr>
+                        <tr id="balcony3Row">
+                            <td>Balcony Section 3</td>
+                            <td><input name="bal3" type="radio" value="0" id="bal3NA" title="NA" /></td>
+                            <td><input name="bal3" type="radio" value="1" id="bal3R" title="R" checked="checked"/></td>
+                            <td><input name="bal3" type="radio" value="2" id="bal3H" title="H" /></td>
+                            <td><input name="bal3" type="radio" value="3" id="bal3S" title="S" /></td>
+                            <td><input name="bal3" type="radio" value="4" id="bal3V" title="V" /></td>
+                            <td><input name="bal3" type="number" value="5" id="bal3Price"/></td>
+                        </tr>
+                        <tr id="balcony4Row">
+                            <td>Balcony Section 4</td>
+                            <td><input name="bal4" type="radio" value="0" id="bal4NA" title="NA" /></td>
+                            <td><input name="bal4" type="radio" value="1" id="bal4R" title="R" checked="checked"/></td>
+                            <td><input name="bal4" type="radio" value="2" id="bal4H" title="H" /></td>
+                            <td><input name="bal4" type="radio" value="3" id="bal4S" title="S" /></td>
+                            <td><input name="bal4" type="radio" value="4" id="bal4V" title="V" /></td>
+                            <td><input name="bal4" type="number" value="5" id="bal4Price"/></td>
+                        </tr>
+                        <tr id="balcony5Row">
+                            <td>Balcony Section 5</td>
+                            <td><input name="bal5" type="radio" value="0" id="bal5NA" title="NA" /></td>
+                            <td><input name="bal5" type="radio" value="1" id="bal5R" title="R" checked="checked"/></td>
+                            <td><input name="bal5" type="radio" value="2" id="bal5H" title="H" /></td>
+                            <td><input name="bal5" type="radio" value="3" id="bal5S" title="S" /></td>
+                            <td><input name="bal5" type="radio" value="4" id="bal5V" title="V" /></td>
+                            <td><input name="bal5" type="number" value="5" id="bal5Price"/></td>
+                        </tr>
+                        <tr id="floor1Row">
+                            <td>Floor Section 1</td>
+                            <td><input name="floor1" type="radio" value="0" id="floor1NA" title="NA" /></td>
+                            <td><input name="floor1" type="radio" value="1" id="floor1R" title="R" checked="checked"/></td>
+                            <td><input name="floor1" type="radio" value="2" id="floor1H" title="H" /></td>
+                            <td><input name="floor1" type="radio" value="3" id="floor1S" title="S" /></td>
+                            <td><input name="floor1" type="radio" value="4" id="floor1V" title="V" /></td>
+                            <td><input name="floor1" type="number" value="5" id="floor1Price"/></td>
+                        </tr>
+                        <tr id="floor2Row">
+                            <td>Floor Section 2</td>
+                            <td><input name="floor2" type="radio" value="0" id="floor2NA" title="NA" /></td>
+                            <td><input name="floor2" type="radio" value="1" id="floor2R" title="R" checked="checked"/></td>
+                            <td><input name="floor2" type="radio" value="2" id="floor2H" title="H" /></td>
+                            <td><input name="floor2" type="radio" value="3" id="floor2S" title="S" /></td>
+                            <td><input name="floor2" type="radio" value="4" id="floor2V" title="V" /></td>
+                            <td><input name="floor2" type="number" value="5" id="floor2Price"/></td>
+                        </tr>
+                        <tr id="floor3Row">
+                            <td>Floor Section 3</td>
+                            <td><input name="floor3" type="radio" value="0" id="floor3NA" title="NA" /></td>
+                            <td><input name="floor3" type="radio" value="1" id="floor3R" title="R" checked="checked"/></td>
+                            <td><input name="floor3" type="radio" value="2" id="floor3H" title="H" /></td>
+                            <td><input name="floor3" type="radio" value="3" id="floor3S" title="S" /></td>
+                            <td><input name="floor3" type="radio" value="4" id="floor3V" title="V" /></td>
+                            <td><input name="floor3" type="number" value="5" id="floor3Price"/></td>
+                        </tr>
+                        <tr id="floor4Row">
+                            <td>Floor Section 4</td>
+                            <td><input name="floor4" type="radio" value="0" id="floor4NA" title="NA" /></td>
+                            <td><input name="floor4" type="radio" value="1" id="floor4R" title="R" checked="checked"/></td>
+                            <td><input name="floor4" type="radio" value="2" id="floor4H" title="H" /></td>
+                            <td><input name="floor4" type="radio" value="3" id="floor4S" title="S" /></td>
+                            <td><input name="floor4" type="radio" value="4" id="floor4V" title="V" /></td>
+                            <td><input name="floor4" type="number" value="5" id="floor4Price"/></td>
+                        </tr>
+                        <tr id="log1Row">
+                            <td>Loge Section 1</td>
+                            <td><input name="log1" type="radio" value="0" id="log1NA" title="NA" /></td>
+                            <td><input name="log1" type="radio" value="1" id="log1R" title="R" checked="checked"/></td>
+                            <td><input name="log1" type="radio" value="2" id="log1H" title="H" /></td>
+                            <td><input name="log1" type="radio" value="3" id="log1S" title="S" /></td>
+                            <td><input name="log1" type="radio" value="4" id="log1V" title="V" /></td>
+                            <td><input name="log1" type="number" value="5" id="log1Price"/></td>
+                        </tr>
+                        <tr id="log2Row">
+                            <td>Loge Section 2</td>
+                            <td><input name="log2" type="radio" value="0" id="log2NA" title="NA" /></td>
+                            <td><input name="log2" type="radio" value="1" id="log2R" title="R" checked="checked"/></td>
+                            <td><input name="log2" type="radio" value="2" id="log2H" title="H" /></td>
+                            <td><input name="log2" type="radio" value="3" id="log2S" title="S" /></td>
+                            <td><input name="log2" type="radio" value="4" id="log2V" title="V" /></td>
+                            <td><input name="log2" type="number" value="5" id="log2Price"/></td>
+                        </tr>
+                        <tr id="log3Row">
+                            <td>Loge Section 3</td>
+                            <td><input name="log3" type="radio" value="0" id="log3NA" title="NA" /></td>
+                            <td><input name="log3" type="radio" value="1" id="log3R" title="R" checked="checked"/></td>
+                            <td><input name="log3" type="radio" value="2" id="log3H" title="H" /></td>
+                            <td><input name="log3" type="radio" value="3" id="log3S" title="S" /></td>
+                            <td><input name="log3" type="radio" value="4" id="log3V" title="V" /></td>
+                            <td><input name="log3" type="number" value="5" id="log3Price"/></td>
+                        </tr>
+                        <tr id="log4Row">
+                            <td>Loge Section 4</td>
+                            <td><input name="log4" type="radio" value="0" id="log4NA" title="NA" /></td>
+                            <td><input name="log4" type="radio" value="1" id="log4R" title="R" checked="checked"/></td>
+                            <td><input name="log4" type="radio" value="2" id="log4H" title="H" /></td>
+                            <td><input name="log4" type="radio" value="3" id="log4S" title="S" /></td>
+                            <td><input name="log4" type="radio" value="4" id="log4V" title="V" /></td>
+                            <td><input name="log4" type="number" value="5" id="log4Price"/></td>
+                        </tr>
+                    </table>
+                    <input type="submit" value="Set Section and Price">
                 </form>
             </div>
 
@@ -548,6 +673,14 @@
                 <div class="input-color">
                     <input type="text" value="Disabled" readonly/>
                     <div class="color-box" style="background-color: #28607f;"></div>
+                </div>
+                <div class="input-color">
+                    <input type="text" value="Student" readonly/>
+                    <div class="color-box" style="background-color: #97950c;"></div>
+                </div>
+                <div class="input-color">
+                    <input type="text" value="Veteran" readonly/>
+                    <div class="color-box" style="background-color: #7f0c00;"></div>
                 </div>
                 <div class="input-color">
                     <input type="text" value="Reserved" readonly/>
@@ -4826,6 +4959,14 @@
                 <div class="input-color">
                     <input type="text" value="Disabled" readonly/>
                     <div class="color-box" style="background-color: #28607f;"></div>
+                </div>
+                <div class="input-color">
+                    <input type="text" value="Student" readonly/>
+                    <div class="color-box" style="background-color: #97950c;"></div>
+                </div>
+                <div class="input-color">
+                    <input type="text" value="Veteran" readonly/>
+                    <div class="color-box" style="background-color: #7f0c00;"></div>
                 </div>
                 <div class="input-color">
                     <input type="text" value="Reserved" readonly/>

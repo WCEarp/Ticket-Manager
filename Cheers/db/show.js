@@ -12,7 +12,7 @@ module.exports.ShowManager = function (database) {
         db.query_show_by_id(showID,function (err, rows) {
             if (!err) {
                 let show = new Show(rows.showID, rows.startDate, rows.endDate,
-                    rows.time, rows.theaterID, rows.seatsTaken, rows.productionID, rows.floorPrice, rows.balconyPrice);
+                    rows.time, rows.theaterID, rows.seatsTaken, rows.productionID, rows.sectionInfo);
                 callback(show)
             } else {
                 console.error(err);
@@ -25,8 +25,8 @@ module.exports.ShowManager = function (database) {
         db.update_show_seats_taken(showID,seatsTaken);
     };
 
-    this.updateShowPrice = function (showID,floorPrice,balconyPrice) {
-        db.update_show_setPrice(showID,floorPrice,balconyPrice);
+    this.updateSectionInfo = function (showID,sectionInfo) {
+        db.update_show_setSectionInfo(showID,sectionInfo);
     };
 
 };
@@ -41,9 +41,10 @@ module.exports.ShowManager = function (database) {
  * @param TheaterID
  * @param SeatsTaken
  * @param ProductionID
+ * @param SectionInfo
  * @constructor
  */
-let Show = function (ShowID, StartDate, EndDate, Time, TheaterID, SeatsTaken, ProductionID, FloorPrice, BalconyPrice) {
+let Show = function (ShowID, StartDate, EndDate, Time, TheaterID, SeatsTaken, ProductionID, SectionInfo) {
     this.ShowID = ShowID;
     this.StartDate = StartDate;
     this.EndDate = EndDate;
@@ -51,8 +52,7 @@ let Show = function (ShowID, StartDate, EndDate, Time, TheaterID, SeatsTaken, Pr
     this.TheaterID = TheaterID;
     this.SeatsTaken = SeatsTaken;
     this.ProductionID = ProductionID;
-    this.FloorPrice = FloorPrice;
-    this.BalconyPrice = BalconyPrice;
+    this.SectionInfo = SectionInfo;
 };
 
 module.exports.Show = Show;

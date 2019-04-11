@@ -1,5 +1,14 @@
+let concertSectionRows = [document.getElementById('concertHallRow'),document.getElementById('balcony1Row'),document.getElementById('balcony2Row')
+    ,document.getElementById('balcony3Row'), document.getElementById('balcony4Row'),document.getElementById('balcony5Row')];
+
+let playhouseSectionRows = [document.getElementById('floor1Row'),document.getElementById('floor2Row'),document.getElementById('floor3Row'),document.getElementById('floor4Row'),
+    document.getElementById('log1Row'),document.getElementById('log2Row'),document.getElementById('log3Row'),document.getElementById('log4Row')];
+
 window.onload = function(){
     btnPlayhouse.style.display = "none";
+    playhouseSectionRows.forEach(function (node) {
+        node.style.display = 'none';
+    })
 };
 
 function openTool(evt, toolName, tipName) {
@@ -106,6 +115,10 @@ function onClick(element)  {
             //recolor seat to its unselected color
             if (element.className === "disabled")
                 document.getElementById(element.id).style.backgroundColor = "#28607f";
+            else if (element.className == "student")
+                document.getElementById(element.id).style.backgroundColor = "#97950c";
+            else if (element.className == "veteran")
+                document.getElementById(element.id).style.backgroundColor = "#7f0c00";
             else
                 document.getElementById(element.id).style.backgroundColor = "#539752";
             document.getElementById(element.id).style.color = "#fff";
@@ -183,6 +196,86 @@ function setPriceButton() {
     };
     $.post("/manage/show_update_setPrice", data, function (result) {
     })
+}
+
+function setClass() {
+    let formElements = document.getElementById('setClassesForm').elements;
+    //buttonAndPrice format: chFloor.class,chFloor.price,bal1.class,bal1.price ....
+    //example: 0,50,0,30,1,30,1,30,1,30
+    let buttonAndPrice = [];
+    for (var i=0; i<formElements.length; i++){
+        if(formElements[i].checked){
+            buttonAndPrice.push(formElements[i].value);
+        }
+        if(formElements[i].id.match(/Price/g)){
+            buttonAndPrice.push(formElements[i].value);
+        }
+    }
+
+    let concertHallSectionSettings = [];
+    let playhouseSectionSettings = [];
+
+    let showVal = document.getElementById('selectSet').value;
+    if(showVal === 'PotO_1' || showVal === 'PotO_2' || showVal === 'HSO'){
+        concertHallSectionSettings = buttonAndPrice.splice(0,12);
+        console.log(concertHallSectionSettings);
+    }
+    else {
+        playhouseSectionSettings = buttonAndPrice.splice(12,16);
+        console.log(playhouseSectionSettings);
+    }
+
+    let concertSettingsString = concertHallSectionSettings.join(',');
+    let playhouseSettingsString = playhouseSectionSettings.join(',');
+
+    let dataString = concertSettingsString;
+
+    let showID = 1;
+    if(showVal === 'PotO_2')
+        showID = 2;
+    if(showVal === 'HSO')
+        showID = 3;
+    if(showVal === 'TKaM'){
+        showID = 4;
+        dataString = playhouseSettingsString;
+    }
+    if(showVal === 'Choir') {
+        showID = 5;
+        dataString = playhouseSettingsString;
+    }
+    if(showVal === 'GDCB') {
+        showID = 6;
+        dataString = playhouseSettingsString;
+    }
+
+    let data = {
+        showID: showID,
+        sectionInfo: dataString
+    };
+    $.post("/manage/show_update_setSectionInfo", data, function (result) {
+    });
+
+    alert('Your changes to ' + showID + ' have been saved');
+}
+
+function selectSetChange() {
+    let showVal = document.getElementById('selectSet').value;
+    if(showVal === 'PotO_1' || showVal === 'PotO_2' || showVal === 'HSO'){
+        concertSectionRows.forEach(function (node) {
+            node.style.display = 'table-row';
+        });
+        playhouseSectionRows.forEach(function (node) {
+            node.style.display = 'none';
+        });
+    }
+    else{
+        concertSectionRows.forEach(function (node) {
+            node.style.display = 'none';
+        });
+        playhouseSectionRows.forEach(function (node) {
+            node.style.display = 'table-row';
+        });
+    }
 }
 
 function printTXT(value, index, array)    {

@@ -123,8 +123,83 @@ function openSeat(evt, toolName, tipName, show) {
         $.getJSON("/tickets/ShowTickets?id=1", function (result) {
             showTickets = result.show;
             showTickets.showID = 1;
-            let floorprice = showTickets.FloorPrice;
-            let balconyprice = showTickets.BalconyPrice;
+
+            let showSectionInfo = showTickets.SectionInfo;
+            let showSectionInfoArray = showSectionInfo.split(',');
+
+            let classes= [];
+
+            classes[0] = showSectionInfoArray[0];
+            let concertFloorPrice = showSectionInfoArray[1];
+            classes[1] = showSectionInfoArray[2];
+            let balcony1Price = showSectionInfoArray[3];
+            classes[2] = showSectionInfoArray[4];
+            let balcony2Price = showSectionInfoArray[5];
+            classes[3] = showSectionInfoArray[6];
+            let balcony3Price = showSectionInfoArray[7];
+            classes[4] = showSectionInfoArray[8];
+            let balcony4Price = showSectionInfoArray[9];
+            classes[5] = showSectionInfoArray[10];
+            let balcony5Price = showSectionInfoArray[11];
+
+            for(var i=0;i<classes.length;i++){
+                if(classes[i] === '0')
+                    classes[i] = 'reserved';
+                else if(classes[i] === '1')
+                    classes[i] = 'box';
+                else if(classes[i] === '2')
+                    classes[i] = 'disabled';
+                else if(classes[i] === '3')
+                    classes[i] = 'student';
+                else if(classes[i] === '4')
+                    classes[i] = 'veteran';
+            }
+
+            let concertFloorClass = classes[0];
+            let balcony1Class = classes[1];
+            let balcony2Class = classes[2];
+            let balcony3Class = classes[3];
+            let balcony4Class = classes[4];
+            let balcony5Class = classes[5];
+            //update ticket prices
+            //get all floor seats
+            document.querySelectorAll('[id^=F]').forEach(function(node) {
+                // Do whatever you want with the node object.
+                node.className = concertFloorClass;
+                node.value = concertFloorPrice;
+            });
+            //get all balcony
+            document.querySelectorAll('[id^=B_S1]').forEach(function(node) {
+                // Do whatever you want with the node object.
+                node.className = balcony1Class;
+                node.value = balcony1Price;
+            });
+            //get all balcony
+            document.querySelectorAll('[id^=B_S2]').forEach(function(node) {
+                // Do whatever you want with the node object.
+                node.className = balcony2Class;
+                node.value = balcony2Price;
+            });
+            //get all balcony
+            document.querySelectorAll('[id^=B_S3]').forEach(function(node) {
+                // Do whatever you want with the node object.
+                node.className = balcony3Class;
+                node.value = balcony3Price;
+            });
+            //get all balcony
+            document.querySelectorAll('[id^=B_S4]').forEach(function(node) {
+                // Do whatever you want with the node object.
+                node.className = balcony4Class;
+                node.value = balcony4Price;
+            });
+            //get all balcony
+            document.querySelectorAll('[id^=B_S5]').forEach(function(node) {
+                // Do whatever you want with the node object.
+                node.className = balcony5Class;
+                node.value = balcony5Price;
+            });
+            document.getElementById('seatPriceText').innerHTML = 'Floor Price: $' + concertFloorPrice + ' Balcony Section 1 Price: $' + balcony1Price;
+
             let reservedSeats = showTickets.SeatsTaken + stProd1;
             let seatsArray = reservedSeats.match(/.{1,8}/g);
             console.log(seatsArray);
@@ -139,23 +214,7 @@ function openSeat(evt, toolName, tipName, show) {
                     }
                 }
             });
-            //update ticket prices
-            //get all floor seats
-            document.querySelectorAll('[id^=F]').forEach(function(node) {
-                // Do whatever you want with the node object.
-                node.value = floorprice;
-            });
-            //get all balcony
-            document.querySelectorAll('[id^=B]').forEach(function(node) {
-                // Do whatever you want with the node object.
-                node.value = balconyprice;
-            });
-            //get all loge
-            document.querySelectorAll('[id^=L]').forEach(function(node) {
-                // Do whatever you want with the node object.
-                node.value = balconyprice;
-            });
-            document.getElementById('seatPriceText').innerHTML = 'Floor Price: $' + floorprice + ' Balcony Price: $' + balconyprice;
+
 
             display_errors(result.errors);
         });
@@ -165,8 +224,83 @@ function openSeat(evt, toolName, tipName, show) {
         $.getJSON("/tickets/ShowTickets?id=2", function (result) {
             showTickets = result.show;
             showTickets.showID = 2;
-            let floorprice = showTickets.FloorPrice;
-            let balconyprice = showTickets.BalconyPrice;
+
+            let showSectionInfo = showTickets.SectionInfo;
+            let showSectionInfoArray = showSectionInfo.split(',');
+
+            let classes= [];
+
+            classes[0] = showSectionInfoArray[0];
+            let concertFloorPrice = showSectionInfoArray[1];
+            classes[1] = showSectionInfoArray[2];
+            let balcony1Price = showSectionInfoArray[3];
+            classes[2] = showSectionInfoArray[4];
+            let balcony2Price = showSectionInfoArray[5];
+            classes[3] = showSectionInfoArray[6];
+            let balcony3Price = showSectionInfoArray[7];
+            classes[4] = showSectionInfoArray[8];
+            let balcony4Price = showSectionInfoArray[9];
+            classes[5] = showSectionInfoArray[10];
+            let balcony5Price = showSectionInfoArray[11];
+
+            for(var i=0;i<classes.length;i++){
+                if(classes[i] === '0')
+                    classes[i] = 'reserved';
+                else if(classes[i] === '1')
+                    classes[i] = 'box';
+                else if(classes[i] === '2')
+                    classes[i] = 'disabled';
+                else if(classes[i] === '3')
+                    classes[i] = 'student';
+                else if(classes[i] === '4')
+                    classes[i] = 'veteran';
+            }
+
+            let concertFloorClass = classes[0];
+            let balcony1Class = classes[1];
+            let balcony2Class = classes[2];
+            let balcony3Class = classes[3];
+            let balcony4Class = classes[4];
+            let balcony5Class = classes[5];
+            //update ticket prices
+            //get all floor seats
+            document.querySelectorAll('[id^=F]').forEach(function(node) {
+                // Do whatever you want with the node object.
+                node.className = concertFloorClass;
+                node.value = concertFloorPrice;
+            });
+            //get all balcony
+            document.querySelectorAll('[id^=B_S1]').forEach(function(node) {
+                // Do whatever you want with the node object.
+                node.className = balcony1Class;
+                node.value = balcony1Price;
+            });
+            //get all balcony
+            document.querySelectorAll('[id^=B_S2]').forEach(function(node) {
+                // Do whatever you want with the node object.
+                node.className = balcony2Class;
+                node.value = balcony2Price;
+            });
+            //get all balcony
+            document.querySelectorAll('[id^=B_S3]').forEach(function(node) {
+                // Do whatever you want with the node object.
+                node.className = balcony3Class;
+                node.value = balcony3Price;
+            });
+            //get all balcony
+            document.querySelectorAll('[id^=B_S4]').forEach(function(node) {
+                // Do whatever you want with the node object.
+                node.className = balcony4Class;
+                node.value = balcony4Price;
+            });
+            //get all balcony
+            document.querySelectorAll('[id^=B_S5]').forEach(function(node) {
+                // Do whatever you want with the node object.
+                node.className = balcony5Class;
+                node.value = balcony5Price;
+            });
+            document.getElementById('seatPriceText').innerHTML = 'Floor Price: $' + concertFloorPrice + ' Balcony Section 1 Price: $' + balcony1Price;
+
             let reservedSeats = showTickets.SeatsTaken + stProd1;
             let seatsArray = reservedSeats.match(/.{1,8}/g);
             console.log(seatsArray);
@@ -181,24 +315,8 @@ function openSeat(evt, toolName, tipName, show) {
                     }
                 }
             });
-            //update ticket prices
-            //get all floor seats
-            document.querySelectorAll('[id^=F]').forEach(function(node) {
-                // Do whatever you want with the node object.
-                node.value = floorprice;
-            });
-            //get all balcony
-            document.querySelectorAll('[id^=B]').forEach(function(node) {
-                // Do whatever you want with the node object.
-                node.value = balconyprice;
-            });
-            //get all loge
-            document.querySelectorAll('[id^=L]').forEach(function(node) {
-                // Do whatever you want with the node object.
-                node.value = balconyprice;
-            });
-            document.getElementById('seatPriceText').innerHTML = 'Floor Price: $' + floorprice + ' Balcony Price: $' + balconyprice;
-            display_errors(result.errors);
+
+        display_errors(result.errors);
         });
     }
     //get reserved seats from DB
@@ -206,8 +324,83 @@ function openSeat(evt, toolName, tipName, show) {
         $.getJSON("/tickets/ShowTickets?id=3", function (result) {
             showTickets = result.show;
             showTickets.showID = 3;
-            let floorprice = showTickets.FloorPrice;
-            let balconyprice = showTickets.BalconyPrice;
+
+            let showSectionInfo = showTickets.SectionInfo;
+            let showSectionInfoArray = showSectionInfo.split(',');
+
+            let classes= [];
+
+            classes[0] = showSectionInfoArray[0];
+            let concertFloorPrice = showSectionInfoArray[1];
+            classes[1] = showSectionInfoArray[2];
+            let balcony1Price = showSectionInfoArray[3];
+            classes[2] = showSectionInfoArray[4];
+            let balcony2Price = showSectionInfoArray[5];
+            classes[3] = showSectionInfoArray[6];
+            let balcony3Price = showSectionInfoArray[7];
+            classes[4] = showSectionInfoArray[8];
+            let balcony4Price = showSectionInfoArray[9];
+            classes[5] = showSectionInfoArray[10];
+            let balcony5Price = showSectionInfoArray[11];
+
+            for(var i=0;i<classes.length;i++){
+                if(classes[i] === '0')
+                    classes[i] = 'reserved';
+                else if(classes[i] === '1')
+                    classes[i] = 'box';
+                else if(classes[i] === '2')
+                    classes[i] = 'disabled';
+                else if(classes[i] === '3')
+                    classes[i] = 'student';
+                else if(classes[i] === '4')
+                    classes[i] = 'veteran';
+            }
+
+            let concertFloorClass = classes[0];
+            let balcony1Class = classes[1];
+            let balcony2Class = classes[2];
+            let balcony3Class = classes[3];
+            let balcony4Class = classes[4];
+            let balcony5Class = classes[5];
+            //update ticket prices
+            //get all floor seats
+            document.querySelectorAll('[id^=F]').forEach(function(node) {
+                // Do whatever you want with the node object.
+                node.className = concertFloorClass;
+                node.value = concertFloorPrice;
+            });
+            //get all balcony
+            document.querySelectorAll('[id^=B_S1]').forEach(function(node) {
+                // Do whatever you want with the node object.
+                node.className = balcony1Class;
+                node.value = balcony1Price;
+            });
+            //get all balcony
+            document.querySelectorAll('[id^=B_S2]').forEach(function(node) {
+                // Do whatever you want with the node object.
+                node.className = balcony2Class;
+                node.value = balcony2Price;
+            });
+            //get all balcony
+            document.querySelectorAll('[id^=B_S3]').forEach(function(node) {
+                // Do whatever you want with the node object.
+                node.className = balcony3Class;
+                node.value = balcony3Price;
+            });
+            //get all balcony
+            document.querySelectorAll('[id^=B_S4]').forEach(function(node) {
+                // Do whatever you want with the node object.
+                node.className = balcony4Class;
+                node.value = balcony4Price;
+            });
+            //get all balcony
+            document.querySelectorAll('[id^=B_S5]').forEach(function(node) {
+                // Do whatever you want with the node object.
+                node.className = balcony5Class;
+                node.value = balcony5Price;
+            });
+            document.getElementById('seatPriceText').innerHTML = 'Floor Price: $' + concertFloorPrice + ' Balcony Section 1 Price: $' + balcony1Price;
+
             let reservedSeats = showTickets.SeatsTaken + stProd1;
             let seatsArray = reservedSeats.match(/.{1,8}/g);
             console.log(seatsArray);
@@ -222,23 +415,6 @@ function openSeat(evt, toolName, tipName, show) {
                     }
                 }
             });
-            //update ticket prices
-            //get all floor seats
-            document.querySelectorAll('[id^=F]').forEach(function(node) {
-                // Do whatever you want with the node object.
-                node.value = floorprice;
-            });
-            //get all balcony
-            document.querySelectorAll('[id^=B]').forEach(function(node) {
-                // Do whatever you want with the node object.
-                node.value = balconyprice;
-            });
-            //get all loge
-            document.querySelectorAll('[id^=L]').forEach(function(node) {
-                // Do whatever you want with the node object.
-                node.value = balconyprice;
-            });
-            document.getElementById('seatPriceText').innerHTML = 'Floor Price: $' + floorprice + ' Balcony Price: $' + balconyprice;
             display_errors(result.errors);
         });
     }
@@ -247,8 +423,100 @@ function openSeat(evt, toolName, tipName, show) {
         $.getJSON("/tickets/ShowTickets?id=4", function (result) {
             showTickets = result.show;
             showTickets.showID = 4;
-            let floorprice = showTickets.FloorPrice;
-            let balconyprice = showTickets.BalconyPrice;
+
+            let showSectionInfo = showTickets.SectionInfo;
+            let showSectionInfoArray = showSectionInfo.split(',');
+
+            let classes= [];
+
+            classes[0] = showSectionInfoArray[0];
+            let floor1Price = showSectionInfoArray[1];
+            classes[1] = showSectionInfoArray[2];
+            let floor2Price = showSectionInfoArray[3];
+            classes[2] = showSectionInfoArray[4];
+            let floor3Price = showSectionInfoArray[5];
+            classes[3] = showSectionInfoArray[6];
+            let floor4Price = showSectionInfoArray[7];
+            classes[4] = showSectionInfoArray[8];
+            let loge1Price = showSectionInfoArray[9];
+            classes[5] = showSectionInfoArray[10];
+            let loge2Price = showSectionInfoArray[11];
+            classes[6] = showSectionInfoArray[12];
+            let loge3Price = showSectionInfoArray[13];
+            classes[7] = showSectionInfoArray[14];
+            let loge4Price = showSectionInfoArray[15];
+
+            for(var i=0;i<classes.length;i++){
+                if(classes[i] === '0')
+                    classes[i] = 'reserved';
+                else if(classes[i] === '1')
+                    classes[i] = 'box';
+                else if(classes[i] === '2')
+                    classes[i] = 'disabled';
+                else if(classes[i] === '3')
+                    classes[i] = 'student';
+                else if(classes[i] === '4')
+                    classes[i] = 'veteran';
+            }
+
+            let floor1Class = classes[0];
+            let floor2Class = classes[1];
+            let floor3Class = classes[2];
+            let floor4Class = classes[3];
+            let loge1Class = classes[4];
+            let loge2Class = classes[5];
+            let loge3Class = classes[6];
+            let loge4Class = classes[7];
+            //update ticket prices
+            //get all floor seats
+            document.querySelectorAll('[id^=F_S1]').forEach(function(node) {
+                // Do whatever you want with the node object.
+                node.className = floor1Class;
+                node.value = floor1Price;
+            });
+            //get all balcony
+            document.querySelectorAll('[id^=F_S2]').forEach(function(node) {
+                // Do whatever you want with the node object.
+                node.className = floor2Class;
+                node.value = floor2Price;
+            });
+            //get all balcony
+            document.querySelectorAll('[id^=F_S3]').forEach(function(node) {
+                // Do whatever you want with the node object.
+                node.className = floor3Class;
+                node.value = floor3Price;
+            });
+            //get all balcony
+            document.querySelectorAll('[id^=F_S4]').forEach(function(node) {
+                // Do whatever you want with the node object.
+                node.className = floor4Class;
+                node.value = floor4Price;
+            });
+            //get all balcony
+            document.querySelectorAll('[id^=L_S1]').forEach(function(node) {
+                // Do whatever you want with the node object.
+                node.className = loge1Class;
+                node.value = loge1Price;
+            });
+            //get all balcony
+            document.querySelectorAll('[id^=L_S2]').forEach(function(node) {
+                // Do whatever you want with the node object.
+                node.className = loge2Class;
+                node.value = loge2Price;
+            });
+            document.querySelectorAll('[id^=L_S3]').forEach(function(node) {
+                // Do whatever you want with the node object.
+                node.className = loge3Class;
+                node.value = loge3Price;
+            });
+            //get all balcony
+            document.querySelectorAll('[id^=L_S4]').forEach(function(node) {
+                // Do whatever you want with the node object.
+                node.className = loge4Class;
+                node.value = loge4Price;
+            });
+            document.getElementById('seatPriceText').innerHTML = 'Floor Section 1 Price: $' + floor1Price + ' Loge Section 1 Price: $' + loge1Price;
+
             let reservedSeats = showTickets.SeatsTaken + stProd2;
             let seatsArray = reservedSeats.match(/.{1,8}/g);
             console.log(seatsArray);
@@ -263,23 +531,7 @@ function openSeat(evt, toolName, tipName, show) {
                     }
                 }
             });
-            //update ticket prices
-            //get all floor seats
-            document.querySelectorAll('[id^=F]').forEach(function(node) {
-                // Do whatever you want with the node object.
-                node.value = floorprice;
-            });
-            //get all balcony
-            document.querySelectorAll('[id^=B]').forEach(function(node) {
-                // Do whatever you want with the node object.
-                node.value = balconyprice;
-            });
-            //get all loge
-            document.querySelectorAll('[id^=L]').forEach(function(node) {
-                // Do whatever you want with the node object.
-                node.value = balconyprice;
-            });
-            document.getElementById('seatPriceText2').innerHTML = 'Floor Price: $' + floorprice + ' Balcony Price: $' + balconyprice;
+
             display_errors(result.errors);
         });
     }
@@ -288,8 +540,100 @@ function openSeat(evt, toolName, tipName, show) {
         $.getJSON("/tickets/ShowTickets?id=5", function (result) {
             showTickets = result.show;
             showTickets.showID = 5;
-            let floorprice = showTickets.FloorPrice;
-            let balconyprice = showTickets.BalconyPrice;
+
+            let showSectionInfo = showTickets.SectionInfo;
+            let showSectionInfoArray = showSectionInfo.split(',');
+
+            let classes= [];
+
+            classes[0] = showSectionInfoArray[0];
+            let floor1Price = showSectionInfoArray[1];
+            classes[1] = showSectionInfoArray[2];
+            let floor2Price = showSectionInfoArray[3];
+            classes[2] = showSectionInfoArray[4];
+            let floor3Price = showSectionInfoArray[5];
+            classes[3] = showSectionInfoArray[6];
+            let floor4Price = showSectionInfoArray[7];
+            classes[4] = showSectionInfoArray[8];
+            let loge1Price = showSectionInfoArray[9];
+            classes[5] = showSectionInfoArray[10];
+            let loge2Price = showSectionInfoArray[11];
+            classes[6] = showSectionInfoArray[12];
+            let loge3Price = showSectionInfoArray[13];
+            classes[7] = showSectionInfoArray[14];
+            let loge4Price = showSectionInfoArray[15];
+
+            for(var i=0;i<classes.length;i++){
+                if(classes[i] === '0')
+                    classes[i] = 'reserved';
+                else if(classes[i] === '1')
+                    classes[i] = 'box';
+                else if(classes[i] === '2')
+                    classes[i] = 'disabled';
+                else if(classes[i] === '3')
+                    classes[i] = 'student';
+                else if(classes[i] === '4')
+                    classes[i] = 'veteran';
+            }
+
+            let floor1Class = classes[0];
+            let floor2Class = classes[1];
+            let floor3Class = classes[2];
+            let floor4Class = classes[3];
+            let loge1Class = classes[4];
+            let loge2Class = classes[5];
+            let loge3Class = classes[6];
+            let loge4Class = classes[7];
+            //update ticket prices
+            //get all floor seats
+            document.querySelectorAll('[id^=F_S1]').forEach(function(node) {
+                // Do whatever you want with the node object.
+                node.className = floor1Class;
+                node.value = floor1Price;
+            });
+            //get all balcony
+            document.querySelectorAll('[id^=F_S2]').forEach(function(node) {
+                // Do whatever you want with the node object.
+                node.className = floor2Class;
+                node.value = floor2Price;
+            });
+            //get all balcony
+            document.querySelectorAll('[id^=F_S3]').forEach(function(node) {
+                // Do whatever you want with the node object.
+                node.className = floor3Class;
+                node.value = floor3Price;
+            });
+            //get all balcony
+            document.querySelectorAll('[id^=F_S4]').forEach(function(node) {
+                // Do whatever you want with the node object.
+                node.className = floor4Class;
+                node.value = floor4Price;
+            });
+            //get all balcony
+            document.querySelectorAll('[id^=L_S1]').forEach(function(node) {
+                // Do whatever you want with the node object.
+                node.className = loge1Class;
+                node.value = loge1Price;
+            });
+            //get all balcony
+            document.querySelectorAll('[id^=L_S2]').forEach(function(node) {
+                // Do whatever you want with the node object.
+                node.className = loge2Class;
+                node.value = loge2Price;
+            });
+            document.querySelectorAll('[id^=L_S3]').forEach(function(node) {
+                // Do whatever you want with the node object.
+                node.className = loge3Class;
+                node.value = loge3Price;
+            });
+            //get all balcony
+            document.querySelectorAll('[id^=L_S4]').forEach(function(node) {
+                // Do whatever you want with the node object.
+                node.className = loge4Class;
+                node.value = loge4Price;
+            });
+            document.getElementById('seatPriceText').innerHTML = 'Floor Section 1 Price: $' + floor1Price + ' Loge Section 1 Price: $' + loge1Price;
+
             let reservedSeats = showTickets.SeatsTaken + stProd2;
             let seatsArray = reservedSeats.match(/.{1,8}/g);
             console.log(seatsArray);
@@ -303,25 +647,7 @@ function openSeat(evt, toolName, tipName, show) {
                         node.onclick = "";
                     }
                 }
-            });
-            //update ticket prices
-            //get all floor seats
-            document.querySelectorAll('[id^=F]').forEach(function(node) {
-                // Do whatever you want with the node object.
-                node.value = floorprice;
-            });
-            //get all balcony
-            document.querySelectorAll('[id^=B]').forEach(function(node) {
-                // Do whatever you want with the node object.
-                node.value = balconyprice;
-            });
-            //get all loge
-            document.querySelectorAll('[id^=L]').forEach(function(node) {
-                // Do whatever you want with the node object.
-                node.value = balconyprice;
-            });
-            document.getElementById('seatPriceText2').innerHTML = 'Floor Price: $' + floorprice + ' Balcony Price: $' + balconyprice;
-            display_errors(result.errors);
+            });display_errors(result.errors);
         });
     }
     //get reserved seats from DB
@@ -329,8 +655,100 @@ function openSeat(evt, toolName, tipName, show) {
         $.getJSON("/tickets/ShowTickets?id=6", function (result) {
             showTickets = result.show;
             showTickets.showID = 6;
-            let floorprice = showTickets.FloorPrice;
-            let balconyprice = showTickets.BalconyPrice;
+
+            let showSectionInfo = showTickets.SectionInfo;
+            let showSectionInfoArray = showSectionInfo.split(',');
+
+            let classes= [];
+
+            classes[0] = showSectionInfoArray[0];
+            let floor1Price = showSectionInfoArray[1];
+            classes[1] = showSectionInfoArray[2];
+            let floor2Price = showSectionInfoArray[3];
+            classes[2] = showSectionInfoArray[4];
+            let floor3Price = showSectionInfoArray[5];
+            classes[3] = showSectionInfoArray[6];
+            let floor4Price = showSectionInfoArray[7];
+            classes[4] = showSectionInfoArray[8];
+            let loge1Price = showSectionInfoArray[9];
+            classes[5] = showSectionInfoArray[10];
+            let loge2Price = showSectionInfoArray[11];
+            classes[6] = showSectionInfoArray[12];
+            let loge3Price = showSectionInfoArray[13];
+            classes[7] = showSectionInfoArray[14];
+            let loge4Price = showSectionInfoArray[15];
+
+            for(var i=0;i<classes.length;i++){
+                if(classes[i] === '0')
+                    classes[i] = 'reserved';
+                else if(classes[i] === '1')
+                    classes[i] = 'box';
+                else if(classes[i] === '2')
+                    classes[i] = 'disabled';
+                else if(classes[i] === '3')
+                    classes[i] = 'student';
+                else if(classes[i] === '4')
+                    classes[i] = 'veteran';
+            }
+
+            let floor1Class = classes[0];
+            let floor2Class = classes[1];
+            let floor3Class = classes[2];
+            let floor4Class = classes[3];
+            let loge1Class = classes[4];
+            let loge2Class = classes[5];
+            let loge3Class = classes[6];
+            let loge4Class = classes[7];
+            //update ticket prices
+            //get all floor seats
+            document.querySelectorAll('[id^=F_S1]').forEach(function(node) {
+                // Do whatever you want with the node object.
+                node.className = floor1Class;
+                node.value = floor1Price;
+            });
+            //get all balcony
+            document.querySelectorAll('[id^=F_S2]').forEach(function(node) {
+                // Do whatever you want with the node object.
+                node.className = floor2Class;
+                node.value = floor2Price;
+            });
+            //get all balcony
+            document.querySelectorAll('[id^=F_S3]').forEach(function(node) {
+                // Do whatever you want with the node object.
+                node.className = floor3Class;
+                node.value = floor3Price;
+            });
+            //get all balcony
+            document.querySelectorAll('[id^=F_S4]').forEach(function(node) {
+                // Do whatever you want with the node object.
+                node.className = floor4Class;
+                node.value = floor4Price;
+            });
+            //get all balcony
+            document.querySelectorAll('[id^=L_S1]').forEach(function(node) {
+                // Do whatever you want with the node object.
+                node.className = loge1Class;
+                node.value = loge1Price;
+            });
+            //get all balcony
+            document.querySelectorAll('[id^=L_S2]').forEach(function(node) {
+                // Do whatever you want with the node object.
+                node.className = loge2Class;
+                node.value = loge2Price;
+            });
+            document.querySelectorAll('[id^=L_S3]').forEach(function(node) {
+                // Do whatever you want with the node object.
+                node.className = loge3Class;
+                node.value = loge3Price;
+            });
+            //get all balcony
+            document.querySelectorAll('[id^=L_S4]').forEach(function(node) {
+                // Do whatever you want with the node object.
+                node.className = loge4Class;
+                node.value = loge4Price;
+            });
+            document.getElementById('seatPriceText').innerHTML = 'Floor Section 1 Price: $' + floor1Price + ' Loge Section 1 Price: $' + loge1Price;
+
             let reservedSeats = showTickets.SeatsTaken + stProd2;
             let seatsArray = reservedSeats.match(/.{1,8}/g);
             console.log(seatsArray);
@@ -345,24 +763,6 @@ function openSeat(evt, toolName, tipName, show) {
                     }
                 }
             });
-            //update ticket prices
-            //get all floor seats
-            console.log('**'+floorprice);
-            document.querySelectorAll('[id^=F]').forEach(function(node) {
-                // Do whatever you want with the node object.
-                node.value = floorprice;
-            });
-            //get all balcony
-            document.querySelectorAll('[id^=B]').forEach(function(node) {
-                // Do whatever you want with the node object.
-                node.value = balconyprice;
-            });
-            //get all loge
-            document.querySelectorAll('[id^=L]').forEach(function(node) {
-                // Do whatever you want with the node object.
-                node.value = balconyprice;
-            });
-            document.getElementById('seatPriceText2').innerHTML = 'Floor Price: $' + floorprice + ' Balcony Price: $' + balconyprice;
             display_errors(result.errors);
         });
     }
@@ -403,23 +803,6 @@ window.onclick = function(event) {
     }
 }
 
-//test array variable to mimic DB
-var reservedSeats = ["F_S0_B02", "F_S0_B03", "F_S0_D02", "F_S0_D03", "F_S0_D04", "F_S0_D05", "B_S3_B02", "B_S3_B03", "F_S0_G23", "F_S0_G24", "F_S0_G25", "F_S0_Z03", "F_S0_Z04", "F_Z0_D05", "B_S3_K02", "B_S3_K03"];
-//test function to check seats
-function checkReserved()    {
-    //iterate through all elements on page
-    document.querySelectorAll('*').forEach(function(node) {
-        // Do whatever you want with the node object.
-        for(var i=0; i < reservedSeats.length; i++) {
-            if (node.id == reservedSeats[i]){
-                node.className = "reserved";
-                node.title = "reserved";
-                node.onclick = "";
-            }
-        }
-    });
-}
-
 //txt var will be string of seats
 var txt;
 var totalPrice;
@@ -451,6 +834,10 @@ function onClick(element) {
         //recolor seat to its unselected color
         if (element.className == "disabled")
             document.getElementById(element.id).style.backgroundColor = "#28607f";
+        else if (element.className == "student")
+            document.getElementById(element.id).style.backgroundColor = "#97950c";
+        else if (element.className == "veteran")
+            document.getElementById(element.id).style.backgroundColor = "#7f0c00";
         else
             document.getElementById(element.id).style.backgroundColor = "#539752";
         document.getElementById(element.id).style.color = "#fff";
