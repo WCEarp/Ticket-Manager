@@ -12,7 +12,7 @@ window.onload = function(){
 };
 
 function openTool(evt, toolName, tipName) {
-    var i, tabcontent, tablinks;
+    var i, tabcontent, tipcontent, tablinks;
     tabcontent = document.getElementsByClassName("tabcontent");
     tipcontent = document.getElementsByClassName("tipcontent");
 
@@ -47,25 +47,25 @@ var span = document.getElementsByClassName("close")[0];
 // When the user clicks the button, open the modal
 btnConHall.onclick = function() {
     modalConHall.style.display = "block";
-}
+};
 
 btnPlayhouse.onclick = function() {
     modalPlayhouse.style.display = "block";
-}
+};
 
 // When the user clicks on <span> (x), close the modal
 span.onclick = function() {
     modalConHall.style.display = "none";
     modalPlayhouse.style.display = "none";
-}
+};
 
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
-    if (event.target == modalConHall || event.target == modalPlayhouse) {
+    if (event.target === modalConHall || event.target === modalPlayhouse) {
         modalConHall.style.display = "none";
         modalPlayhouse.style.display = "none";
     }
-}
+};
 
 
 //test array variable to mimic DB
@@ -76,7 +76,7 @@ function checkReserved()    {
     document.querySelectorAll('*').forEach(function(node) {
         // Do whatever you want with the node object.
         for(var i=0; i < reservedSeats.length; i++) {
-            if (node.id == reservedSeats[i]){
+            if (node.id === reservedSeats[i]) {
                 node.className = "reserved";
                 node.title = "reserved";
                 node.onclick = "";
