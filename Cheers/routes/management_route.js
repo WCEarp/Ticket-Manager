@@ -73,6 +73,7 @@ router.get('/ticket', function (req, res) {
         ticketManager.getTicket(ticketID, function (ticket) {
             if (ticket) {
                 console.log(`Sending ticket of id ${ticketID}`);
+                console.log(ticket);
                 res.json({ticket: ticket});
             } else {
                 let err = `ticket with id ${ticketID} not found`;
@@ -133,6 +134,11 @@ router.post('/notifyRenew', function (req, res) {
 
 router.post('/show_update_setPrice', function (req, res) {
     showManager.updateShowPrice(req.body.showID,  req.body.floorPrice, req.body.balconyPrice);
+    res.send({});
+});
+
+router.post('/ticketseat_update', function (req, res) {
+    ticketManager.update_ticket_seat(req.body.ticketID, req.body.showID, req.body.seats, req.body.numSeats);
     res.send({});
 });
 
