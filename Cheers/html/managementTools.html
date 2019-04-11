@@ -38,31 +38,31 @@
         }
 
         function check_ccn(ccn) {
-            if (ccn.match(/[^0-9]/gi) || ccn.length != 16) {
+            if (ccn.match(/[^0-9]/gi) || ccn.length !== 16) {
                 return false;
             } else {
                 return true;
             }
         }
 
-        function check_profile_creation(uID, fName, lName, aID, phoneNum, email, ccn, sts, stpID) {
+        function check_profile_creation(uID, fName, lName, phoneNum, email, ccn, sts, stpID) {
             if (fName.match(/[^A-z]/gi) || lName.match(/[^A-z]/gi) || fName.length > 15 || lName.length > 15) {
                 alert('Invalid name: ' + fName + ' ' + lName);
                 return false;
             }
-            if (phoneNum.match(/[^0-9]/gi) || (phoneNum.length != 10 && phoneNum.length != 0)) {
+            if (phoneNum.match(/[^0-9]/gi) || (phoneNum.length !== 10 && phoneNum.length !== 0)) {
                 alert('Invalid Phone Number: ' + phoneNum);
                 return false;
             }
-            if (email.match(/[^A-z0-9@.]/gi) || (email.length > 30 && email.length != 0)) {
+            if (email.match(/[^A-z0-9@.]/gi) || (email.length > 30 && email.length !== 0)) {
                 alert('Invalid Email: ' + email);
                 return false;
             }
-            if (ccn.match(/[^0-9]/gi) || (ccn.length != 16 && ccn.length != 0)) {
+            if (ccn.match(/[^0-9]/gi) || (ccn.length !== 16 && ccn.length !== 0)) {
                 alert('Invalid Credit Card Number: ' + ccn);
                 return false;
             }
-            if (sts.length != 8 && sts.length != 0) {
+            if (sts.length !== 8 && sts.length !== 0) {
                 alert('Invalid Season Ticket Seat: ' + sts);
                 return false;
             }
@@ -75,7 +75,7 @@
         }
 
         function check_ID(uID) {
-            if (uID.match(/[^0-9]/gi) || uID.length > 5 || uID.length == 0 || uID == '00000') {
+            if (uID.match(/[^0-9]/gi) || uID.length > 5 || uID.length === 0 || uID === '00000') {
                 return false;
             } else {
                 return true;
@@ -132,7 +132,7 @@
             $("#MU_add").click(function () {
                 console.log($("#uid").val());
 
-                if (check_profile_creation($("#uid").val(), $("#fname").val(), $("#lname").val(), $("#address").val(), $("#pnum").val(), $("#email").val(), $("#ccn").val(), $("#sth_seats").val(), $("#sth_prod").val()) == false) {
+                if (check_profile_creation($("#uid").val(), $("#fname").val(), $("#lname").val(), $("#pnum").val(), $("#email").val(), $("#ccn").val(), $("#sth_seats").val(), $("#sth_prod").val()) === false) {
                     console.log('check_profile_creation failed');
                 } else {
                     console.log('true');
@@ -150,8 +150,8 @@
                         sthProductionID: $("#sth_prod").val()
                     };
                     $.post("/manage/user_add", data, function (result) {
-                    })
-                    alert('Added user.');
+                        alert('Added user.');
+                    });
                 }
             });
         });
@@ -180,7 +180,7 @@
                 let userId = $("#uid").val();
                 console.log('userID: ' + userId);
 
-                if (check_profile_creation(userId, $("#fname").val(), $("#lname").val(), $("#address").val(), $("#pnum").val(), $("#email").val(), $("#ccn").val(), $("#sth_seats").val(), $("#sth_prod").val()) == false) {
+                if (check_profile_creation(userId, $("#fname").val(), $("#lname").val(), $("#pnum").val(), $("#email").val(), $("#ccn").val(), $("#sth_seats").val(), $("#sth_prod").val()) === false) {
                     console.log('check_profile_creation failed');
                 } else {
                     console.log('true');
@@ -190,9 +190,9 @@
                         firstName: $("#fname").val(),
                         lastName: $("#lname").val(),
                         street: $("#street").val(),
-                    city: $("#city").val(),
-                    state: $("#state").val(),
-                    zipCode: $("#zipCode").val(),
+                        city: $("#city").val(),
+                        state: $("#state").val(),
+                        zipCode: $("#zipCode").val(),
                         phoneNumber: $("#pnum").val(),
                         email: $("#email").val(),
                         ccn: $("#ccn").val(),
@@ -200,8 +200,8 @@
                         sthProductionID: $("#sth_prod").val()
                     };
                     $.post("/manage/user_update", data, function (result) {
-                    })
-                    alert('Updated user with ID ' + userId);
+                        alert('Updated user with ID ' + userId);
+                    });
                 }
             });
         });
@@ -363,7 +363,7 @@
                     <label for="sth_seats">Season Ticket Seat:</label>
                     <input type="text" id="sth_seats"><br><br>
 
-                    <label for="sth_seats">Season Ticket Production ID:</label><br>
+                    <label for="sth_prod">Season Ticket Production ID:</label><br>
                     <input type="text" id="sth_prod"><br><br>
 
                 </form>

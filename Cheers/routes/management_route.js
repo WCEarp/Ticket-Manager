@@ -100,7 +100,8 @@ router.get('/tickets', function (req, res) {
 
 router.post('/user_add', function (req, res) {
     let body = req.body;
-    userManager.add_user(body.firstName, body.lastName, body.street, body.city, body.state, body.zipCode, body.phoneNumber, body.email, body.ccn, body.accountLoginID, body.seasonTicketSeat, body.sthProductionID);
+    userManager.add_user(body.firstName, body.lastName, body.street, body.city, body.state, body.zipCode,
+        body.phoneNumber, body.email, body.ccn, body.seasonTicketSeat, body.sthProductionID);
     res.send({});
 });
 
