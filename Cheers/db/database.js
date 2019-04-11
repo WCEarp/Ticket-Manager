@@ -189,15 +189,17 @@ module.exports.Database = function () {
      *
      * @param userID The id of the user.
      */
-    this.delete_user = function (userID) {
+    this.delete_user = function (userID, callback) {
         // delete a user based on id
         let sql = `DELETE FROM User WHERE UserID = ?`;
 
         db.run(sql, userID, function (err) {
             if (err) {
-                return console.error(err.message);
+                console.error(err.message);
+                callback(0);
             } else {
                 console.log(`Row(s) deleted ${this.changes}`);
+                callback(this.changes);
             }
         });
     };

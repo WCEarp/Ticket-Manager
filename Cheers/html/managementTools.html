@@ -37,6 +37,63 @@
             $("#create_edit_user_errors").html(errorHtml);
         }
 
+        function check_ccn(ccn) {
+            if (ccn.match(/[^0-9]/gi) || ccn.length != 16) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        function check_profile_creation(uID, fName, lName, aID, phoneNum, email, ccn, sts, stpID) {
+            if (fName.match(/[^A-z]/gi) || lName.match(/[^A-z]/gi) || fName.length > 15 || lName.length > 15) {
+                alert('Invalid name: ' + fName + ' ' + lName);
+                return false;
+            }
+            if (phoneNum.match(/[^0-9]/gi) || (phoneNum.length != 10 && phoneNum.length != 0)) {
+                alert('Invalid Phone Number: ' + phoneNum);
+                return false;
+            }
+            if (email.match(/[^A-z0-9@.]/gi) || (email.length > 30 && email.length != 0)) {
+                alert('Invalid Email: ' + email);
+                return false;
+            }
+            if (ccn.match(/[^0-9]/gi) || (ccn.length != 16 && ccn.length != 0)) {
+                alert('Invalid Credit Card Number: ' + ccn);
+                return false;
+            }
+            if (sts.length != 8 && sts.length != 0) {
+                alert('Invalid Season Ticket Seat: ' + sts);
+                return false;
+            }
+            if (stpID.match(/[^0-9]/gi) || stpID.length > 3) {
+                alert('Invalid Season Ticket Production ID: ' + stpID);
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        function check_ID(uID) {
+            if (uID.match(/[^0-9]/gi) || uID.length > 5 || uID.length == 0 || uID == '00000') {
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        function clearUserText() {
+            $("#uid").val('');
+            $("#fname").val('');
+            $("#lname").val('');
+            $("#address").val('');
+            $("#pnum").val('');
+            $("#email").val('');
+            $("#ccn").val('');
+            $("#sth_seats").val('');
+            $("#sth_prod").val('');
+        }
+		
         function set_paid_value(ticket_ID) {
             let data = {ticketID: ticket_ID};
             $.post("/manage/update_paid", data, function (result) {
@@ -69,18 +126,25 @@
         $(document).ready(function () {
             $("#MU_add").click(function () {
                 console.log($("#uid").val());
-                let data = {
-                    firstName: $("#fname").val(),
-                    lastName: $("#lname").val(),
-                    address: $("#address").val(),
-                    phoneNumber: $("#pnum").val(),
-                    email: $("#email").val(),
-                    ccn: $("#ccn").val(),
-                    seasonTicketSeat: $("#sth_seats").val(),
-                    sthProductionID: $("#sth_prod").val()
-                };
-				$.post("/manage/user_add", data, function(result){
-				})
+
+                if (check_profile_creation($("#uid").val(), $("#fname").val(), $("#lname").val(), $("#address").val(), $("#pnum").val(), $("#email").val(), $("#ccn").val(), $("#sth_seats").val(), $("#sth_prod").val()) == false) {
+                    console.log('check_profile_creation failed');
+                } else {
+                    console.log('true');
+                    let data = {
+                        firstName: $("#fname").val(),
+                        lastName: $("#lname").val(),
+                        address: $("#address").val(),
+                        phoneNumber: $("#pnum").val(),
+                        email: $("#email").val(),
+                        ccn: $("#ccn").val(),
+                        seasonTicketSeat: $("#sth_seats").val(),
+                        sthProductionID: $("#sth_prod").val()
+                    };
+                    $.post("/manage/user_add", data, function (result) {
+                    })
+                    alert('Added user.');
+                }
             });
         });
 
@@ -91,7 +155,13 @@
                 console.log(userId);
                 let data = {userID: userId};
                 $.post("/manage/user_delete", data, function (result) {
-                    console.log("User deleted with id " + userId);
+                    if (result.errors) {
+                        alert(result.errors[0]);
+                    } else {
+                        alert("User deleted with id " + userId);
+                        console.log("User deleted with id " + userId);
+                        clearUserText();
+                    }
                 })
             });
         });
@@ -100,20 +170,28 @@
         $(document).ready(function () {
             $("#MU_upd").click(function () {
                 let userId = $("#uid").val();
-                console.log(userId);
-                let data = {
-                    userID: userId,
-                    firstName: $("#fname").val(),
-                    lastName: $("#lname").val(),
-                    address: $("#address").val(),
-                    phoneNumber: $("#pnum").val(),
-                    email: $("#email").val(),
-                    ccn: $("#ccn").val(),
-                    seasonTicketSeat: $("#sth_seats").val(),
-                    sthProductionID: $("#sth_prod").val()
-                };
-                $.post("/manage/user_update", data, function (result) {
-                })
+                console.log('userID: ' + userId);
+
+                if (check_profile_creation(userId, $("#fname").val(), $("#lname").val(), $("#address").val(), $("#pnum").val(), $("#email").val(), $("#ccn").val(), $("#sth_seats").val(), $("#sth_prod").val()) == false) {
+                    console.log('check_profile_creation failed');
+                } else {
+                    console.log('true');
+
+                    let data = {
+                        userID: userId,
+                        firstName: $("#fname").val(),
+                        lastName: $("#lname").val(),
+                        address: $("#address").val(),
+                        phoneNumber: $("#pnum").val(),
+                        email: $("#email").val(),
+                        ccn: $("#ccn").val(),
+                        seasonTicketSeat: $("#sth_seats").val(),
+                        sthProductionID: $("#sth_prod").val()
+                    };
+                    $.post("/manage/user_update", data, function (result) {
+                    })
+                    alert('Updated user with ID ' + userId);
+                }
             });
         });
 

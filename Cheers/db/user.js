@@ -50,9 +50,9 @@ module.exports.UserManager = function (database) {
     this.add_user = function (firstName, lastName, addressID, phoneNumber, email, ccn, seasonTicketSeat, sthProductionID) {
 		db.add_user(firstName, lastName, addressID, phoneNumber, email, ccn, seasonTicketSeat, sthProductionID);
 	};
-	
-	this.delete_user = function (userID) {
-        db.delete_user(userID);
+
+    this.delete_user = function (userID, callback) {
+        db.delete_user(userID, callback);
     };
 	
 	this.update_user = function (userID, firstName, lastName, addressID, phoneNumber, email, ccn, accountLoginID, seasonTicketSeat, sthProductionID) {

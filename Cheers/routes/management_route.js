@@ -103,8 +103,13 @@ router.post('/user_add', function (req, res) {
 
 
 router.post('/user_delete', function (req, res) {
-    userManager.delete_user(req.body.userID);
-    res.send({});
+    userManager.delete_user(req.body.userID, function (rowschanged) {
+        if (rowschanged === 0) {
+            res.json({errors: ["User ID does not exist."]})
+        } else {
+            res.json({});
+        }
+    });
 });
 
 router.post('/user_update', function (req, res) {
@@ -113,7 +118,7 @@ router.post('/user_update', function (req, res) {
 });
 
 router.post('/user_update_sth_seat', function (req, res) {
-    userManager.update_user_sth_seat(req.body.userID,  req.body.seasonTicketSeat, req.body.sthProductionID);
+    userManager.update_user_sth_seat(req.body.userID, req.body.seasonTicketSeat, req.body.sthProductionID);
     res.send({});
 });
 
@@ -133,7 +138,7 @@ router.post('/notifyRenew', function (req, res) {
 });
 
 router.post('/show_update_setPrice', function (req, res) {
-    showManager.updateShowPrice(req.body.showID,  req.body.floorPrice, req.body.balconyPrice);
+    showManager.updateShowPrice(req.body.showID, req.body.floorPrice, req.body.balconyPrice);
     res.send({});
 });
 
