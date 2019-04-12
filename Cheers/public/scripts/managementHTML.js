@@ -9,7 +9,9 @@ window.onload = function(){
     document.getElementById('showSectionPlayhouse').style.display = 'none';
     playhouseSectionRows.forEach(function (node) {
         node.style.display = 'none';
-    })
+    });
+    //open create/edit as default page
+    document.getElementById('CreateTab').click();
 };
 
 function openTool(evt, toolName, tipName) {
