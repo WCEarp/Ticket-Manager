@@ -177,28 +177,6 @@ function mySelectChange() {
     }
 }
 
-function setPriceButton() {
-    let showVal = document.getElementById('selectSet').value;
-    let showID = 1;
-    if(showVal === 'PotO_2')
-        showID = 2;
-    if(showVal === 'HSO')
-        showID = 3;
-    if(showVal === 'TKaM')
-        showID = 4;
-    if(showVal === 'Choir')
-        showID = 5;
-    if(showVal === 'GDCB')
-        showID = 6;
-    let data = {
-        showID: showID,
-        floorPrice: document.getElementById('floorPrice').value,
-        balconyPrice: document.getElementById('balconyPrice').value
-    };
-    $.post("/manage/show_update_setPrice", data, function (result) {
-    })
-}
-
 function setClass() {
     let formElements = document.getElementById('setClassesForm').elements;
     //buttonAndPrice format: chFloor.class,chFloor.price,bal1.class,bal1.price ....
@@ -256,7 +234,7 @@ function setClass() {
     $.post("/manage/show_update_setSectionInfo", data, function (result) {
     });
 
-    alert('Your changes to ' + showID + ' have been saved');
+    alert('Your changes to ' + showVal + ' have been saved');
 }
 
 function selectSetChange() {
