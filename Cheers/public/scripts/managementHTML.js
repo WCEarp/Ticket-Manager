@@ -6,6 +6,7 @@ let playhouseSectionRows = [document.getElementById('floor1Row'),document.getEle
 
 window.onload = function(){
     btnPlayhouse.style.display = "none";
+    document.getElementById('showSectionPlayhouse').style.display = 'none';
     playhouseSectionRows.forEach(function (node) {
         node.style.display = 'none';
     })
@@ -261,6 +262,8 @@ function setClass() {
 function selectSetChange() {
     let showVal = document.getElementById('selectSet').value;
     if(showVal === 'PotO_1' || showVal === 'PotO_2' || showVal === 'HSO'){
+        document.getElementById('showSectionPlayhouse').style.display = 'none';
+        document.getElementById('showSectionConcert').style.display = 'block';
         concertSectionRows.forEach(function (node) {
             node.style.display = 'table-row';
         });
@@ -269,6 +272,8 @@ function selectSetChange() {
         });
     }
     else{
+        document.getElementById('showSectionPlayhouse').style.display = 'block';
+        document.getElementById('showSectionConcert').style.display = 'none';
         concertSectionRows.forEach(function (node) {
             node.style.display = 'none';
         });
@@ -278,6 +283,167 @@ function selectSetChange() {
     }
 }
 
-function printTXT(value, index, array)    {
-    txt = txt + value + ", ";
+function showSectionBtn() {
+    let showVal = document.getElementById('selectSet').value;
+    if(showVal === 'PotO_1' || showVal === 'PotO_2' || showVal === 'HSO'){
+        modalConHall.style.display = "block";
+
+        let checkedButtons = [];
+        //iterate through all elements on page
+        document.querySelectorAll('*').forEach(function(node) {
+            // Do whatever you want with the node object.
+            if(node.checked){
+                checkedButtons.push(node.value);
+            }
+        });
+
+        let checkedConcertHallButtons = checkedButtons.slice(0,6);
+
+        let classes= [];
+
+        classes[0] = checkedConcertHallButtons[0];
+        classes[1] = checkedConcertHallButtons[1];
+        classes[2] = checkedConcertHallButtons[2];
+        classes[3] = checkedConcertHallButtons[3];
+        classes[4] = checkedConcertHallButtons[4];
+        classes[5] = checkedConcertHallButtons[5];
+
+        for(var i=0;i<classes.length;i++){
+            if(classes[i] === '0')
+                classes[i] = 'reserved';
+            else if(classes[i] === '1')
+                classes[i] = 'box';
+            else if(classes[i] === '2')
+                classes[i] = 'disabled';
+            else if(classes[i] === '3')
+                classes[i] = 'student';
+            else if(classes[i] === '4')
+                classes[i] = 'veteran';
+        }
+
+        let concertFloorClass = classes[0];
+        let balcony1Class = classes[1];
+        let balcony2Class = classes[2];
+        let balcony3Class = classes[3];
+        let balcony4Class = classes[4];
+        let balcony5Class = classes[5];
+        //update ticket prices
+        //get all floor seats
+        document.querySelectorAll('[id^=F]').forEach(function(node) {
+            // Do whatever you want with the node object.
+            node.className = concertFloorClass;
+        });
+        //get all balcony
+        document.querySelectorAll('[id^=B_S1]').forEach(function(node) {
+            // Do whatever you want with the node object.
+            node.className = balcony1Class;
+        });
+        //get all balcony
+        document.querySelectorAll('[id^=B_S2]').forEach(function(node) {
+            // Do whatever you want with the node object.
+            node.className = balcony2Class;
+        });
+        //get all balcony
+        document.querySelectorAll('[id^=B_S3]').forEach(function(node) {
+            // Do whatever you want with the node object.
+            node.className = balcony3Class;
+        });
+        //get all balcony
+        document.querySelectorAll('[id^=B_S4]').forEach(function(node) {
+            // Do whatever you want with the node object.
+            node.className = balcony4Class;
+        });
+        //get all balcony
+        document.querySelectorAll('[id^=B_S5]').forEach(function(node) {
+            // Do whatever you want with the node object.
+            node.className = balcony5Class;
+        });
+    }
+    else {
+        modalPlayhouse.style.display = "block";
+
+        let checkedButtons = [];
+        //iterate through all elements on page
+        document.querySelectorAll('*').forEach(function(node) {
+            // Do whatever you want with the node object.
+            if(node.checked){
+                checkedButtons.push(node.value);
+            }
+        });
+
+        let checkedPlayhouseButtons = checkedButtons.slice(6,14);
+
+        let classes= [];
+
+        classes[0] = checkedPlayhouseButtons[0];
+        classes[1] = checkedPlayhouseButtons[1];
+        classes[2] = checkedPlayhouseButtons[2];
+        classes[3] = checkedPlayhouseButtons[3];
+        classes[4] = checkedPlayhouseButtons[4];
+        classes[5] = checkedPlayhouseButtons[5];
+        classes[6] = checkedPlayhouseButtons[6];
+        classes[7] = checkedPlayhouseButtons[7];
+
+        for(var j=0;j<classes.length;j++){
+            if(classes[j] === '0')
+                classes[j] = 'reserved';
+            else if(classes[j] === '1')
+                classes[j] = 'box';
+            else if(classes[j] === '2')
+                classes[j] = 'disabled';
+            else if(classes[j] === '3')
+                classes[j] = 'student';
+            else if(classes[j] === '4')
+                classes[j] = 'veteran';
+        }
+
+        let floor1Class = classes[0];
+        let floor2Class = classes[1];
+        let floor3Class = classes[2];
+        let floor4Class = classes[3];
+        let loge1Class = classes[4];
+        let loge2Class = classes[5];
+        let loge3Class = classes[6];
+        let loge4Class = classes[7];
+        //update ticket prices
+        //get all floor seats
+        document.querySelectorAll('[id^=F_S1]').forEach(function(node) {
+            // Do whatever you want with the node object.
+            node.className = floor1Class;
+        });
+        //get all balcony
+        document.querySelectorAll('[id^=F_S2]').forEach(function(node) {
+            // Do whatever you want with the node object.
+            node.className = floor2Class;
+        });
+        //get all balcony
+        document.querySelectorAll('[id^=F_S3]').forEach(function(node) {
+            // Do whatever you want with the node object.
+            node.className = floor3Class;
+        });
+        //get all balcony
+        document.querySelectorAll('[id^=F_S4]').forEach(function(node) {
+            // Do whatever you want with the node object.
+            node.className = floor4Class;
+        });
+        //get all balcony
+        document.querySelectorAll('[id^=L_S1]').forEach(function(node) {
+            // Do whatever you want with the node object.
+            node.className = loge1Class;
+        });
+        //get all balcony
+        document.querySelectorAll('[id^=L_S2]').forEach(function(node) {
+            // Do whatever you want with the node object.
+            node.className = loge2Class;
+        });
+        document.querySelectorAll('[id^=L_S3]').forEach(function(node) {
+            // Do whatever you want with the node object.
+            node.className = loge3Class;
+        });
+        //get all balcony
+        document.querySelectorAll('[id^=L_S4]').forEach(function(node) {
+            // Do whatever you want with the node object.
+            node.className = loge4Class;
+        });
+    }
 }
