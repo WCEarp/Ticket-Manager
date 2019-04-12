@@ -198,7 +198,12 @@ function openSeat(evt, toolName, tipName, show) {
                 node.className = balcony5Class;
                 node.value = balcony5Price;
             });
-            document.getElementById('seatPriceText').innerHTML = 'Floor Price: $' + concertFloorPrice + ' Balcony Section 1 Price: $' + balcony1Price;
+            document.getElementById('floorPrice').innerHTML = '$' + concertFloorPrice;
+            document.getElementById('bal1Price').innerHTML = '$' + balcony1Price;
+            document.getElementById('bal2Price').innerHTML = '$' + balcony2Price;
+            document.getElementById('bal3Price').innerHTML = '$' + balcony3Price;
+            document.getElementById('bal4Price').innerHTML = '$' + balcony4Price;
+            document.getElementById('bal5Price').innerHTML = '$' + balcony5Price;
 
             let reservedSeats = showTickets.SeatsTaken + stProd1;
             let seatsArray = reservedSeats.match(/.{1,8}/g);
@@ -299,7 +304,12 @@ function openSeat(evt, toolName, tipName, show) {
                 node.className = balcony5Class;
                 node.value = balcony5Price;
             });
-            document.getElementById('seatPriceText').innerHTML = 'Floor Price: $' + concertFloorPrice + ' Balcony Section 1 Price: $' + balcony1Price;
+            document.getElementById('floorPrice').innerHTML = '$' + concertFloorPrice;
+            document.getElementById('bal1Price').innerHTML = '$' + balcony1Price;
+            document.getElementById('bal2Price').innerHTML = '$' + balcony2Price;
+            document.getElementById('bal3Price').innerHTML = '$' + balcony3Price;
+            document.getElementById('bal4Price').innerHTML = '$' + balcony4Price;
+            document.getElementById('bal5Price').innerHTML = '$' + balcony5Price;
 
             let reservedSeats = showTickets.SeatsTaken + stProd1;
             let seatsArray = reservedSeats.match(/.{1,8}/g);
@@ -399,7 +409,12 @@ function openSeat(evt, toolName, tipName, show) {
                 node.className = balcony5Class;
                 node.value = balcony5Price;
             });
-            document.getElementById('seatPriceText').innerHTML = 'Floor Price: $' + concertFloorPrice + ' Balcony Section 1 Price: $' + balcony1Price;
+            document.getElementById('floorPrice').innerHTML = '$' + concertFloorPrice;
+            document.getElementById('bal1Price').innerHTML = '$' + balcony1Price;
+            document.getElementById('bal2Price').innerHTML = '$' + balcony2Price;
+            document.getElementById('bal3Price').innerHTML = '$' + balcony3Price;
+            document.getElementById('bal4Price').innerHTML = '$' + balcony4Price;
+            document.getElementById('bal5Price').innerHTML = '$' + balcony5Price;
 
             let reservedSeats = showTickets.SeatsTaken + stProd1;
             let seatsArray = reservedSeats.match(/.{1,8}/g);
@@ -515,7 +530,14 @@ function openSeat(evt, toolName, tipName, show) {
                 node.className = loge4Class;
                 node.value = loge4Price;
             });
-            document.getElementById('seatPriceText').innerHTML = 'Floor Section 1 Price: $' + floor1Price + ' Loge Section 1 Price: $' + loge1Price;
+            document.getElementById('floor1Price').innerHTML = '$' + floor1Price;
+            document.getElementById('floor2Price').innerHTML = '$' + floor2Price;
+            document.getElementById('floor3Price').innerHTML = '$' + floor3Price;
+            document.getElementById('floor4Price').innerHTML = '$' + floor4Price;
+            document.getElementById('loge1Price').innerHTML = '$' + loge1Price;
+            document.getElementById('loge2Price').innerHTML = '$' + loge2Price;
+            document.getElementById('loge3Price').innerHTML = '$' + loge3Price;
+            document.getElementById('loge4Price').innerHTML = '$' + loge4Price;
 
             let reservedSeats = showTickets.SeatsTaken + stProd2;
             let seatsArray = reservedSeats.match(/.{1,8}/g);
@@ -632,7 +654,14 @@ function openSeat(evt, toolName, tipName, show) {
                 node.className = loge4Class;
                 node.value = loge4Price;
             });
-            document.getElementById('seatPriceText').innerHTML = 'Floor Section 1 Price: $' + floor1Price + ' Loge Section 1 Price: $' + loge1Price;
+            document.getElementById('floor1Price').innerHTML = '$' + floor1Price;
+            document.getElementById('floor2Price').innerHTML = '$' + floor2Price;
+            document.getElementById('floor3Price').innerHTML = '$' + floor3Price;
+            document.getElementById('floor4Price').innerHTML = '$' + floor4Price;
+            document.getElementById('loge1Price').innerHTML = '$' + loge1Price;
+            document.getElementById('loge2Price').innerHTML = '$' + loge2Price;
+            document.getElementById('loge3Price').innerHTML = '$' + loge3Price;
+            document.getElementById('loge4Price').innerHTML = '$' + loge4Price;
 
             let reservedSeats = showTickets.SeatsTaken + stProd2;
             let seatsArray = reservedSeats.match(/.{1,8}/g);
@@ -747,7 +776,14 @@ function openSeat(evt, toolName, tipName, show) {
                 node.className = loge4Class;
                 node.value = loge4Price;
             });
-            document.getElementById('seatPriceText').innerHTML = 'Floor Section 1 Price: $' + floor1Price + ' Loge Section 1 Price: $' + loge1Price;
+            document.getElementById('floor1Price').innerHTML = '$' + floor1Price;
+            document.getElementById('floor2Price').innerHTML = '$' + floor2Price;
+            document.getElementById('floor3Price').innerHTML = '$' + floor3Price;
+            document.getElementById('floor4Price').innerHTML = '$' + floor4Price;
+            document.getElementById('loge1Price').innerHTML = '$' + loge1Price;
+            document.getElementById('loge2Price').innerHTML = '$' + loge2Price;
+            document.getElementById('loge3Price').innerHTML = '$' + loge3Price;
+            document.getElementById('loge4Price').innerHTML = '$' + loge4Price;
 
             let reservedSeats = showTickets.SeatsTaken + stProd2;
             let seatsArray = reservedSeats.match(/.{1,8}/g);
