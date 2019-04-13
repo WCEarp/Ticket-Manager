@@ -117,7 +117,7 @@ function openSeat(evt, toolName, tipName, show) {
             if(value.sthProductionID === 2) {
                 stProd2 = stProd2 + value.seasonTicketSeat;
             }});
-    });
+
     //get reserved seats from DB
     if(show.id === 'PotO_1'){
         $.getJSON("/tickets/ShowTickets?id=1", function (result) {
@@ -167,36 +167,60 @@ function openSeat(evt, toolName, tipName, show) {
                 // Do whatever you want with the node object.
                 node.className = concertFloorClass;
                 node.value = concertFloorPrice;
+                if (node.className === 'reserved'){
+                    node.title = "reserved";
+                    node.onclick = "";
+                }
             });
             //get all balcony
             document.querySelectorAll('[id^=B_S1]').forEach(function(node) {
                 // Do whatever you want with the node object.
                 node.className = balcony1Class;
                 node.value = balcony1Price;
+                if (node.className === 'reserved'){
+                    node.title = "reserved";
+                    node.onclick = "";
+                }
             });
             //get all balcony
             document.querySelectorAll('[id^=B_S2]').forEach(function(node) {
                 // Do whatever you want with the node object.
                 node.className = balcony2Class;
                 node.value = balcony2Price;
+                if (node.className === 'reserved'){
+                    node.title = "reserved";
+                    node.onclick = "";
+                }
             });
             //get all balcony
             document.querySelectorAll('[id^=B_S3]').forEach(function(node) {
                 // Do whatever you want with the node object.
                 node.className = balcony3Class;
                 node.value = balcony3Price;
+                if (node.className === 'reserved'){
+                    node.title = "reserved";
+                    node.onclick = "";
+                }
             });
             //get all balcony
             document.querySelectorAll('[id^=B_S4]').forEach(function(node) {
                 // Do whatever you want with the node object.
                 node.className = balcony4Class;
                 node.value = balcony4Price;
+                if (node.className === 'reserved'){
+                    node.title = "reserved";
+                    node.onclick = "";
+                }
             });
             //get all balcony
             document.querySelectorAll('[id^=B_S5]').forEach(function(node) {
                 // Do whatever you want with the node object.
                 node.className = balcony5Class;
                 node.value = balcony5Price;
+                if (node.className === 'reserved'){
+                    node.title = "reserved";
+                    node.onclick = "";
+                }
             });
             document.getElementById('floorPrice').innerHTML = '$' + concertFloorPrice;
             document.getElementById('bal1Price').innerHTML = '$' + balcony1Price;
@@ -204,6 +228,7 @@ function openSeat(evt, toolName, tipName, show) {
             document.getElementById('bal3Price').innerHTML = '$' + balcony3Price;
             document.getElementById('bal4Price').innerHTML = '$' + balcony4Price;
             document.getElementById('bal5Price').innerHTML = '$' + balcony5Price;
+
 
             let reservedSeats = showTickets.SeatsTaken + stProd1;
             let seatsArray = reservedSeats.match(/.{1,8}/g);
@@ -273,36 +298,60 @@ function openSeat(evt, toolName, tipName, show) {
                 // Do whatever you want with the node object.
                 node.className = concertFloorClass;
                 node.value = concertFloorPrice;
+                if (node.className === 'reserved'){
+                    node.title = "reserved";
+                    node.onclick = "";
+                }
             });
             //get all balcony
             document.querySelectorAll('[id^=B_S1]').forEach(function(node) {
                 // Do whatever you want with the node object.
                 node.className = balcony1Class;
                 node.value = balcony1Price;
+                if (node.className === 'reserved'){
+                    node.title = "reserved";
+                    node.onclick = "";
+                }
             });
             //get all balcony
             document.querySelectorAll('[id^=B_S2]').forEach(function(node) {
                 // Do whatever you want with the node object.
                 node.className = balcony2Class;
                 node.value = balcony2Price;
+                if (node.className === 'reserved'){
+                    node.title = "reserved";
+                    node.onclick = "";
+                }
             });
             //get all balcony
             document.querySelectorAll('[id^=B_S3]').forEach(function(node) {
                 // Do whatever you want with the node object.
                 node.className = balcony3Class;
                 node.value = balcony3Price;
+                if (node.className === 'reserved'){
+                    node.title = "reserved";
+                    node.onclick = "";
+                }
             });
             //get all balcony
             document.querySelectorAll('[id^=B_S4]').forEach(function(node) {
                 // Do whatever you want with the node object.
                 node.className = balcony4Class;
                 node.value = balcony4Price;
+                if (node.className === 'reserved'){
+                    node.title = "reserved";
+                    node.onclick = "";
+                }
             });
             //get all balcony
             document.querySelectorAll('[id^=B_S5]').forEach(function(node) {
                 // Do whatever you want with the node object.
                 node.className = balcony5Class;
                 node.value = balcony5Price;
+                if (node.className === 'reserved'){
+                    node.title = "reserved";
+                    node.onclick = "";
+                }
             });
             document.getElementById('floorPrice').innerHTML = '$' + concertFloorPrice;
             document.getElementById('bal1Price').innerHTML = '$' + balcony1Price;
@@ -378,36 +427,60 @@ function openSeat(evt, toolName, tipName, show) {
                 // Do whatever you want with the node object.
                 node.className = concertFloorClass;
                 node.value = concertFloorPrice;
+                if (node.className === 'reserved'){
+                    node.title = "reserved";
+                    node.onclick = "";
+                }
             });
             //get all balcony
             document.querySelectorAll('[id^=B_S1]').forEach(function(node) {
                 // Do whatever you want with the node object.
                 node.className = balcony1Class;
                 node.value = balcony1Price;
+                if (node.className === 'reserved'){
+                    node.title = "reserved";
+                    node.onclick = "";
+                }
             });
             //get all balcony
             document.querySelectorAll('[id^=B_S2]').forEach(function(node) {
                 // Do whatever you want with the node object.
                 node.className = balcony2Class;
                 node.value = balcony2Price;
+                if (node.className === 'reserved'){
+                    node.title = "reserved";
+                    node.onclick = "";
+                }
             });
             //get all balcony
             document.querySelectorAll('[id^=B_S3]').forEach(function(node) {
                 // Do whatever you want with the node object.
                 node.className = balcony3Class;
                 node.value = balcony3Price;
+                if (node.className === 'reserved'){
+                    node.title = "reserved";
+                    node.onclick = "";
+                }
             });
             //get all balcony
             document.querySelectorAll('[id^=B_S4]').forEach(function(node) {
                 // Do whatever you want with the node object.
                 node.className = balcony4Class;
                 node.value = balcony4Price;
+                if (node.className === 'reserved'){
+                    node.title = "reserved";
+                    node.onclick = "";
+                }
             });
             //get all balcony
             document.querySelectorAll('[id^=B_S5]').forEach(function(node) {
                 // Do whatever you want with the node object.
                 node.className = balcony5Class;
                 node.value = balcony5Price;
+                if (node.className === 'reserved'){
+                    node.title = "reserved";
+                    node.onclick = "";
+                }
             });
             document.getElementById('floorPrice').innerHTML = '$' + concertFloorPrice;
             document.getElementById('bal1Price').innerHTML = '$' + balcony1Price;
@@ -488,47 +561,79 @@ function openSeat(evt, toolName, tipName, show) {
                 // Do whatever you want with the node object.
                 node.className = floor1Class;
                 node.value = floor1Price;
+                if (node.className === 'reserved'){
+                    node.title = "reserved";
+                    node.onclick = "";
+                }
             });
             //get all balcony
             document.querySelectorAll('[id^=F_S2]').forEach(function(node) {
                 // Do whatever you want with the node object.
                 node.className = floor2Class;
                 node.value = floor2Price;
+                if (node.className === 'reserved'){
+                    node.title = "reserved";
+                    node.onclick = "";
+                }
             });
             //get all balcony
             document.querySelectorAll('[id^=F_S3]').forEach(function(node) {
                 // Do whatever you want with the node object.
                 node.className = floor3Class;
                 node.value = floor3Price;
+                if (node.className === 'reserved'){
+                    node.title = "reserved";
+                    node.onclick = "";
+                }
             });
             //get all balcony
             document.querySelectorAll('[id^=F_S4]').forEach(function(node) {
                 // Do whatever you want with the node object.
                 node.className = floor4Class;
                 node.value = floor4Price;
+                if (node.className === 'reserved'){
+                    node.title = "reserved";
+                    node.onclick = "";
+                }
             });
             //get all balcony
             document.querySelectorAll('[id^=L_S1]').forEach(function(node) {
                 // Do whatever you want with the node object.
                 node.className = loge1Class;
                 node.value = loge1Price;
+                if (node.className === 'reserved'){
+                    node.title = "reserved";
+                    node.onclick = "";
+                }
             });
             //get all balcony
             document.querySelectorAll('[id^=L_S2]').forEach(function(node) {
                 // Do whatever you want with the node object.
                 node.className = loge2Class;
                 node.value = loge2Price;
+                if (node.className === 'reserved'){
+                    node.title = "reserved";
+                    node.onclick = "";
+                }
             });
             document.querySelectorAll('[id^=L_S3]').forEach(function(node) {
                 // Do whatever you want with the node object.
                 node.className = loge3Class;
                 node.value = loge3Price;
+                if (node.className === 'reserved'){
+                    node.title = "reserved";
+                    node.onclick = "";
+                }
             });
             //get all balcony
             document.querySelectorAll('[id^=L_S4]').forEach(function(node) {
                 // Do whatever you want with the node object.
                 node.className = loge4Class;
                 node.value = loge4Price;
+                if (node.className === 'reserved'){
+                    node.title = "reserved";
+                    node.onclick = "";
+                }
             });
             document.getElementById('floor1Price').innerHTML = '$' + floor1Price;
             document.getElementById('floor2Price').innerHTML = '$' + floor2Price;
@@ -612,47 +717,79 @@ function openSeat(evt, toolName, tipName, show) {
                 // Do whatever you want with the node object.
                 node.className = floor1Class;
                 node.value = floor1Price;
+                if (node.className === 'reserved'){
+                    node.title = "reserved";
+                    node.onclick = "";
+                }
             });
             //get all balcony
             document.querySelectorAll('[id^=F_S2]').forEach(function(node) {
                 // Do whatever you want with the node object.
                 node.className = floor2Class;
                 node.value = floor2Price;
+                if (node.className === 'reserved'){
+                    node.title = "reserved";
+                    node.onclick = "";
+                }
             });
             //get all balcony
             document.querySelectorAll('[id^=F_S3]').forEach(function(node) {
                 // Do whatever you want with the node object.
                 node.className = floor3Class;
                 node.value = floor3Price;
+                if (node.className === 'reserved'){
+                    node.title = "reserved";
+                    node.onclick = "";
+                }
             });
             //get all balcony
             document.querySelectorAll('[id^=F_S4]').forEach(function(node) {
                 // Do whatever you want with the node object.
                 node.className = floor4Class;
                 node.value = floor4Price;
+                if (node.className === 'reserved'){
+                    node.title = "reserved";
+                    node.onclick = "";
+                }
             });
             //get all balcony
             document.querySelectorAll('[id^=L_S1]').forEach(function(node) {
                 // Do whatever you want with the node object.
                 node.className = loge1Class;
                 node.value = loge1Price;
+                if (node.className === 'reserved'){
+                    node.title = "reserved";
+                    node.onclick = "";
+                }
             });
             //get all balcony
             document.querySelectorAll('[id^=L_S2]').forEach(function(node) {
                 // Do whatever you want with the node object.
                 node.className = loge2Class;
                 node.value = loge2Price;
+                if (node.className === 'reserved'){
+                    node.title = "reserved";
+                    node.onclick = "";
+                }
             });
             document.querySelectorAll('[id^=L_S3]').forEach(function(node) {
                 // Do whatever you want with the node object.
                 node.className = loge3Class;
                 node.value = loge3Price;
+                if (node.className === 'reserved'){
+                    node.title = "reserved";
+                    node.onclick = "";
+                }
             });
             //get all balcony
             document.querySelectorAll('[id^=L_S4]').forEach(function(node) {
                 // Do whatever you want with the node object.
                 node.className = loge4Class;
                 node.value = loge4Price;
+                if (node.className === 'reserved'){
+                    node.title = "reserved";
+                    node.onclick = "";
+                }
             });
             document.getElementById('floor1Price').innerHTML = '$' + floor1Price;
             document.getElementById('floor2Price').innerHTML = '$' + floor2Price;
@@ -734,47 +871,79 @@ function openSeat(evt, toolName, tipName, show) {
                 // Do whatever you want with the node object.
                 node.className = floor1Class;
                 node.value = floor1Price;
+                if (node.className === 'reserved'){
+                    node.title = "reserved";
+                    node.onclick = "";
+                }
             });
             //get all balcony
             document.querySelectorAll('[id^=F_S2]').forEach(function(node) {
                 // Do whatever you want with the node object.
                 node.className = floor2Class;
                 node.value = floor2Price;
+                if (node.className === 'reserved'){
+                    node.title = "reserved";
+                    node.onclick = "";
+                }
             });
             //get all balcony
             document.querySelectorAll('[id^=F_S3]').forEach(function(node) {
                 // Do whatever you want with the node object.
                 node.className = floor3Class;
                 node.value = floor3Price;
+                if (node.className === 'reserved'){
+                    node.title = "reserved";
+                    node.onclick = "";
+                }
             });
             //get all balcony
             document.querySelectorAll('[id^=F_S4]').forEach(function(node) {
                 // Do whatever you want with the node object.
                 node.className = floor4Class;
                 node.value = floor4Price;
+                if (node.className === 'reserved'){
+                    node.title = "reserved";
+                    node.onclick = "";
+                }
             });
             //get all balcony
             document.querySelectorAll('[id^=L_S1]').forEach(function(node) {
                 // Do whatever you want with the node object.
                 node.className = loge1Class;
                 node.value = loge1Price;
+                if (node.className === 'reserved'){
+                    node.title = "reserved";
+                    node.onclick = "";
+                }
             });
             //get all balcony
             document.querySelectorAll('[id^=L_S2]').forEach(function(node) {
                 // Do whatever you want with the node object.
                 node.className = loge2Class;
                 node.value = loge2Price;
+                if (node.className === 'reserved'){
+                    node.title = "reserved";
+                    node.onclick = "";
+                }
             });
             document.querySelectorAll('[id^=L_S3]').forEach(function(node) {
                 // Do whatever you want with the node object.
                 node.className = loge3Class;
                 node.value = loge3Price;
+                if (node.className === 'reserved'){
+                    node.title = "reserved";
+                    node.onclick = "";
+                }
             });
             //get all balcony
             document.querySelectorAll('[id^=L_S4]').forEach(function(node) {
                 // Do whatever you want with the node object.
                 node.className = loge4Class;
                 node.value = loge4Price;
+                if (node.className === 'reserved'){
+                    node.title = "reserved";
+                    node.onclick = "";
+                }
             });
             document.getElementById('floor1Price').innerHTML = '$' + floor1Price;
             document.getElementById('floor2Price').innerHTML = '$' + floor2Price;
@@ -802,6 +971,8 @@ function openSeat(evt, toolName, tipName, show) {
             display_errors(result.errors);
         });
     }
+
+    });
 
 }
 
