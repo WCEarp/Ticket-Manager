@@ -279,6 +279,14 @@
                 if ($("#exportTicketPaid").is(":checked")) {
                     query += "paid=1"
                 }
+
+                if (query.length > 0) {
+                    e.preventDefault();  //stop the browser from following
+                    window.location.href = 'manage/exportTickets?' + query;
+                    display_errors(null);
+                } else {
+                    display_errors(["Please select fields to export."]);
+                }
             });
         });
 

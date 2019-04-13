@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 const emailer = require('../db/emailer.js');
-const csvHandler = require('../db/userExporter');
+const csvHandler = require('../db/exporter');
 const multer = require('multer');
 const upload = multer({storage: multer.memoryStorage()});
 let userManager;
@@ -155,7 +155,7 @@ router.get('/exportUsers', function (req, res) {
     options.email = req.query.email === '1';
     options.ccn = req.query.ccn === '1';
     options.sthSeat = req.query.sthSeat === '1';
-    csvHandler.exportCSV(res, userManager, options);
+    csvHandler.exportUserCSV(res, userManager, options);
 });
 
 
@@ -184,5 +184,17 @@ router.post('/importUsers', upload.single('importUserFile'), function (req, res)
     res.json({linesAdded: linesAdded, errors: errors})
 });
 
+router.get('/exportTickets', function (req, res) {
+    let options = {};
+    let query = req.query;
+    options.id = query.id === '1';
+    options.showID = query.showID === '1';
+    options.userID = query.userID === '1';
+    options.paymentMethod = query.paymentMethod === '1';
+    options.seats = query.seats === '1';
+    options.numSeats = query.numSeats === '1';
+    options.paid = query.paid === '1';
+    csvHandler.exportTicketCSV(res, ticketManager, options);
+});
 
 module.exports = router;
