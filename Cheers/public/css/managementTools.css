@@ -199,6 +199,30 @@ tr:nth-child(even) {
     cursor: pointer;
 }
 
+.student {
+    background-color: #97950c;
+    color: #fff;
+    border-radius: 1px;
+    padding: 0px;
+    font-size: 50%;
+}
+
+.student:hover {
+    cursor: pointer;
+}
+
+.veteran {
+    background-color: #7f0c00;
+    color: #fff;
+    border-radius: 1px;
+    padding: 0px;
+    font-size: 50%;
+}
+
+.veteran:hover {
+    cursor: pointer;
+}
+
 .reserved {
     background-color: #747474;
     color: #ffffff;

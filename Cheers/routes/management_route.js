@@ -150,8 +150,8 @@ router.post('/notifyRenew', function (req, res) {
     res.send({});
 });
 
-router.post('/show_update_setPrice', function (req, res) {
-    showManager.updateShowPrice(req.body.showID, req.body.floorPrice, req.body.balconyPrice);
+router.post('/show_update_setSectionInfo', function (req, res) {
+    showManager.updateSectionInfo(req.body.showID,  req.body.sectionInfo);
     res.send({});
 });
 
