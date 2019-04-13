@@ -102,13 +102,17 @@ module.exports.UserManager = function (database) {
         }
     };
 
-    this.delete_user = function (userID) {
+    this.delete_user = function (userID, callback) {
         db.query_user_by_id(userID, function (err, row) {
             if (row) {
-                db.delete_user(userID);
+                db.delete_user(userID, callback);
                 if (row.addressID && row.addressID !== "") {
                     db.delete_address(row.addressID);
                 }
+            }
+            else
+            {
+                callback(0);
             }
         });
     };
@@ -137,8 +141,8 @@ module.exports.UserManager = function (database) {
         }
     };
 
-    this.update_user_sth_seat = function (userID, seasonTicketSeat, sthProductionID) {
-        db.update_user_sth_seat(userID, seasonTicketSeat, sthProductionID);
+    this.update_user_sth_seat = function (userID, seasonTicketSeat, sthProductionID, callback) {
+        db.update_user_sth_seat(userID, seasonTicketSeat, sthProductionID, callback);
     };
 };
 

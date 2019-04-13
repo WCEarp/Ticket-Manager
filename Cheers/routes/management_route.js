@@ -100,14 +100,22 @@ router.get('/tickets', function (req, res) {
 
 router.post('/user_add', function (req, res) {
     let body = req.body;
-    userManager.add_user(body.firstName, body.lastName, body.street, body.city, body.state, body.zipCode, body.phoneNumber, body.email, body.ccn, body.accountLoginID, body.seasonTicketSeat, body.sthProductionID);
+    userManager.add_user(body.firstName, body.lastName, body.street, body.city, body.state, body.zipCode,
+        body.phoneNumber, body.email, body.ccn, body.seasonTicketSeat, body.sthProductionID);
     res.send({});
 });
 
 
 router.post('/user_delete', function (req, res) {
-    userManager.delete_user(req.body.userID);
-    res.send({});
+    console.log('deleting user');
+    userManager.delete_user(req.body.userID, function (rowschanged) {
+        console.log('rows-changed' + rowschanged);
+        if (rowschanged === 0) {
+            res.json({errors: ["User ID does not exist."]})
+        } else {
+            res.json({});
+        }
+    });
 });
 
 router.post('/user_update', function (req, res) {
@@ -117,8 +125,14 @@ router.post('/user_update', function (req, res) {
 });
 
 router.post('/user_update_sth_seat', function (req, res) {
-    userManager.update_user_sth_seat(req.body.userID, req.body.seasonTicketSeat, req.body.sthProductionID);
-    res.send({});
+    userManager.update_user_sth_seat(req.body.userID, req.body.seasonTicketSeat, req.body.sthProductionID, function (rowschanged) {
+        console.log('rows-changed' + rowschanged);
+        if (rowschanged === 0) {
+            res.json({errors: ["User ID does not exist."]})
+        } else {
+            res.json({});
+        }
+    });
 });
 
 

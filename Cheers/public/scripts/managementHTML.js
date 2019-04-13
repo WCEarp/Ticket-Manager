@@ -134,21 +134,40 @@ function buyButton()    {
     document.getElementById('seat').value = clickedSeats[0];
 }
 
-function sthSubmitBtn() {
-    let sthProd = 1;
-    let regex1 = /(F_S(?!0))/g;
-    let regex2 = /(^L)/g;
-    if(regex1.test(document.getElementById('seat').value) || regex2.test(document.getElementById('seat').value))
-        sthProd = 2;
-    let data = {
-        userID: document.getElementById('sthid').value,
-        seasonTicketSeat: document.getElementById('seat').value,
-        sthProductionID: sthProd
-    };
-    $.post("/manage/user_update_sth_seat", data, function (result) {
-    });
+function check_ID2(uID) {
+	if (uID.match(/[^0-9]/gi) || uID.trim().length > 5 || uID.trim().length === 0) {
+		return false;
+	} else {
+		return true;
+	}
+}
 
-    alert('Season Ticket Updated to: ' + document.getElementById('mySelect').value);
+function sthSubmitBtn() {
+	
+	let uID = document.getElementById('sthid').value;
+	if (check_ID2(uID) == false){
+		alert('Invalid User ID: ' + document.getElementById('sthid').value);
+	}
+	else {
+		let sthProd = 1;
+		let regex1 = /(F_S(?!0))/g;
+		let regex2 = /(^L)/g;
+		if(regex1.test(document.getElementById('seat').value) || regex2.test(document.getElementById('seat').value))
+			sthProd = 2;
+		let data = {
+			userID: document.getElementById('sthid').value,
+			seasonTicketSeat: document.getElementById('seat').value,
+			sthProductionID: sthProd
+		};
+		$.post("/manage/user_update_sth_seat", data, function (result) {
+			if (result.errors) {
+				alert(result.errors[0]);
+			} else {
+				alert('Season Ticket Updated to: ' + document.getElementById('mySelect').value);
+			}
+		});
+
+	}
 }
 
 function mySelectChange() {
