@@ -52,8 +52,8 @@ module.exports.TicketManager = function (database) {
         db.add_ticket(showID, userID, paymentMethodID, reservedSeats, numberOfSeats, paid, totalPrice);
     };
 
-    this.update_ticket_seat = function (ticketID, seats, numSeats) {
-        db.update_ticket_seat(ticketID, seats, numSeats);
+    this.update_ticket_seat = function (ticketID, showID, seats, numSeats) {
+        db.update_ticket_seat(ticketID, showID, seats, numSeats);
     };
 
 };
@@ -68,6 +68,7 @@ module.exports.TicketManager = function (database) {
  * @param reservedSeats
  * @param numberOfSeats
  * @param paid
+ * @param totalPrice
  * @constructor
  */
 let Ticket = function (ticketID, showID, userID, paymentMethodID, reservedSeats, numberOfSeats, paid, totalPrice) {

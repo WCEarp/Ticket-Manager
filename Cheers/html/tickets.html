@@ -43,7 +43,7 @@
                 <h3>Select A Show</h3>
 
                 <!--openSeat send show Id somehow-->
-                <table name="userTable"> <!-- THIS TABLE IS HIDDEN BY DEFAULT-->
+                <table name="userTable">
                     <tr>
                         <th>Show</th>
                         <th>Date</th>
@@ -57,7 +57,7 @@
                         <td><button id='PotO_1' onclick="openSeat(event, 'SelectSeats', 'showTip', this)">Buy</button></td>
                     </tr>
                     <tr>
-                        <td>To Kill A MockingBird</td>
+                        <td>To Kill A Mockingbird</td>
                         <td>05/03/19</td>
                         <td>VBC Playhouse</td>
                         <td><button id='TKaM' onclick="openSeat(event, 'SelectSeats', 'showTip', this)">Buy</button></td>
@@ -182,6 +182,14 @@
                     When finished hit the buy button.
                 </p>
                 <br>
+                <p>
+                    If you are exchanging tickets, choose the exchange ticket option in the Select Payment Method
+                    dropdown. Then,
+                    input your Ticket ID which you want exchange. This will swap tickets and you will be alerted how
+                    much money you
+                    now owe, or how much of a refund we owe you.
+                </p>
+                <br>
             </div>
 
             <div id="showTip" class="tipcontent" >
@@ -218,6 +226,36 @@
         <div class="modal-content">
             <span class="close">&times;</span>
             <div>
+                <table style="width:25%">
+                    <tr>
+                        <th>Section</th>
+                        <th>Price</th>
+                    </tr>
+                    <tr>
+                        <td>Floor</td>
+                        <td id="floorPrice"></td>
+                    </tr>
+                    <tr>
+                        <td>Balcony 1</td>
+                        <td id="bal1Price"></td>
+                    </tr>
+                    <tr>
+                        <td>Balcony 2</td>
+                        <td id="bal2Price"></td>
+                    </tr>
+                    <tr>
+                        <td>Balcony 3</td>
+                        <td id="bal3Price"></td>
+                    </tr>
+                    <tr>
+                        <td>Balcony 4</td>
+                        <td id="bal4Price"></td>
+                    </tr>
+                    <tr>
+                        <td>Balcony 5</td>
+                        <td id="bal5Price"></td>
+                    </tr>
+                </table>
                 <p id="seatPriceText"></p>
                 <p id="selected_concert">Selected Seats: </p>
                 <p id="price_concert">Total Price: </p><br>
@@ -231,6 +269,14 @@
                 <div class="input-color">
                     <input type="text" value="Disabled" readonly/>
                     <div class="color-box" style="background-color: #28607f;"></div>
+                </div>
+                <div class="input-color">
+                    <input type="text" value="Student" readonly/>
+                    <div class="color-box" style="background-color: #97950c;"></div>
+                </div>
+                <div class="input-color">
+                    <input type="text" value="Veteran" readonly/>
+                    <div class="color-box" style="background-color: #7f0c00;"></div>
                 </div>
                 <div class="input-color">
                     <input type="text" value="Reserved" readonly/>
@@ -3312,6 +3358,44 @@
         <div class="modal-content">
             <span class="close">&times;</span>
             <div>
+                <table style="width:25%">
+                    <tr>
+                        <th>Section</th>
+                        <th>Price</th>
+                    </tr>
+                    <tr>
+                        <td>Floor 1</td>
+                        <td id="floor1Price"></td>
+                    </tr>
+                    <tr>
+                        <td>Floor 2</td>
+                        <td id="floor2Price"></td>
+                    </tr>
+                    <tr>
+                        <td>Floor 3</td>
+                        <td id="floor3Price"></td>
+                    </tr>
+                    <tr>
+                        <td>Floor 4</td>
+                        <td id="floor4Price"></td>
+                    </tr>
+                    <tr>
+                        <td>Loge 1</td>
+                        <td id="loge1Price"></td>
+                    </tr>
+                    <tr>
+                        <td>Loge 2</td>
+                        <td id="loge2Price"></td>
+                    </tr>
+                    <tr>
+                        <td>Loge 3</td>
+                        <td id="loge3Price"></td>
+                    </tr>
+                    <tr>
+                        <td>Loge 4</td>
+                        <td id="loge4Price"></td>
+                    </tr>
+                </table>
                 <p id="seatPriceText2"></p>
                 <p id="selected_play">Tickets Selected: </p>
                 <p id="price_play">Total Price: </p>
@@ -3326,6 +3410,14 @@
                 <div class="input-color">
                     <input type="text" value="Disabled" readonly/>
                     <div class="color-box" style="background-color: #28607f;"></div>
+                </div>
+                <div class="input-color">
+                    <input type="text" value="Student" readonly/>
+                    <div class="color-box" style="background-color: #97950c;"></div>
+                </div>
+                <div class="input-color">
+                    <input type="text" value="Veteran" readonly/>
+                    <div class="color-box" style="background-color: #7f0c00;"></div>
                 </div>
                 <div class="input-color">
                     <input type="text" value="Reserved" readonly/>
