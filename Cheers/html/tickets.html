@@ -21,6 +21,14 @@
         $(document).ready(function () {
             //Load the navbar
             $("#nav_div").load("/nav");
+
+            //Get the client's username and if the are logged in as admin
+            $.post("/login/username", function (result) {
+                if (result.userType === 1)
+                {
+                    $("#mySelect").append('<option value="exchangeTickets">Exchange Tickets</option>');
+                }
+            });
         });
     </script>
 </head>
@@ -125,7 +133,6 @@
                     <label for="mySelect">Select Payment Method: </label><select id="mySelect" onchange="mySelectChange()">
                         <option value="creditCard">Credit Card</option>
                         <option value="door">Pay at Door</option>
-                        <option value="exchangeTickets">Exchange Tickets</option>
                     </select><br><br>
 
                     <label id='paymentLabel' for="payment">Credit Card Number:</label><br>

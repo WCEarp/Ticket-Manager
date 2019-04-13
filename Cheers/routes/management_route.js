@@ -194,7 +194,32 @@ router.get('/exportTickets', function (req, res) {
     options.seats = query.seats === '1';
     options.numSeats = query.numSeats === '1';
     options.paid = query.paid === '1';
+    options.price = query.price === '1';
     csvHandler.exportTicketCSV(res, ticketManager, options);
+});
+
+router.post('/importTickets', upload.single('importTicketFile'), function (req, res) {
+    let csvLines = req.file.buffer.toString().trim().split('\n');
+    let errors = [];
+    let linesAdded = 0;
+    for (let i = 0; i < csvLines.length; i++) {
+        if (!(csvLines[i].trim().length > 0 && csvLines[i].trim()[0] === '#')) {
+            console.log("Parsing csv line containing: " + csvLines[i]);
+            let fields = csvLines[i].split(",");
+            if (fields.length === 7) {
+                ticketManager.add_ticket(fields[0].trim(), fields[1].trim(), fields[2].trim(),
+                    fields[3].trim(), fields[4].trim(), fields[5].trim(), fields[6].trim());
+                linesAdded++;
+            } else {
+                let error = "Line " + (i + 1) + " has an incorrect number of fields. Expected 11.";
+                console.log(error);
+                errors.push(error);
+            }
+        } else {
+            console.log('Line ' + i + ' was commented out');
+        }
+    }
+    res.json({linesAdded: linesAdded, errors: errors})
 });
 
 module.exports = router;

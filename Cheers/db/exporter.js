@@ -92,6 +92,7 @@ module.exports.exportTicketCSV = function (res, ticketManager, options,) {
         let exportSeats = options.seats;
         let exportNumSeats = options.numSeats;
         let exportPaid = options.paid;
+        let exportPrice = options.price;
         for (let i = 0; i < tickets.length; i++) {
             let ticket = tickets[i];
             let ticketID = ticket.ticketID;
@@ -124,44 +125,26 @@ module.exports.exportTicketCSV = function (res, ticketManager, options,) {
             }
             csv += ", ";
 
-            let zipCode = ticket.zipCode;
-            if (exportAddress && zipCode && zipCode !== "") {
-                csv += zipCode
+            let numberOfSeats = ticket.numberOfSeats;
+            if (exportNumSeats && numberOfSeats && numberOfSeats !== "") {
+                csv += numberOfSeats
             }
             csv += ", ";
 
-            let phoneNumber = ticket.phoneNumber;
-            if (exportPhoneNumber && phoneNumber && phoneNumber !== "") {
-                csv += phoneNumber
+            let paid = ticket.paid;
+            if (exportPaid && paid && paid !== "") {
+                csv += paid
             }
             csv += ", ";
 
-            let email = ticket.email;
-            if (exportEmail && email && email !== "") {
-                csv += email
-            }
-            csv += ", ";
-
-            let ccn = ticket.ccn;
-            if (exportCCN && ccn && ccn !== "") {
-                csv += ccn
-            }
-            csv += ", ";
-
-            let seasonTicketSeat = ticket.seasonTicketSeat;
-            if (exportSeasonTicketSeat && seasonTicketSeat && seasonTicketSeat !== "") {
-                csv += seasonTicketSeat
-            }
-            csv += ", ";
-
-            let sthProductionID = ticket.sthProductionID;
-            if (exportSeasonTicketSeat && sthProductionID && sthProductionID !== "") {
-                csv += sthProductionID
+            let totalPrice = ticket.totalPrice;
+            if (exportPrice && totalPrice && totalPrice !== "") {
+                csv += totalPrice
             }
             csv += "\n";
         }
 
-        res.attachment('users.csv');
+        res.attachment('tickets.csv');
         res.send(csv);
     });
 };

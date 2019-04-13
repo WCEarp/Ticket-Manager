@@ -221,6 +221,38 @@
         });
 
         $(document).ready(function () {
+            $('#importTicketButton').click(function (e) {
+                let formData = new FormData();
+                let file = document.getElementById("importTicketFile").files[0];
+                if (file) {
+                    formData.append('importTicketFile', file);
+                    $.ajax({
+                        url: 'manage/importTickets',
+                        data: formData,
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        method: 'POST',
+                        type: 'POST', // For jQuery < 1.9
+                        success: function (data) {
+                            let message = 'Tickets imported: ' + data.linesAdded;
+
+                            if (data.errors.length > 0) {
+                                message += "\n\n Errors:\n";
+                                for (let i = 0; i < data.errors.length; i++) {
+                                    message += data.errors[i] + '\n';
+                                }
+                            }
+                            alert(message);
+                        }
+                    });
+                } else {
+                    console.log("No file")
+                }
+            });
+        });
+
+        $(document).ready(function () {
             $('#exportUserButton').click(function (e) {
                 let query = "";
                 if ($("#exportUserFirstName").is(":checked")) {
@@ -277,7 +309,10 @@
                     query += "numSeats=1&"
                 }
                 if ($("#exportTicketPaid").is(":checked")) {
-                    query += "paid=1"
+                    query += "paid=1&"
+                }
+                if ($("#exportTicketPrice").is(":checked")) {
+                    query += "price=1"
                 }
 
                 if (query.length > 0) {
@@ -490,7 +525,7 @@
                     <input id="importUserButton" type="button" value="Import User(s)"/>
                 </form>
                 <br>
-                <form method="post" action="/Tests/Post/">
+                <form>
                     <fieldset>
                         <legend>Select ticket information to export</legend>
                         <input id="exportTicketID" type="checkbox">Ticket ID
@@ -500,9 +535,10 @@
                         <input id="exportTicketReservedSeats" type="checkbox">Reserved Seat
                         <input id="exportTicketNumberSeats" type="checkbox">Num. of Seats
                         <input id="exportTicketPaid" type="checkbox">Paid
+                        <input id="exportTicketPrice" type="checkbox">Price
 
                         <br>
-                        <input type="button" value="Export Ticket(s)"/> <input type="button" value="Import"/>
+                        <input id="exportTicketButton" type="button" value="Export Ticket(s)"/>
                     </fieldset>
                 </form>
                 <br>
@@ -598,7 +634,11 @@
                     Or select a CSV file to be used to import users into the system.
                 </p>
                 <p>CSV files containing users should have 11 fields separated by commas. An example can be found
-                    <a href="res/users.csv">here</a></p>
+                    <a href="res/users.csv">here</a>. This example includes a comment at the top describing what each field is.
+                </p>
+                <p>CSV files containing tickets should have 7 fields separated by commas. An example can be found
+                    <a href="res/tickets.csv">here</a>. This example includes a comment at the top describing what each field is.
+                </p>
             </div>
         </div>
     </div>

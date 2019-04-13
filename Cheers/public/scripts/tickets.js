@@ -12,7 +12,7 @@ window.onload = function(){
 }
 
 function openTool(evt, toolName, tipName) {
-    var i, tabcontent, tablinks;
+    var i, tabcontent, tablinks, tipcontent;
     tabcontent = document.getElementsByClassName("tabcontent");
     tipcontent = document.getElementsByClassName("tipcontent");
 
