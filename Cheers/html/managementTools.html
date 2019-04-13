@@ -38,11 +38,7 @@
         }
 
         function check_ccn(ccn) {
-            if (ccn.match(/[^0-9]/gi) || ccn.length !== 16) {
-                return false;
-            } else {
-                return true;
-            }
+            return !(ccn.match(/[^0-9]/gi) || ccn.length !== 16);
         }
 
         function check_profile_creation(uID, fName, lName, city, state, zipcode, phoneNum, email, ccn, sts, stpID) {
@@ -54,11 +50,11 @@
                 alert('Invalid city: ' + city);
                 return false;
             }
-            if (state.match(/[^A-z]/gi) || (state.length != 2 && state.length != 0)) {
+            if (state.match(/[^A-z]/gi) || (state.length !== 2 && state.length !== 0)) {
                 alert('Invalid state: ' + state);
                 return false;
             }
-            if (zipcode.match(/[^0-9]/gi) || zipcode.length != 5) {
+            if (zipcode.match(/[^0-9]/gi) || zipcode.length !== 5) {
                 alert('Invalid zipcode: ' + zipcode);
                 return false;
             }
@@ -87,23 +83,12 @@
         }
 
         function check_ID(uID) {
-            if (uID.match(/[^0-9]/gi) || uID.trim().length > 5 || uID.trim().length === 0) {
-                return false;
-            } else {
-                return true;
-            }
+            return !(uID.match(/[^0-9]/gi) || uID.trim().length > 5 || uID.trim().length === 0);
         }
 
         function check_ticket(ticketID)
         {
-            if (ticketID.match(/[^0-9]/gi) || ticketID.trim().length > 5 || ticketID.trim().length == 0)
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
+            return !(ticketID.match(/[^0-9]/gi) || ticketID.trim().length > 5 || ticketID.trim().length === 0);
         }
 
         function clearUserText() {
@@ -285,7 +270,7 @@
             $("#grabTicket").click(function () {
                 let ticketID = $("#ticket").val();
 
-				if (check_ticket(ticketID) == false)
+                if (check_ticket(ticketID) === false)
 				{
 					alert('Invalid Ticket ID: ' + ticketID);
 				}
