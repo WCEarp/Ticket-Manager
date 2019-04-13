@@ -1,0 +1,4 @@
+#first_name, last_name, street, city, state, zipcode, phone_number, email, credit_card_number, season_ticket_seat, season_ticket_production_id
+Bob, Ross, 123 Happy Tree Lane, Orlando, Fl, 30122, 3345555555, bob.ross@pbs.org, 8889994567, F_S0_B15, 2
+Durk, Tayler, 1111 Tiny Farm Rd, Dothan, AL, 45892, , durk.taylor@yahoo.com, 9996765555, F_S0_A10, 1
+Minnie, Sota, , , , , , min1987@hotmail.com, 9996765555, F_S0_A10, 1

@@ -189,6 +189,38 @@
         });
 
         $(document).ready(function () {
+            $('#importUserButton').click(function (e) {
+                let formData = new FormData();
+                let file = document.getElementById("importUserFile").files[0];
+                if (file) {
+                    formData.append('importUserFile', file);
+                    $.ajax({
+                        url: 'manage/importUsers',
+                        data: formData,
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        method: 'POST',
+                        type: 'POST', // For jQuery < 1.9
+                        success: function (data) {
+                            let message = 'Users imported: ' + data.linesAdded;
+
+                            if (data.errors.length > 0) {
+                                message += "\n\n Errors:\n";
+                                for (let i = 0; i < data.errors.length; i++) {
+                                    message += data.errors[i] + '\n';
+                                }
+                            }
+                            alert(message);
+                        }
+                    });
+                } else {
+                    console.log("No file")
+                }
+            });
+        });
+
+        $(document).ready(function () {
             $('#exportUserButton').click(function (e) {
                 let query = "";
                 if ($("#exportUserFirstName").is(":checked")) {
@@ -224,6 +256,33 @@
         });
 
         $(document).ready(function () {
+            $('#exportTicketButton').click(function (e) {
+                let query = "";
+                if ($("#exportTicketID").is(":checked")) {
+                    query += "id=1&"
+                }
+                if ($("#exportTicketShowID").is(":checked")) {
+                    query += "showID=1&"
+                }
+                if ($("#exportTicketUserID").is(":checked")) {
+                    query += "userID=1&"
+                }
+                if ($("#exportTicketPaymentMethod").is(":checked")) {
+                    query += "paymentMethod=1&"
+                }
+                if ($("#exportTicketReservedSeats").is(":checked")) {
+                    query += "seats=1&"
+                }
+                if ($("#exportTicketNumberSeats").is(":checked")) {
+                    query += "numSeats=1&"
+                }
+                if ($("#exportTicketPaid").is(":checked")) {
+                    query += "paid=1"
+                }
+            });
+        });
+
+        $(document).ready(function () {
             //Load the navbar
             $("#nav_div").load("/nav");
         });
@@ -237,7 +296,7 @@
     <div class="row">
         <div class="column left" style="background-color:#f1f1f1">
             <div class="tab">
-                <button id='CreateTab' class="tablinks" onclick="openTool(event, 'Create/Edit User', 'ceTip')">
+                <button id='CreateTab' class="tablinks" onclick="openTool(event, 'Create/Edit Ticket', 'ceTip')">
                     Create/Edit
                 </button>
                 <button class="tablinks" onclick="openTool(event, 'STH Manager', 'STHTip')">STH Manager</button>
@@ -412,31 +471,38 @@
                         <input id="exportUserCCN" type="checkbox">CCN
                         <input id="exportUserSeasonTicketSeat" type="checkbox">Season Ticket Seat
                         <br>
-                        <input id="exportUserButton" type="button" value="Export USers"/>
+                        <input id="exportUserButton" type="button" value="Export User(s)"/>
                     </fieldset>
                 </form>
                 <br>
-                <form enctype="multipart/form-data" action="/manage/importUsers" method="post">
+                <form>
                     <label for="importUserFile">CSV File</label>
                     <input id="importUserFile" name="importUserFile" type="file" required>
                     <br>
-                    <input id="importUserButton" type="submit" value="Import Users"/>
+                    <input id="importUserButton" type="button" value="Import User(s)"/>
                 </form>
                 <br>
                 <form method="post" action="/Tests/Post/">
                     <fieldset>
-                        <legend>Select the information for tickets that you would like::</legend>
-                        <input type="checkbox" name="" value="">Ticket ID
-                        <input type="checkbox" name="" value="">Show ID
-                        <input type="checkbox" name="" value="">User ID
-                        <input type="checkbox" name="" value="">Payment Method
-                        <input type="checkbox" name="" value="">Reserved Seat
-                        <input type="checkbox" name="" value="">Num. of Seats
-                        <input type="checkbox" name="" value="">Paid
+                        <legend>Select ticket information to export</legend>
+                        <input id="exportTicketID" type="checkbox">Ticket ID
+                        <input id="exportTicketShowID" type="checkbox">Show ID
+                        <input id="exportTicketUserID" type="checkbox">User ID
+                        <input id="exportTicketPaymentMethod" type="checkbox">Payment Method
+                        <input id="exportTicketReservedSeats" type="checkbox">Reserved Seat
+                        <input id="exportTicketNumberSeats" type="checkbox">Num. of Seats
+                        <input id="exportTicketPaid" type="checkbox">Paid
 
                         <br>
-                        <input type="button" value="Export"/> <input type="button" value="Import"/>
+                        <input type="button" value="Export Ticket(s)"/> <input type="button" value="Import"/>
                     </fieldset>
+                </form>
+                <br>
+                <form>
+                    <label for="importTicketFile">CSV File</label>
+                    <input id="importTicketFile" name="importTicketFile" type="file" required>
+                    <br>
+                    <input id="importTicketButton" type="button" value="Import Ticket(s)"/>
                 </form>
             </div>
         </div>
@@ -520,11 +586,11 @@
 
             <div id="eiTip" class="tipcontent">
                 <h3>Export/Import!</h3>
-                <br>
-                <br>
-                <p>
-                    Nothing for now
+                <p>Select what fields you want to ecport for users or tickets then hit the export button!
+                    Or select a CSV file to be used to import users into the system.
                 </p>
+                <p>CSV files containing users should have 11 fields separated by commas. An example can be found
+                    <a href="res/users.csv">here</a></p>
             </div>
         </div>
     </div>

@@ -161,17 +161,27 @@ router.get('/exportUsers', function (req, res) {
 
 router.post('/importUsers', upload.single('importUserFile'), function (req, res) {
     let csvLines = req.file.buffer.toString().trim().split('\n');
+    let errors = [];
+    let linesAdded = 0;
     for (let i = 0; i < csvLines.length; i++) {
-        console.log("Parsing csv line containing: " + csvLines[i]);
-        let fields = csvLines[i].split(",");
-        if (fields.length === 11) {
-            userManager.add_user(fields[0].trim(), fields[1].trim(), fields[2].trim(),
-                fields[3].trim(), fields[4].trim(), fields[5].trim(), fields[6].trim(),
-                fields[7].trim(), fields[8].trim(), fields[9].trim(), fields[10].trim());
+        if (!(csvLines[i].trim().length > 0 && csvLines[i].trim()[0] === '#')) {
+            console.log("Parsing csv line containing: " + csvLines[i]);
+            let fields = csvLines[i].split(",");
+            if (fields.length === 11) {
+                userManager.add_user(fields[0].trim(), fields[1].trim(), fields[2].trim(),
+                    fields[3].trim(), fields[4].trim(), fields[5].trim(), fields[6].trim(),
+                    fields[7].trim(), fields[8].trim(), fields[9].trim(), fields[10].trim());
+                linesAdded++;
+            } else {
+                let error = "Line " + (i + 1) + " has an incorrect number of fields. Expected 11.";
+                console.log(error);
+                errors.push(error);
+            }
         } else {
-            console.log("Line " + (i + 1) + " has an incorrect number of fields.");
+            console.log('Line ' + i + ' was commented out');
         }
     }
+    res.json({linesAdded: linesAdded, errors: errors})
 });
 
 
