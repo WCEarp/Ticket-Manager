@@ -258,6 +258,28 @@ module.exports.Database = function () {
     };
 
     /**
+     * Update the seats of the ticket.
+     *
+     * @param ticketID The id of the ticket.
+     * @param seats The new seats variable to update
+     */
+    this.update_ticket_seat = function (ticketID, seats, numSeats) {
+        let data = [seats, numSeats, ticketID];
+
+        let sql = `UPDATE Ticket SET ReservedSeats = ?, NumberOFSeats = ? 
+                    WHERE TicketID = ?`;
+
+        db.run(sql, data, function (err) {
+            if (err) {
+                console.error(err.message);
+            } else {
+                //Log how many rows were updated. Should be 0-1.
+                console.log(`Ticket row updated: ${this.changes}`);
+            }
+        });
+    };
+
+    /**
      * Remove a user from the database.
      *
      * @param userID The id of the user.

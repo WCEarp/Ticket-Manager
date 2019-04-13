@@ -19,11 +19,11 @@ module.exports.TicketManager = function (database) {
     this.getTicket = function (ticketID, callback) {
 
         db.query_ticket_by_id(ticketID, function (err, row) {
-
+            //console.log(row);
             if (!err) {
-                let ticket = new Ticket(row.ticketID, row.showID, row.userID,
-                    row.paymentMethodID, row.reservedSeats, row.numberOfSeats, row.paid, row.totalPrice);
-                callback(ticket)
+                //let ticket = new Ticket(row.ticketID, row.showID, row.userID,
+                //   row.paymentMethodID, row.reservedSeats, row.numberOfSeats, row.paid, row.totalPrice);
+                callback(row)
             } else {
                 console.error(err);
                 callback(null);
@@ -34,6 +34,7 @@ module.exports.TicketManager = function (database) {
     this.getTickets = function (callback) {
 
         db.query_tickets(function (err, rows) {
+            //console.log(rows);
             if (!err) {
                 callback(rows)
             } else {

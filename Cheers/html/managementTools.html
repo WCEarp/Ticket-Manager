@@ -231,6 +231,24 @@
             });
         });
 
+        $(document).ready(function () {
+            $("#exhangeTickets").click(function () {
+                let ticketID = $("#ticketID1").val();
+
+                $.getJSON("/manage/ticket?id=" + ticketID, function (result) {
+                    let ticket = result.ticket;
+                    let price1 = ticket.totalPrice;
+                    console.log(price1);
+
+
+                    let data = {ticketID: $("#ticketID1").val(), seats: $("#ticketID2").val(), numSeats: 55};
+                    console.log('data', data);
+                    $.post("/manage/ticketseat_update", data, function (result) {
+                    })
+                });
+            });
+        });
+
         //Displays all users
         $(document).ready(function () {
             $("#MU_dis").click(function () {
@@ -449,23 +467,49 @@
                 <button id="btnNotify">Notify All to Renew</button>
             </div>
 
+            <div id="Exchange Tickets" class="tabcontent">
+                <h3>Exchange Tickets</h3>
+                <label for="tick1">Ticket 1:</label><input type="text" id="ticketID1" placeholder="Ticket 1 ID"><br>
+                <label for="tick2">Ticket 2:</label><input type="text" id="ticketID2" placeholder="Ticket 2 ID"><span><button
+                    id="exhangeTickets">Exchange</button></span><br>
+                <br>
+
+                <button>Display Available</button>
+                <br>
+                <table name="ticketTable" style="display:none"> <!-- THIS TABLE IS HIDDEN BY DEFAULT-->
+                    <tr>
+                        <th>WHAT</th>
+                        <th>FIELDS</th>
+                        <th>HERE?</th>
+                        <th></th>
+                    </tr>
+                    <tr>
+                        <td>This should be</td>
+                        <td>Hidden</td>
+                        <td>By Default</td>
+                        <td>
+                            <button>Add</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
             <div id="SSPrice" class="tabcontent">
                 <h3>Manage Show Sections and Pricing</h3>
                 <form>
-                        <p>Select a Production</p>
-                        <select id="selectSet" onchange="selectSetChange()">
-                            <option value="PotO_1">Phantom of the Opera Night 1</option>
-                            <option value="PotO_2">Phantom of the Opera Night 2</option>
-                            <option value="HSO">Huntsville Symphony Plays Bach</option>
-                            <option value="TKaM">To Kill a Mockingbird</option>
-                            <option value="Choir">UAH Choir</option>
-                            <option value="GDCB">Grateful Dead Cover Band</option>
-                        </select><br><br>
-                    <button type='button' id="showSectionConcert" onclick="showSectionBtn()">Show Seat Map With Current Settings</button>
+                    <p>Select a Production</p>
+                    <select id="selectSet"onchange="selectSetChange()">
+                        <option value="PotO_1">Phantom of the Opera Night 1</option>
+                        <option value="PotO_2">Phantom of the Opera Night 2</option>
+                        <option value="HSO">Huntsville Symphony Plays Bach</option>
+                        <option value="TKaM">To Kill a Mockingbird</option>
+                        <option value="Choir">UAH Choir</option>
+                        <option value="GDCB">Grateful Dead Cover Band</option>
+                    </select><br><br>
+<button type='button' id="showSectionConcert" onclick="showSectionBtn()">Show Seat Map With Current Settings</button>
                     <button type='button' id="showSectionPlayhouse" onclick="showSectionBtn()">Show Seat Map With Current Settings</button><br><br>
                 </form>
-                <form id="setClassesForm" onsubmit="setClass()">
-                    <table name="setClasses">
+                    <form id="setClassesForm" onsubmit="setClass()">
+                        <table name="setClasses">
                         <tr>
                             <th>Section Name</th>
                             <th>Not Available</th>
@@ -506,13 +550,13 @@
                             <td>Balcony Section 3</td>
                             <td><input name="bal3" type="radio" value="0" id="bal3NA" title="NA" /></td>
                             <td><input name="bal3" type="radio" value="1" id="bal3R" title="R" checked="checked"/></td>
-                            <td><input name="bal3" type="radio" value="2" id="bal3H" title="H" /></td>
+                    <td><input name="bal3" type="radio" value="2" id="bal3H" title="H" /></td>
                             <td><input name="bal3" type="radio" value="3" id="bal3S" title="S" /></td>
                             <td><input name="bal3" type="radio" value="4" id="bal3V" title="V" /></td>
                             <td><input name="bal3" type="number" value="5" id="bal3Price"/></td>
                         </tr>
-                        <tr id="balcony4Row">
-                            <td>Balcony Section 4</td>
+                    <tr id="balcony4Row">
+                        <td>Balcony Section 4</td>
                             <td><input name="bal4" type="radio" value="0" id="bal4NA" title="NA" /></td>
                             <td><input name="bal4" type="radio" value="1" id="bal4R" title="R" checked="checked"/></td>
                             <td><input name="bal4" type="radio" value="2" id="bal4H" title="H" /></td>
@@ -578,9 +622,9 @@
                             <td>Loge Section 2</td>
                             <td><input name="log2" type="radio" value="0" id="log2NA" title="NA" /></td>
                             <td><input name="log2" type="radio" value="1" id="log2R" title="R" checked="checked"/></td>
-                            <td><input name="log2" type="radio" value="2" id="log2H" title="H" /></td>
+                        <td><input name="log2" type="radio" value="2" id="log2H" title="H" /></td>
                             <td><input name="log2" type="radio" value="3" id="log2S" title="S" /></td>
-                            <td><input name="log2" type="radio" value="4" id="log2V" title="V" /></td>
+                    <td><input name="log2" type="radio" value="4" id="log2V" title="V" /></td>
                             <td><input name="log2" type="number" value="5" id="log2Price"/></td>
                         </tr>
                         <tr id="log3Row">
