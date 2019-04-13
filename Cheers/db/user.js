@@ -110,6 +110,10 @@ module.exports.UserManager = function (database) {
                     db.delete_address(row.addressID);
                 }
             }
+            else
+            {
+                callback(0);
+            }
         });
     };
 
@@ -137,8 +141,8 @@ module.exports.UserManager = function (database) {
         }
     };
 
-    this.update_user_sth_seat = function (userID, seasonTicketSeat, sthProductionID) {
-        db.update_user_sth_seat(userID, seasonTicketSeat, sthProductionID);
+    this.update_user_sth_seat = function (userID, seasonTicketSeat, sthProductionID, callback) {
+        db.update_user_sth_seat(userID, seasonTicketSeat, sthProductionID, callback);
     };
 };
 

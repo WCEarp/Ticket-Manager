@@ -239,7 +239,7 @@ module.exports.Database = function () {
      * @param seasonTicketSeat The season ticket seats
      * @param sthProductionID
      */
-    this.update_user_sth_seat = function (userID, seasonTicketSeat, sthProductionID) {
+    this.update_user_sth_seat = function (userID, seasonTicketSeat, sthProductionID, callback) {
         let data = [seasonTicketSeat, sthProductionID, userID];
 
         let sql = `UPDATE User SET SeasonTicketSeat = ?, STHProductionID = ? 
@@ -248,9 +248,11 @@ module.exports.Database = function () {
         db.run(sql, data, function (err) {
             if (err) {
                 console.error(err.message);
+                callback(0);
             } else {
                 //Log how many rows were updated. Should be 0-1.
                 console.log(`User row updated: ${this.changes}`);
+                callback(this.changes);
             }
         });
     };

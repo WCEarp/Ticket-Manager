@@ -87,6 +87,10 @@ input[type=text] {
     margin-left: 85px;
 }
 
+#btnClear {
+    margin-left: 85px;
+}
+
 #btnDisplayUsers {
     margin-left: 85px;
 }

@@ -45,9 +45,21 @@
             }
         }
 
-        function check_profile_creation(uID, fName, lName, phoneNum, email, ccn, sts, stpID) {
+        function check_profile_creation(uID, fName, lName, city, state, zipcode, phoneNum, email, ccn, sts, stpID) {
             if (fName.match(/[^A-z]/gi) || lName.match(/[^A-z]/gi) || fName.length > 15 || lName.length > 15) {
                 alert('Invalid name: ' + fName + ' ' + lName);
+                return false;
+            }
+            if (city.match(/[^A-z]/gi)) {
+                alert('Invalid city: ' + city);
+                return false;
+            }
+            if (state.match(/[^A-z]/gi) || (state.length != 2 && state.length != 0)) {
+                alert('Invalid state: ' + state);
+                return false;
+            }
+            if (zipcode.match(/[^0-9]/gi) || zipcode.length != 5) {
+                alert('Invalid zipcode: ' + zipcode);
                 return false;
             }
             if (phoneNum.match(/[^0-9]/gi) || (phoneNum.length !== 10 && phoneNum.length !== 0)) {
@@ -75,9 +87,21 @@
         }
 
         function check_ID(uID) {
-            if (uID.match(/[^0-9]/gi) || uID.length > 5 || uID.length === 0 || uID === '00000') {
+            if (uID.match(/[^0-9]/gi) || uID.trim().length > 5 || uID.trim().length === 0) {
                 return false;
             } else {
+                return true;
+            }
+        }
+
+        function check_ticket(ticketID)
+        {
+            if (ticketID.match(/[^0-9]/gi) || ticketID.trim().length > 5 || ticketID.trim().length == 0)
+            {
+                return false;
+            }
+            else
+            {
                 return true;
             }
         }
@@ -86,8 +110,11 @@
             $("#uid").val('');
             $("#fname").val('');
             $("#lname").val('');
-            $("#address").val('');
-            $("#pnum").val('');
+            $("#street").val(''),
+                $("#city").val(''),
+                $("#state").val(''),
+                $("#zipCode").val(''),
+                $("#pnum").val('');
             $("#email").val('');
             $("#ccn").val('');
             $("#sth_seats").val('');
@@ -100,6 +127,7 @@
                 alert("Ticket row updated, refresh table to view change.");
             });
         }
+
 
         //Displays a single user
         $(document).ready(function () {
@@ -127,12 +155,18 @@
             });
         });
 
+		$(document).ready(function () {
+            $("#btnClear").click(function () {
+				clearUserText()
+            });
+        });
+
         //Called for adding a new user
         $(document).ready(function () {
             $("#MU_add").click(function () {
                 console.log($("#uid").val());
 
-                if (check_profile_creation($("#uid").val(), $("#fname").val(), $("#lname").val(), $("#pnum").val(), $("#email").val(), $("#ccn").val(), $("#sth_seats").val(), $("#sth_prod").val()) === false) {
+                if (check_profile_creation($("#uid").val(), $("#fname").val(), $("#lname").val(), $("#city").val(), $("#state").val(), $("#zipCode").val(), $("#pnum").val(), $("#email").val(), $("#ccn").val(), $("#sth_seats").val(), $("#sth_prod").val()) === false) {
                     console.log('check_profile_creation failed');
                 } else {
                     console.log('true');
@@ -162,15 +196,21 @@
                 let userId = $("#uid").val();
                 console.log(userId);
                 let data = {userID: userId};
-                $.post("/manage/user_delete", data, function (result) {
-                    if (result.errors) {
-                        alert(result.errors[0]);
-                    } else {
-                        alert("User deleted with id " + userId);
-                        console.log("User deleted with id " + userId);
-                        clearUserText();
-                    }
-                })
+
+				if (check_ID(userId) === false){
+					alert('UserID not specified.');
+				}
+				else {
+					$.post("/manage/user_delete", data, function (result) {
+						if (result.errors) {
+							alert(result.errors[0]);
+						} else {
+							alert("User deleted with id " + userId);
+							console.log("User deleted with id " + userId);
+							clearUserText();
+						}
+					})
+				}
             });
         });
 
@@ -180,7 +220,7 @@
                 let userId = $("#uid").val();
                 console.log('userID: ' + userId);
 
-                if (check_profile_creation(userId, $("#fname").val(), $("#lname").val(), $("#pnum").val(), $("#email").val(), $("#ccn").val(), $("#sth_seats").val(), $("#sth_prod").val()) === false) {
+                if (check_profile_creation($("#uid").val(), $("#fname").val(), $("#lname").val(), $("#city").val(), $("#state").val(), $("#zipCode").val(), $("#pnum").val(), $("#email").val(), $("#ccn").val(), $("#sth_seats").val(), $("#sth_prod").val()) === false) {
                     console.log('check_profile_creation failed');
                 } else {
                     console.log('true');
@@ -244,18 +284,24 @@
         $(document).ready(function () {
             $("#grabTicket").click(function () {
                 let ticketID = $("#ticket").val();
-                //document.write("test");
-                $.getJSON("/manage/ticket?id=" + ticketID, function (result) {
-                    console.log(result);
 
-                    let ticket = result.ticket;
-                    if (ticket) {
-                        let html = `<tr><td>${ticket.ticketID}</td><td>${ticket.showID}</td><td>${ticket.userID}</td><td>${ticket.paymentMethodID}</td><td>${ticket.reservedSeats}</td><td>${ticket.numberOfSeats}</td><td>${ticket.totalPrice}</td><td>${ticket.paid}</td><td><button class="setPaid" onclick="set_paid_value(${ticket.ticketID})">Set Paid</button></td></tr>`;
+				if (check_ticket(ticketID) == false)
+				{
+					alert('Invalid Ticket ID: ' + ticketID);
+				}
+				else {
+					$.getJSON("/manage/ticket?id=" + ticketID, function (result) {
+						console.log(result);
 
-                        $("#tbody2").html(html)
-                    }
-                    display_errors(result.errors);
-                });
+						let ticket = result.ticket;
+						if (ticket) {
+							let html = `<tr><td>${ticket.ticketID}</td><td>${ticket.showID}</td><td>${ticket.userID}</td><td>${ticket.paymentMethodID}</td><td>${ticket.reservedSeats}</td><td>${ticket.numberOfSeats}</td><td>${ticket.totalPrice}</td><td>${ticket.paid}</td><td><button class="setPaid" onclick="set_paid_value(${ticket.ticketID})">Set Paid</button></td></tr>`;
+
+							$("#tbody2").html(html)
+						}
+						display_errors(result.errors);
+					});
+				}
             });
         });
 
@@ -334,7 +380,8 @@
                     <input type="text" id="uid" placeholder="1234"> <span><input id="btnGrab" type="button"
                                                                                  value="Grab User"></span><br><br>
                     <label for="fname">First Name:</label>
-                    <input type="text" id="fname" placeholder="John"><br><br>
+                    <input type="text" id="fname" placeholder="John"> <span><input id="btnClear" type="button"
+                                                                                 value="Clear"></span><br><br>
 
                     <label for="lname">Last Name:</label>
                     <input type="text" id="lname" placeholder="Doe"><br><br>
@@ -342,13 +389,13 @@
                     <label for="street">Street:</label>
                     <input type="text" id="street" placeholder="101 Joy Dr. Apt #3"><br>
 
-                    <label for="city">City:</label><br>
+                    <label for="city">City:</label>
                     <input type="text" id="city" placeholder="Huntsville"><br>
 
-                    <label for="state">State:</label><br>
+                    <label for="state">State:</label>
                     <input type="text" id="state" placeholder="AL"><br>
 
-                    <label for="zipCode">Zipcode:</label><br>
+                    <label for="zipCode">Zipcode:</label>
                     <input type="text" id="zipCode" placeholder="35824"><br>
 
                     <label for="pnum">Phone Number:</label>
@@ -408,7 +455,7 @@
                 <input type="text" id="sthid" placeholder="0001"><br>
 
                 <br><label for="seat">Pick Seat:</label>
-                <input type="text" id="seat" placeholder="F_S0_A01"><span><button
+                <input disabled type="text" id="seat" placeholder="F_S0_A01"><span><button
                     id="btnConHall">Show Concert Hall</button><button
                     id="btnPlayhouse">Show Playhouse</button></span><br>
 
