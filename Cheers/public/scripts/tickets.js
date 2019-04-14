@@ -1172,6 +1172,7 @@ function EnterInfoButton(event, toolName, tipName) {
     phone =   input.elements[2].value;
     email =   input.elements[3].value;
 	paymentMethod = input.elements[4].value;
+    exchanged = input.elements[5].value;
 	ccn =     input.elements[5].value;
     console.log('RE ' + ccn + ' ' + paymentMethod);
 
@@ -1181,11 +1182,10 @@ function EnterInfoButton(event, toolName, tipName) {
 	else if ((paymentMethod == 'creditCard') && (check_ccn(ccn) == false)){
 		console.log('check_ccn check failed');
 	}
-	else {	
-    paymentMethod =     input.elements[5].value;
-    exchanged = input.elements[6].value;
+	else {
+
     if (paymentMethod === 'creditCard'){
-        ccn =     input.elements[6].value;
+        ccn =     input.elements[5].value;
         document.getElementById('confirmCCN').innerHTML = 'Credit Card: ' + ccn;
     }
     else if (paymentMethod === 'door'){
@@ -1193,40 +1193,40 @@ function EnterInfoButton(event, toolName, tipName) {
         document.getElementById('confirmCCN').innerHTML = 'Pay at Door: Not Paid Yet';
     }
     //Exchanging Tickets
-    else{
-        ccn = 1;
-        let originalPrice;
-        let originalSeats;
-        let stringClickedSeats = clickedSeats.join('');
-        let owedPrice;
-        document.getElementById('confirmCCN').innerHTML = 'Exchanged Tickets, New Seats: ' + clickedSeats;
-        $.getJSON("/manage/ticket?id=" + exchanged, function (result) {
-            let ticket = result.ticket;
-            originalPrice = ticket.totalPrice;
-            originalSeats = ticket.reservedSeats;
+        else {
+            ccn = 1;
+            let originalPrice;
+            let originalSeats;
+            let stringClickedSeats = clickedSeats.join('');
+            let owedPrice;
+            document.getElementById('confirmCCN').innerHTML = 'Exchanged Tickets, New Seats: ' + clickedSeats;
+            $.getJSON("/manage/ticket?id=" + exchanged, function (result) {
+                let ticket = result.ticket;
+                originalPrice = ticket.totalPrice;
+                originalSeats = ticket.reservedSeats;
 
-            owedPrice = totalPrice - originalPrice;
-            alert('Your new owed total is: ' + owedPrice + ' ' +
-                'Please pay at the door');
+                owedPrice = totalPrice - originalPrice;
+                alert('Your new owed total is: ' + owedPrice + ' ' +
+                    'Please pay at the door');
 
-            let data = {
-                ticketID: exchanged,
-                showID: showTickets.showID,
-                seats: stringClickedSeats,
-                numSeats: clickedSeats.length
-            };
-            console.log('data', data);
-            $.post("/manage/ticketseat_update", data, function (result) {
-            });
+                let data = {
+                    ticketID: exchanged,
+                    showID: showTickets.showID,
+                    seats: stringClickedSeats,
+                    numSeats: clickedSeats.length
+                };
+                console.log('data', data);
+                $.post("/manage/ticketseat_update", data, function (result) {
+                });
 
-            //try updating old show here
-            //get original ticket show
-            //and remove the original seats from reserved
-            let originalShow;
-                $.getJSON("/tickets/ShowTickets?id="+ticket.showID.toString(), function (result) {
+                //try updating old show here
+                //get original ticket show
+                //and remove the original seats from reserved
+                let originalShow;
+                $.getJSON("/tickets/ShowTickets?id=" + ticket.showID.toString(), function (result) {
                     originalShow = result.show;
 
-                    console.log('originalShow: '+originalShow.SeatsTaken);
+                    console.log('originalShow: ' + originalShow.SeatsTaken);
 
 
                     let originalReservedSeatsArray = originalShow.SeatsTaken.match(/.{1,8}/g);
@@ -1238,7 +1238,7 @@ function EnterInfoButton(event, toolName, tipName) {
                             //alert('seat: '+seat);
                             //alert('seatsArray: ' + seatsArray[j] + ' originalSeat: ' + originalSeatsArray[i]);
                             if (originalReservedSeatsArray[j] === originalTicketSeatsArray[i]) {
-                                console.log('match found oRSA: ' + originalReservedSeatsArray[j] + ' ' + 'oTSA: ' +originalTicketSeatsArray[i]);
+                                console.log('match found oRSA: ' + originalReservedSeatsArray[j] + ' ' + 'oTSA: ' + originalTicketSeatsArray[i]);
                                 originalReservedSeatsArray.splice(originalReservedSeatsArray.indexOf(originalReservedSeatsArray[j]), 1);
                                 j--;
 
@@ -1246,35 +1246,32 @@ function EnterInfoButton(event, toolName, tipName) {
                         }
 
 
-                    let stringSeatsArray = originalReservedSeatsArray.join('');
-                    console.log('stringSeatsArray: '+stringSeatsArray);
-                    let data = {showID: ticket.showID, seatsTaken: stringSeatsArray};
-                    $.post("/tickets/show_update", data, function (result) {
-                    });
-
-
-                    console.log('showTickets.showID.toString: ' + showTickets.showID.toString());
-                    //now update new tickets to the show database
-                    $.getJSON("/tickets/ShowTickets?id="+showTickets.showID.toString(), function (result) {
-                        let newShow = result.show;
-                        console.log('newShow.SeatsTaken: '+newShow.SeatsTaken);
-                        let showUpdateData = {showID: showTickets.showID, seatsTaken: newShow.SeatsTaken + stringClickedSeats};
-                        console.log('showUpdateData: '+showUpdateData);
-                        $.post("/tickets/show_update", showUpdateData, function (result) {
+                        let stringSeatsArray = originalReservedSeatsArray.join('');
+                        console.log('stringSeatsArray: ' + stringSeatsArray);
+                        let data = {showID: ticket.showID, seatsTaken: stringSeatsArray};
+                        $.post("/tickets/show_update", data, function (result) {
                         });
-                    });
 
+
+                        console.log('showTickets.showID.toString: ' + showTickets.showID.toString());
+                        //now update new tickets to the show database
+                        $.getJSON("/tickets/ShowTickets?id=" + showTickets.showID.toString(), function (result) {
+                            let newShow = result.show;
+                            console.log('newShow.SeatsTaken: ' + newShow.SeatsTaken);
+                            let showUpdateData = {
+                                showID: showTickets.showID,
+                                seatsTaken: newShow.SeatsTaken + stringClickedSeats
+                            };
+                            console.log('showUpdateData: ' + showUpdateData);
+                            $.post("/tickets/show_update", showUpdateData, function (result) {
+                            });
+                        });
+                    }
                 });
-
-        });
-                        display_errors(result.errors);
-                    });
-                }
             });
 
-
-            alert('Congrats ' + fname + ', You Exchanged Tickets, New Seats: ' + clickedSeats);
-            window.location.replace('/home');
+                alert('Congrats ' + fname + ', You Exchanged Tickets, New Seats: ' + clickedSeats);
+                window.location.replace('/home');
 
 		}
 	
