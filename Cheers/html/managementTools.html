@@ -54,7 +54,7 @@
                 alert('Invalid state: ' + state);
                 return false;
             }
-            if (zipcode.match(/[^0-9]/gi) || zipcode.length !== 5) {
+            if (zipcode.match(/[^0-9]/gi) || (zipcode.length !== 5 && zipcode.length !== 0)) {
                 alert('Invalid zipcode: ' + zipcode);
                 return false;
             }
@@ -205,7 +205,15 @@
                 let userId = $("#uid").val();
                 console.log('userID: ' + userId);
 
-                if (check_profile_creation($("#uid").val(), $("#fname").val(), $("#lname").val(), $("#city").val(), $("#state").val(), $("#zipCode").val(), $("#pnum").val(), $("#email").val(), $("#ccn").val(), $("#sth_seats").val(), $("#sth_prod").val()) === false) {
+                let a1 = $("#street").val();
+                let a2 = $("#city").val();
+                let a3 = $("#state").val();
+                let a4 = $("#zipCode").val();
+
+                if ((a1 == '' || a2 == '' || a3 == '' || a4 == '') && (a1 != '' || a2 != '' || a3 != '' || a4 != '')) {
+                    alert('Missing Address Field.');
+                }
+                else if (check_profile_creation($("#uid").val(), $("#fname").val(), $("#lname").val(), $("#city").val(), $("#state").val(), $("#zipCode").val(), $("#pnum").val(), $("#email").val(), $("#ccn").val(), $("#sth_seats").val(), $("#sth_prod").val()) === false) {
                     console.log('check_profile_creation failed');
                 } else {
                     console.log('true');

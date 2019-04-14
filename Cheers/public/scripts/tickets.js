@@ -1071,39 +1071,117 @@ function onClick(element) {
 //needs to save tickets selected by user and update DB
 function buyButton(event, toolName, tipName) {
 
-    modalConHall.style.display = "none";
-    modalPlayhouse.style.display = "none";
+	if ((document.getElementById('selected_concert').innerHTML).length < 17){
+		alert('No Seats Selected.');
+	}
+	else {
+		modalConHall.style.display = "none";
+		modalPlayhouse.style.display = "none";
 
-    var i, tabcontent, tablinks;
-    tabcontent = document.getElementsByClassName("tabcontent");
-    tipcontent = document.getElementsByClassName("tipcontent");
+		var i, tabcontent, tablinks;
+		tabcontent = document.getElementsByClassName("tabcontent");
+		tipcontent = document.getElementsByClassName("tipcontent");
 
-    for (i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
+		for (i = 0; i < tabcontent.length; i++) {
+			tabcontent[i].style.display = "none";
+		}
+
+		for (i = 0; i < tipcontent.length; i++) {
+			tipcontent[i].style.display = "none";
+		}
+
+		tablinks = document.getElementsByClassName("tablinks");
+		for (i = 0; i < tablinks.length; i++) {
+			tablinks[i].className = tablinks[i].className.replace(" active", "");
+		}
+		document.getElementById(toolName).style.display = "block";
+		document.getElementById(tipName).style.display = "block";
+		document.getElementById('EnterInfoTab').className += " active";
+	}
+}
+
+function check_info(fName, lName, phoneNum, email) {
+	if (fName.match(/[^A-z]/gi) || lName.match(/[^A-z]/gi) || fName.length > 15 || lName.length > 15) {
+		alert('Invalid name: ' + fName + ' ' + lName);
+		return false;
+	}
+	if (phoneNum.match(/[^0-9]/gi) || (phoneNum.length !== 10 && phoneNum.length !== 0)) {
+		alert('Invalid Phone Number: ' + phoneNum);
+		return false;
+	}
+	if (email.match(/[^A-z0-9@.]/gi) || (email.length > 30 && email.length !== 0)) {
+		alert('Invalid Email: ' + email);
+		return false;
+	}
+	else {
+		return true;
+	}
+}
+
+function check_ticket(ticketID)
+{
+    if (ticketID.match(/[^0-9]/gi) || ticketID.trim().length > 5 || ticketID.trim().length === 0) {
+        return false;
     }
+    else return true;
+}
 
-    for (i = 0; i < tipcontent.length; i++) {
-        tipcontent[i].style.display = "none";
+function check_ccn(ccn){
+	if (ccn.match(/[^0-9]/gi) || (ccn.length !== 16)) {
+		alert('Invalid Credit Card Number: ' + ccn);
+		return false;
+	}
+	else {
+		return true;
+	}
+}
+
+function validateBeforeBuyTicket(event, toolName, tipName)
+{
+    let input = document.getElementById("EnterInfo_form");
+    let paymentMethod = input.elements[4].value;
+    if(paymentMethod === 'exchangeTickets') {
+        if(check_ticket(input.elements[5].value) == true) {
+            $.getJSON("/manage/ticket?id=" + (input.elements[5].value), function (result) {
+                console.log(result);
+                if (result.ticket == null) {
+                    alert('Ticket ID does not exist');
+                } else {
+                    EnterInfoButton(event, toolName, tipName)
+                }
+            });
+        }
+        else
+        {
+            alert('Invalid ticket ID');
+        }
     }
-
-    tablinks = document.getElementsByClassName("tablinks");
-    for (i = 0; i < tablinks.length; i++) {
-        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    else
+    {
+        EnterInfoButton(event, toolName, tipName)
     }
-    document.getElementById(toolName).style.display = "block";
-    document.getElementById(tipName).style.display = "block";
-    document.getElementById('EnterInfoTab').className += " active";
-
 }
 
 function EnterInfoButton(event, toolName, tipName) {
-    var input = document.getElementById("EnterInfo_form");
+    let input = document.getElementById("EnterInfo_form");
 
     fname =   input.elements[0].value;
     lname =   input.elements[1].value;
-    address = input.elements[2].value;
-    phone =   input.elements[3].value;
-    email =   input.elements[4].value;
+
+     //address = input.elements[2].value;
+    phone =   input.elements[2].value;
+    email =   input.elements[3].value;
+	paymentMethod = input.elements[4].value;
+	ccn =     input.elements[5].value;
+    console.log('RE ' + ccn + ' ' + paymentMethod);
+
+    if (check_info(fname, lname, phone, email) == false){
+		console.log('check_info check failed');		
+	}
+	else if ((paymentMethod == 'creditCard') && (check_ccn(ccn) == false)){
+		console.log('check_ccn check failed');
+	}
+	else {	
     paymentMethod =     input.elements[5].value;
     exchanged = input.elements[6].value;
     if (paymentMethod === 'creditCard'){
@@ -1150,8 +1228,10 @@ function EnterInfoButton(event, toolName, tipName) {
 
                     console.log('originalShow: '+originalShow.SeatsTaken);
 
+
                     let originalReservedSeatsArray = originalShow.SeatsTaken.match(/.{1,8}/g);
                     let originalTicketSeatsArray = originalSeats.match(/.{1,8}/g);
+
 
                     for (var j = 0; j < originalReservedSeatsArray.length; j++) {
                         for (var i = 0; i < originalTicketSeatsArray.length; i++) {
@@ -1161,9 +1241,10 @@ function EnterInfoButton(event, toolName, tipName) {
                                 console.log('match found oRSA: ' + originalReservedSeatsArray[j] + ' ' + 'oTSA: ' +originalTicketSeatsArray[i]);
                                 originalReservedSeatsArray.splice(originalReservedSeatsArray.indexOf(originalReservedSeatsArray[j]), 1);
                                 j--;
+
                             }
                         }
-                    }
+
 
                     let stringSeatsArray = originalReservedSeatsArray.join('');
                     console.log('stringSeatsArray: '+stringSeatsArray);
@@ -1186,37 +1267,44 @@ function EnterInfoButton(event, toolName, tipName) {
                 });
 
         });
+                        display_errors(result.errors);
+                    });
+                }
+            });
 
 
-        alert('Congrats ' + fname + ', You Exchanged Tickets, New Seats: ' + clickedSeats);
-        window.location.replace('/home');
-    }
-    document.getElementById('ticketsToBuy').innerHTML = 'Selected Tickets: ' + clickedSeats;
-    document.getElementById('firstname').innerHTML = 'First Name: ' + fname;
-    document.getElementById('lastname').innerHTML = 'Last Name: ' + lname;
-    document.getElementById('confirmAddress').innerHTML = 'Address: ' + address;
-    document.getElementById('confirmPhone').innerHTML = 'Phone: ' + phone;
-    document.getElementById('confirmEmail').innerHTML = 'Email: ' + email;
+            alert('Congrats ' + fname + ', You Exchanged Tickets, New Seats: ' + clickedSeats);
+            window.location.replace('/home');
 
-    var i, tabcontent, tablinks;
-    tabcontent = document.getElementsByClassName("tabcontent");
-    tipcontent = document.getElementsByClassName("tipcontent");
+		}
+	
+		document.getElementById('ticketsToBuy').innerHTML = 'Selected Tickets: ' + clickedSeats;
+		document.getElementById('firstname').innerHTML = 'First Name: ' + fname;
+		document.getElementById('lastname').innerHTML = 'Last Name: ' + lname;
+		//document.getElementById('confirmAddress').innerHTML = 'Address: ' + address;
+		document.getElementById('confirmPhone').innerHTML = 'Phone: ' + phone;
+		document.getElementById('confirmEmail').innerHTML = 'Email: ' + email;
 
-    for (i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
-    }
+		var i, tabcontent, tablinks;
+		tabcontent = document.getElementsByClassName("tabcontent");
+		tipcontent = document.getElementsByClassName("tipcontent");
 
-    for (i = 0; i < tipcontent.length; i++) {
-        tipcontent[i].style.display = "none";
-    }
+		for (i = 0; i < tabcontent.length; i++) {
+			tabcontent[i].style.display = "none";
+		}
 
-    tablinks = document.getElementsByClassName("tablinks");
-    for (i = 0; i < tablinks.length; i++) {
-        tablinks[i].className = tablinks[i].className.replace(" active", "");
-    }
-    document.getElementById(toolName).style.display = "block";
-    document.getElementById(tipName).style.display = "block";
-    document.getElementById('ConfirmTab').className += " active";
+		for (i = 0; i < tipcontent.length; i++) {
+			tipcontent[i].style.display = "none";
+		}
+
+		tablinks = document.getElementsByClassName("tablinks");
+		for (i = 0; i < tablinks.length; i++) {
+			tablinks[i].className = tablinks[i].className.replace(" active", "");
+		}
+		document.getElementById(toolName).style.display = "block";
+		document.getElementById(tipName).style.display = "block";
+		document.getElementById('ConfirmTab').className += " active";
+		}
 }
 
 function confirmBtn() {
@@ -1242,7 +1330,7 @@ function confirmBtn() {
     });
 
 
-    alert('Congrats ' + fname + ', you bought: ' + clickedSeats);
+    alert('Congrats ' + fname + ', you reserved: ' + clickedSeats);
     window.location.replace('/home');
 
 }
