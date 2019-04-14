@@ -9,7 +9,7 @@ window.onload = function(){
 
     document.getElementById('exchangeLabel').style.display = 'none';
     document.getElementById('exchange').style.display = 'none';
-}
+};
 
 function openTool(evt, toolName, tipName) {
     var i, tabcontent, tablinks;
@@ -1167,7 +1167,8 @@ function EnterInfoButton(event, toolName, tipName) {
 
     fname =   input.elements[0].value;
     lname =   input.elements[1].value;
-    //address = input.elements[2].value;
+
+     //address = input.elements[2].value;
     phone =   input.elements[2].value;
     email =   input.elements[3].value;
 	paymentMethod = input.elements[4].value;
@@ -1181,233 +1182,91 @@ function EnterInfoButton(event, toolName, tipName) {
 		console.log('check_ccn check failed');
 	}
 	else {	
-		//console.log('passed checks');
-		paymentMethod =     input.elements[4].value;
-		exchanged = input.elements[5].value;
-		if (paymentMethod === 'creditCard'){
-			ccn =     input.elements[5].value;
-			document.getElementById('confirmCCN').innerHTML = 'Credit Card: ' + ccn;			
-		}
-		else if (paymentMethod === 'door'){
-			ccn = 0;
-			document.getElementById('confirmCCN').innerHTML = 'Pay at Door: Not Paid Yet';
-		}
-		else {
-            ccn = 1;
-            let originalPrice;
-            let originalSeats;
-            let stringClickedSeats = clickedSeats.join('');
-            let owedPrice;
-            document.getElementById('confirmCCN').innerHTML = 'Exchanged Tickets, New Seats: ' + clickedSeats;
-            $.getJSON("/manage/ticket?id=" + exchanged, function (result) {
-                let ticket = result.ticket;
-                originalPrice = ticket.totalPrice;
-                originalSeats = ticket.reservedSeats;
+    paymentMethod =     input.elements[5].value;
+    exchanged = input.elements[6].value;
+    if (paymentMethod === 'creditCard'){
+        ccn =     input.elements[6].value;
+        document.getElementById('confirmCCN').innerHTML = 'Credit Card: ' + ccn;
+    }
+    else if (paymentMethod === 'door'){
+        ccn = 0;
+        document.getElementById('confirmCCN').innerHTML = 'Pay at Door: Not Paid Yet';
+    }
+    //Exchanging Tickets
+    else{
+        ccn = 1;
+        let originalPrice;
+        let originalSeats;
+        let stringClickedSeats = clickedSeats.join('');
+        let owedPrice;
+        document.getElementById('confirmCCN').innerHTML = 'Exchanged Tickets, New Seats: ' + clickedSeats;
+        $.getJSON("/manage/ticket?id=" + exchanged, function (result) {
+            let ticket = result.ticket;
+            originalPrice = ticket.totalPrice;
+            originalSeats = ticket.reservedSeats;
 
-                owedPrice = totalPrice - originalPrice;
-                alert('Your new owed total is: ' + owedPrice + ' ' +
-                    'Please pay at the door');
+            owedPrice = totalPrice - originalPrice;
+            alert('Your new owed total is: ' + owedPrice + ' ' +
+                'Please pay at the door');
 
-                let data = {
-                    ticketID: exchanged,
-                    showID: showTickets.showID,
-                    seats: stringClickedSeats,
-                    numSeats: clickedSeats.length
-                };
-                console.log('data', data);
-                $.post("/manage/ticketseat_update", data, function (result) {
+            let data = {
+                ticketID: exchanged,
+                showID: showTickets.showID,
+                seats: stringClickedSeats,
+                numSeats: clickedSeats.length
+            };
+            console.log('data', data);
+            $.post("/manage/ticketseat_update", data, function (result) {
+            });
+
+            //try updating old show here
+            //get original ticket show
+            //and remove the original seats from reserved
+            let originalShow;
+                $.getJSON("/tickets/ShowTickets?id="+ticket.showID.toString(), function (result) {
+                    originalShow = result.show;
+
+                    console.log('originalShow: '+originalShow.SeatsTaken);
+
+
+                    let originalReservedSeatsArray = originalShow.SeatsTaken.match(/.{1,8}/g);
+                    let originalTicketSeatsArray = originalSeats.match(/.{1,8}/g);
+
+
+                    for (var j = 0; j < originalReservedSeatsArray.length; j++) {
+                        for (var i = 0; i < originalTicketSeatsArray.length; i++) {
+                            //alert('seat: '+seat);
+                            //alert('seatsArray: ' + seatsArray[j] + ' originalSeat: ' + originalSeatsArray[i]);
+                            if (originalReservedSeatsArray[j] === originalTicketSeatsArray[i]) {
+                                console.log('match found oRSA: ' + originalReservedSeatsArray[j] + ' ' + 'oTSA: ' +originalTicketSeatsArray[i]);
+                                originalReservedSeatsArray.splice(originalReservedSeatsArray.indexOf(originalReservedSeatsArray[j]), 1);
+                                j--;
+
+                            }
+                        }
+
+
+                    let stringSeatsArray = originalReservedSeatsArray.join('');
+                    console.log('stringSeatsArray: '+stringSeatsArray);
+                    let data = {showID: ticket.showID, seatsTaken: stringSeatsArray};
+                    $.post("/tickets/show_update", data, function (result) {
+                    });
+
+
+                    console.log('showTickets.showID.toString: ' + showTickets.showID.toString());
+                    //now update new tickets to the show database
+                    $.getJSON("/tickets/ShowTickets?id="+showTickets.showID.toString(), function (result) {
+                        let newShow = result.show;
+                        console.log('newShow.SeatsTaken: '+newShow.SeatsTaken);
+                        let showUpdateData = {showID: showTickets.showID, seatsTaken: newShow.SeatsTaken + stringClickedSeats};
+                        console.log('showUpdateData: '+showUpdateData);
+                        $.post("/tickets/show_update", showUpdateData, function (result) {
+                        });
+                    });
+
                 });
 
-                let data2 = {showID: showTickets.showID, seatsTaken: showTickets.SeatsTaken + stringClickedSeats};
-                $.post("/tickets/show_update", data2, function (result) {
-                });
-                //update show reserved seats
-                //make old tickets re-available
-                //get reserved seats from DB
-                let currentTickets;
-                if (ticket.showID === 1) {
-                    $.getJSON("/tickets/ShowTickets?id=1", function (result) {
-                        currentTickets = result.show;
-                        let reservedSeats = currentTickets.SeatsTaken;
-                        let seatsArray = reservedSeats.match(/.{1,8}/g);
-                        let originalSeatsArray = originalSeats.match(/.{1,8}/g);
-                        for (var j = 0; j < seatsArray.length; j++) {
-                            for (var i = 0; i < originalSeatsArray.length; i++) {
-                                //alert('seat: '+seat);
-                                //alert('seatsArray: ' + seatsArray[j] + ' originalSeat: ' + originalSeatsArray[i]);
-                                if (seatsArray[j] === originalSeatsArray[i]) {
-                                    let selectSeat = document.getElementById(seatsArray[j]);
-                                    selectSeat.className = "available";
-                                    selectSeat.title = "available";
-                                    selectSeat.onclick = "onClick(this)";
-                                    seatsArray.splice(seatsArray.indexOf(seatsArray[j]), 1);
-                                    j--;
-                                }
-                            }
-                        }
-
-
-                        let stringSeatsArray = seatsArray.join('');
-                        let data = {showID: 1, seatsTaken: stringSeatsArray};
-                        $.post("/tickets/show_update", data, function (result) {
-                        });
-
-
-                        display_errors(result.errors);
-                    });
-                }
-                if (ticket.showID === 2) {
-                    $.getJSON("/tickets/ShowTickets?id=3", function (result) {
-                        currentTickets = result.show;
-                        let reservedSeats = currentTickets.SeatsTaken;
-                        let seatsArray = reservedSeats.match(/.{1,8}/g);
-                        let originalSeatsArray = originalSeats.match(/.{1,8}/g);
-                        for (var j = 0; j < seatsArray.length; j++) {
-                            for (var i = 0; i < originalSeatsArray.length; i++) {
-                                //alert('seat: '+seat);
-                                //alert('seatsArray: ' + seatsArray[j] + ' originalSeat: ' + originalSeatsArray[i]);
-                                if (seatsArray[j] === originalSeatsArray[i]) {
-                                    let selectSeat = document.getElementById(seatsArray[j]);
-                                    selectSeat.className = "available";
-                                    selectSeat.title = "available";
-                                    selectSeat.onclick = "onClick(this)";
-                                    seatsArray.splice(seatsArray.indexOf(seatsArray[j]), 1);
-                                    j--;
-                                }
-                            }
-                        }
-
-
-                        let stringSeatsArray = seatsArray.join('');
-                        let data = {showID: 2, seatsTaken: stringSeatsArray};
-                        $.post("/tickets/show_update", data, function (result) {
-                        });
-
-
-                        display_errors(result.errors);
-                    });
-                }
-                if (ticket.showID === 3) {
-                    $.getJSON("/tickets/ShowTickets?id=3", function (result) {
-                        currentTickets = result.show;
-                        let reservedSeats = currentTickets.SeatsTaken;
-                        let seatsArray = reservedSeats.match(/.{1,8}/g);
-                        let originalSeatsArray = originalSeats.match(/.{1,8}/g);
-                        for (var j = 0; j < seatsArray.length; j++) {
-                            for (var i = 0; i < originalSeatsArray.length; i++) {
-                                //alert('seat: '+seat);
-                                //alert('seatsArray: ' + seatsArray[j] + ' originalSeat: ' + originalSeatsArray[i]);
-                                if (seatsArray[j] === originalSeatsArray[i]) {
-                                    let selectSeat = document.getElementById(seatsArray[j]);
-                                    selectSeat.className = "available";
-                                    selectSeat.title = "available";
-                                    selectSeat.onclick = "onClick(this)";
-                                    seatsArray.splice(seatsArray.indexOf(seatsArray[j]), 1);
-                                    j--;
-                                }
-                            }
-                        }
-
-
-                        let stringSeatsArray = seatsArray.join('');
-                        let data = {showID: 3, seatsTaken: stringSeatsArray};
-                        $.post("/tickets/show_update", data, function (result) {
-                        });
-
-
-                        display_errors(result.errors);
-                    });
-                }
-                if (ticket.showID === 4) {
-                    $.getJSON("/tickets/ShowTickets?id=4", function (result) {
-                        currentTickets = result.show;
-                        let reservedSeats = currentTickets.SeatsTaken;
-                        let seatsArray = reservedSeats.match(/.{1,8}/g);
-                        let originalSeatsArray = originalSeats.match(/.{1,8}/g);
-                        for (var j = 0; j < seatsArray.length; j++) {
-                            for (var i = 0; i < originalSeatsArray.length; i++) {
-                                //alert('seat: '+seat);
-                                //alert('seatsArray: ' + seatsArray[j] + ' originalSeat: ' + originalSeatsArray[i]);
-                                if (seatsArray[j] === originalSeatsArray[i]) {
-                                    let selectSeat = document.getElementById(seatsArray[j]);
-                                    selectSeat.className = "available";
-                                    selectSeat.title = "available";
-                                    selectSeat.onclick = "onClick(this)";
-                                    seatsArray.splice(seatsArray.indexOf(seatsArray[j]), 1);
-                                    j--;
-                                }
-                            }
-                        }
-
-
-                        let stringSeatsArray = seatsArray.join('');
-                        let data = {showID: 4, seatsTaken: stringSeatsArray};
-                        $.post("/tickets/show_update", data, function (result) {
-                        });
-
-
-                        display_errors(result.errors);
-                    });
-                }
-                if (ticket.showID === 5) {
-                    $.getJSON("/tickets/ShowTickets?id=5", function (result) {
-                        currentTickets = result.show;
-                        let reservedSeats = currentTickets.SeatsTaken;
-                        let seatsArray = reservedSeats.match(/.{1,8}/g);
-                        let originalSeatsArray = originalSeats.match(/.{1,8}/g);
-                        for (var j = 0; j < seatsArray.length; j++) {
-                            for (var i = 0; i < originalSeatsArray.length; i++) {
-                                //alert('seat: '+seat);
-                                //alert('seatsArray: ' + seatsArray[j] + ' originalSeat: ' + originalSeatsArray[i]);
-                                if (seatsArray[j] === originalSeatsArray[i]) {
-                                    let selectSeat = document.getElementById(seatsArray[j]);
-                                    selectSeat.className = "available";
-                                    selectSeat.title = "available";
-                                    selectSeat.onclick = "onClick(this)";
-                                    seatsArray.splice(seatsArray.indexOf(seatsArray[j]), 1);
-                                    j--;
-                                }
-                            }
-                        }
-
-
-                        let stringSeatsArray = seatsArray.join('');
-                        let data = {showID: 5, seatsTaken: stringSeatsArray};
-                        $.post("/tickets/show_update", data, function (result) {
-                        });
-
-
-                        display_errors(result.errors);
-                    });
-                }
-                if (ticket.showID === 6) {
-                    $.getJSON("/tickets/ShowTickets?id=6", function (result) {
-                        currentTickets = result.show;
-                        let reservedSeats = currentTickets.SeatsTaken;
-                        let seatsArray = reservedSeats.match(/.{1,8}/g);
-                        let originalSeatsArray = originalSeats.match(/.{1,8}/g);
-                        for (var j = 0; j < seatsArray.length; j++) {
-                            for (var i = 0; i < originalSeatsArray.length; i++) {
-                                //alert('seat: '+seat);
-                                //alert('seatsArray: ' + seatsArray[j] + ' originalSeat: ' + originalSeatsArray[i]);
-                                if (seatsArray[j] === originalSeatsArray[i]) {
-                                    let selectSeat = document.getElementById(seatsArray[j]);
-                                    selectSeat.className = "available";
-                                    selectSeat.title = "available";
-                                    selectSeat.onclick = "onClick(this)";
-                                    seatsArray.splice(seatsArray.indexOf(seatsArray[j]), 1);
-                                    j--;
-                                }
-                            }
-                        }
-
-
-                        let stringSeatsArray = seatsArray.join('');
-                        let data = {showID: 6, seatsTaken: stringSeatsArray};
-                        $.post("/tickets/show_update", data, function (result) {
-                        });
-
-
+        });
                         display_errors(result.errors);
                     });
                 }
