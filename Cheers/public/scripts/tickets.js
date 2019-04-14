@@ -1,3 +1,8 @@
+//Javascript file for tickets html
+
+//runs when ticket page is loaded
+//opens select show tab
+//displays default credit card buying option
 window.onload = function(){
     openTool(event, 'SelectShow', 'pickTip');
     document.getElementById('SelectShowTab').className += ' active';
@@ -11,6 +16,7 @@ window.onload = function(){
     document.getElementById('exchange').style.display = 'none';
 };
 
+//function used to open and close tabs
 function openTool(evt, toolName, tipName) {
     var i, tabcontent, tablinks;
     tabcontent = document.getElementsByClassName("tabcontent");
@@ -33,6 +39,7 @@ function openTool(evt, toolName, tipName) {
     evt.currentTarget.className += " active";
 }
 
+//function that runs when a show is selected to buy tickets
 let showTickets;
 function openSeat(evt, toolName, tipName, show) {
 
@@ -64,7 +71,7 @@ function openSeat(evt, toolName, tipName, show) {
     // Get the <span> element that closes the modal
     var span = document.getElementsByClassName("close")[0];
 
-    // Hard code which seat map to open
+    //open correct theater seat map
 
     //DB INFO
     //PotO_1 = show 1
@@ -106,6 +113,7 @@ function openSeat(evt, toolName, tipName, show) {
     let stProd1 = '';
     let stProd2 = '';
     //get sth reserved seats
+    //add the sth seats to the reserved seats list
     $.getJSON("/manage/users", function (result) {
         console.log(result);
         let users = result.users;
@@ -119,6 +127,8 @@ function openSeat(evt, toolName, tipName, show) {
             }});
 
     //get reserved seats from DB
+    //get section types and prices
+    //apply each to the seat map
     if(show.id === 'PotO_1'){
         $.getJSON("/tickets/ShowTickets?id=1", function (result) {
             showTickets = result.show;
@@ -1018,7 +1028,7 @@ var totalPriceText;
 //global array of clicked seats
 var clickedSeats;
 
-//on seat click
+//function that runs when a seat is clicked
 function onClick(element) {
     // alert("You clicked " +element.title);
 
@@ -1100,6 +1110,7 @@ function buyButton(event, toolName, tipName) {
 	}
 }
 
+//input validation
 function check_info(fName, lName, phoneNum, email) {
 	if (fName.match(/[^A-z]/gi) || lName.match(/[^A-z]/gi) || fName.length > 15 || lName.length > 15) {
 		alert('Invalid name: ' + fName + ' ' + lName);
@@ -1118,6 +1129,7 @@ function check_info(fName, lName, phoneNum, email) {
 	}
 }
 
+//input validation
 function check_ticket(ticketID)
 {
     if (ticketID.match(/[^0-9]/gi) || ticketID.trim().length > 5 || ticketID.trim().length === 0) {
@@ -1126,6 +1138,7 @@ function check_ticket(ticketID)
     else return true;
 }
 
+//input validation
 function check_ccn(ccn){
 	if (ccn.match(/[^0-9]/gi) || (ccn.length !== 16)) {
 		alert('Invalid Credit Card Number: ' + ccn);
@@ -1136,6 +1149,7 @@ function check_ccn(ccn){
 	}
 }
 
+//input validation
 function validateBeforeBuyTicket(event, toolName, tipName)
 {
     let input = document.getElementById("EnterInfo_form");
@@ -1162,6 +1176,9 @@ function validateBeforeBuyTicket(event, toolName, tipName)
     }
 }
 
+//button on the enter information page
+//user inputs their info and then either moves onto the confirmaton page
+//or exchanges their tickets ( which makes up most of the code in this function )
 function EnterInfoButton(event, toolName, tipName) {
     let input = document.getElementById("EnterInfo_form");
 
@@ -1304,6 +1321,9 @@ function EnterInfoButton(event, toolName, tipName) {
 		}
 }
 
+//confirm button
+//the user confirms their info and the ticket info is put into the database
+//the seats are also reserved in the show database
 function confirmBtn() {
     //PUT TICKET INFO IN DB
     let stringClickedSeats = clickedSeats.join('');
@@ -1332,6 +1352,7 @@ function confirmBtn() {
 
 }
 
+//function controlling the enter info selector
 function mySelectChange(){
     if(document.getElementById('mySelect').value === 'creditCard') {
 

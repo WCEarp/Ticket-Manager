@@ -24,6 +24,7 @@ router.setTicketManager = function (manager) {
     ticketManager = manager;
 };
 
+//get show via id
 router.get('/ShowTickets', function (req, res) {
     if (!req.query.id || req.query.id === "") {
         console.log("Id is required to get show");
@@ -44,6 +45,7 @@ router.get('/ShowTickets', function (req, res) {
     }
 });
 
+//update reserved seats in a show
 router.post('/show_update', function (req, res) {
     console.log('**********');
     console.log(req.body.showID);
@@ -52,6 +54,7 @@ router.post('/show_update', function (req, res) {
     res.send({});
 });
 
+//add a new ticket
 router.post('/add_ticket', function (req, res) {
     console.log(req.body);
     ticketManager.add_ticket(req.body.showID, req.body.userID, req.body.paymentMethodID, req.body.reservedSeats, req.body.numberOfSeats, req.body.paid, req.body.totalPrice);

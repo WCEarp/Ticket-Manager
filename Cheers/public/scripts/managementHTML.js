@@ -1,9 +1,12 @@
+//Javascript for management tools html
+
 let concertSectionRows = [document.getElementById('concertHallRow'),document.getElementById('balcony1Row'),document.getElementById('balcony2Row')
     ,document.getElementById('balcony3Row'), document.getElementById('balcony4Row'),document.getElementById('balcony5Row')];
 
 let playhouseSectionRows = [document.getElementById('floor1Row'),document.getElementById('floor2Row'),document.getElementById('floor3Row'),document.getElementById('floor4Row'),
     document.getElementById('log1Row'),document.getElementById('log2Row'),document.getElementById('log3Row'),document.getElementById('log4Row')];
 
+//runs when page is loaded
 window.onload = function(){
     btnPlayhouse.style.display = "none";
     document.getElementById('showSectionPlayhouse').style.display = 'none';
@@ -14,6 +17,7 @@ window.onload = function(){
     document.getElementById('CreateTab').click();
 };
 
+//open and close tabs
 function openTool(evt, toolName, tipName) {
     var i, tabcontent, tipcontent, tablinks;
     tabcontent = document.getElementsByClassName("tabcontent");
@@ -70,37 +74,10 @@ window.onclick = function(event) {
     }
 };
 
-
-//test array variable to mimic DB
-var reservedSeats = ["F_S0_B02", "F_S0_B03", "F_S0_D02", "F_S0_D03", "F_S0_D04", "F_S0_D05", "B_S3_B02", "B_S3_B03", "F_S0_G23", "F_S0_G24", "F_S0_G25", "F_S0_Z03", "F_S0_Z04", "F_Z0_D05", "B_S3_K02", "B_S3_K03"];
-//test function to check seats
-function checkReserved()    {
-    //iterate through all elements on page
-    document.querySelectorAll('*').forEach(function(node) {
-        // Do whatever you want with the node object.
-        for(var i=0; i < reservedSeats.length; i++) {
-            if (node.id === reservedSeats[i]) {
-                node.className = "reserved";
-                node.title = "reserved";
-                node.onclick = "";
-            }
-        }
-    });
-}
-
-function testButton()   {
-    checkReserved();
-}
-
-
-//this function will somehow check the DB to figure out which seats are available and apply that to the map
-function loadDB()   {
-    //use something like document.getElementsByTagName("*"); to iterate
-}
-
 //global array of clicked seats
 var clickedSeats = [];
 
+//when a seat is clicked on the seat map
 function onClick(element)  {
     // alert("You clicked " +element.id);
     if(clickedSeats.length===0 || clickedSeats[0] === element.id) {
@@ -142,14 +119,14 @@ function onClick(element)  {
 var txt = "Tickets Selected: ";
 
 //function for buy button
-//this button progresses to the next page
-//needs to save tickets selected by user and update DB
+//this button does not do anything significant in the management tools
 function buyButton()    {
     modalConHall.style.display = "none";
     modalPlayhouse.style.display = "none";
     document.getElementById('seat').value = clickedSeats[0];
 }
 
+//validation
 function check_ID2(uID) {
 	if (uID.match(/[^0-9]/gi) || uID.trim().length > 5 || uID.trim().length === 0) {
 		return false;
@@ -158,8 +135,9 @@ function check_ID2(uID) {
 	}
 }
 
+//runs the sth management tool
+//update and assign season ticket seats
 function sthSubmitBtn() {
-	
 	let uID = document.getElementById('sthid').value;
 	if (check_ID2(uID) == false){
 		alert('Invalid User ID: ' + document.getElementById('sthid').value);
@@ -198,8 +176,10 @@ function mySelectChange() {
     }
 }
 
+//set section types and prices
 function setClass() {
     let formElements = document.getElementById('setClassesForm').elements;
+    //format for storage in the database of section price and type
     //buttonAndPrice format: chFloor.class,chFloor.price,bal1.class,bal1.price ....
     //example: 0,50,0,30,1,30,1,30,1,30
     let buttonAndPrice = [];
@@ -282,6 +262,7 @@ function selectSetChange() {
     }
 }
 
+//this function applies the current section types to the seat map to show a preview of the current settings
 function showSectionBtn() {
     let showVal = document.getElementById('selectSet').value;
     if(showVal === 'PotO_1' || showVal === 'PotO_2' || showVal === 'HSO'){

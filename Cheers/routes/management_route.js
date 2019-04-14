@@ -55,6 +55,7 @@ router.get('/user', function (req, res) {
     }
 });
 
+//get all users
 router.get('/users', function (req, res) {
     userManager.getUsers(function (users) {
         if (users) {
@@ -67,6 +68,7 @@ router.get('/users', function (req, res) {
     });
 });
 
+//get ticket by id
 router.get('/ticket', function (req, res) {
     if (!req.query.id || req.query.id === "") {
         console.log("Id is required to get ticket");
@@ -86,6 +88,7 @@ router.get('/ticket', function (req, res) {
     }
 });
 
+//get all tickets
 router.get('/tickets', function (req, res) {
     ticketManager.getTickets(function (tickets) {
         if (tickets) {
@@ -98,6 +101,7 @@ router.get('/tickets', function (req, res) {
     });
 });
 
+//add a user
 router.post('/user_add', function (req, res) {
     let body = req.body;
     userManager.add_user(body.firstName, body.lastName, body.street, body.city, body.state, body.zipCode,
@@ -105,7 +109,7 @@ router.post('/user_add', function (req, res) {
     res.send({});
 });
 
-
+//delete a user
 router.post('/user_delete', function (req, res) {
     console.log('deleting user');
     userManager.delete_user(req.body.userID, function (rowschanged) {
@@ -118,12 +122,14 @@ router.post('/user_delete', function (req, res) {
     });
 });
 
+//update a user
 router.post('/user_update', function (req, res) {
     let body = req.body;
     userManager.update_user(body.userID, body.firstName, body.lastName, body.street, body.city, body.state, body.zipCode, body.phoneNumber, body.email, body.ccn, body.accountLoginID, body.seasonTicketSeat, body.sthProductionID);
     res.send({});
 });
 
+//update a season ticket seat for a user
 router.post('/user_update_sth_seat', function (req, res) {
     userManager.update_user_sth_seat(req.body.userID, req.body.seasonTicketSeat, req.body.sthProductionID, function (rowschanged) {
         console.log('rows-changed' + rowschanged);
@@ -135,12 +141,13 @@ router.post('/user_update_sth_seat', function (req, res) {
     });
 });
 
-
+//update paid status on a ticket
 router.post('/update_paid', function (req, res) {
     ticketManager.paid_update(req.body.ticketID);
     res.send({});
 });
 
+//email season ticket holders
 router.post('/notifyRenew', function (req, res) {
     userManager.getEmails(function (emails) {
         if (emails) {
@@ -150,16 +157,19 @@ router.post('/notifyRenew', function (req, res) {
     res.send({});
 });
 
+//update section info and price
 router.post('/show_update_setSectionInfo', function (req, res) {
     showManager.updateSectionInfo(req.body.showID,  req.body.sectionInfo);
     res.send({});
 });
 
+//update reserved seats on a ticket
 router.post('/ticketseat_update', function (req, res) {
     ticketManager.update_ticket_seat(req.body.ticketID, req.body.showID, req.body.seats, req.body.numSeats);
     res.send({});
 });
 
+//export users to file
 router.get('/exportUsers', function (req, res) {
     let options = {};
     options.fname = req.query.fname === '1';
@@ -172,7 +182,7 @@ router.get('/exportUsers', function (req, res) {
     csvHandler.exportCSV(res, userManager, options);
 });
 
-
+//import users from file
 router.post('/importUsers', upload.single('importUserFile'), function (req, res) {
     let csvLines = req.file.buffer.toString().trim().split('\n');
     for (let i = 0; i < csvLines.length; i++) {
