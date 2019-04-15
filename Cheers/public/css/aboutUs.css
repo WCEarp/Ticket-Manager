@@ -3,7 +3,7 @@
 }
 
 #about{
-    margin-top: 125px;
+    margin-top: 25px;
 }
 
 .jumbotron-fluid {
@@ -13,7 +13,7 @@
 .column {
     float: left;
     width: 23%;
-    height: 500px;
+    height: 600px;
     padding: 20px 0 0 0;
     margin: 0 1% 0 1%;
 }
@@ -41,8 +41,12 @@
     width: auto
 }
 
-.row h2, p{
-    text-align: center;
+.row h2, h3, p{
+     text-align: center;
+}
+
+.row h2{
+    font-weight: bold;
 }
 
 /* Responsive layout - makes the four columns stack on top of each other instead of next to each other */
@@ -51,3 +55,4 @@
         width: 100%;
     }
 }
+
