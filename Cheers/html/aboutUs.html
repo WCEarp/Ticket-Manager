@@ -16,6 +16,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 
     <link rel="stylesheet" type="text/css" href="/res/css/navbar.css"> <!--Our custom style sheet-->
+    <link rel="stylesheet" type="text/css" href="/res/css/aboutUs.css"> <!--Our custom style sheet-->
     <script>
         $(document).ready(function () {
             //Load the navbar
@@ -26,5 +27,78 @@
 <body id="main">
 <div id="nav_div"></div>
 <div id="errors_and_alerts"></div>
+
+<div id="about" class="container-fluid">
+    <div class="jumbotron jumbotron-fluid">
+        <h1 style="text-align: center">About Us</h1>
+        <h2 style="text-align: center">Welcome to Cheers!</h2>
+        <p style="text-align: center">
+            The purpose of this website is to simulate the ticket management and ticket purchasing process
+            used by employees of the VBC theatre and their customers.
+            <br><br>
+            Tickets may be purchased by visiting the "Buy Tickets" tab located at the top of any web page.
+            Helpful tips are located on the right side of the ticket purchasing tool to guide you through the purchasing of your ticket.
+            <br><br>
+            Once logged in, employees may used the "Manage" tab located at the top of any web page to manage tickets and shows. Helpful tips are located
+            on the right side of the management tools window to guide you through the process of using each featured tool.
+        </p>
+    </div>
+
+    <div class="row">
+        <div class="column" style="background-color:#aaa;">
+            <div id="bradster" class="image-cropper">
+                <img src="/res/img/bradster.jpg" class="rounded" />
+            </div>
+            <h2>Bradley Johnson</h2>
+            <h3>Client-Server Communications Manager</h3>
+            <p>
+                Bradley created the server middleware responsible for redirecting page requests to
+                their corresponding pages. Bradley's middleware insures that each web page loads correctly
+                and in a timely manner for every customer on the network.
+            </p>
+        </div>
+        <div id="jrod" class="column" style="background-color:#ddd;">
+            <div class="image-cropper">
+                <img src="/res/img/jrod.PNG" class="rounded" />
+            </div>
+            <h2>Jared Wilson</h2>
+            <h3>Front End Functionality Specialist</h3>
+            <p>
+                Jared is responsible for creating the interfaces and tools used by customers to purchase
+                tickets for all shows listed on our website. Jared's work is what enables each customer to
+                purchase tickets in an intuitive, user friendly manner.
+            </p>
+        </div>
+        <div id="telly" class="column" style="background-color:#aaa;">
+            <div class="image-cropper">
+                <img src="/res/img/telly.jpg" class="rounded" />
+            </div>
+
+            <h2>Telly Polychroniades</h2>
+            <h3>Database Manager</h3>
+            <p>
+                Telly is responsible for creating and maintaining the server-side database. Telly's work
+                is what insures that all data being created and manipulated is being stored and is accessible
+                throughout the website, and that all data is represented accurately for every customer on the
+                website.
+            </p>
+        </div>
+        <div id="wyatt" class="column" style="background-color:#ddd;">
+            <div class="image-cropper">
+                <img src="/res/img/wyatt.JPG" class="rounded" />
+            </div>
+            <h2>Wyatt Earp</h2>
+            <h3>Front End GUI Specialist</h3>
+            <p>
+                Wyatt is responsible for drafting and designing our website's user interface. Wyatt's work is
+                what allows our website to maintain a consistent, user friendly design while still allowing a
+                modern look and feel.
+            </p>
+        </div>
+    </div>
+
+</div>
+
+
 </body>
 </html>
