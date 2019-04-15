@@ -37,12 +37,82 @@
             $("#create_edit_user_errors").html(errorHtml);
         }
 
+        function check_ccn(ccn) {
+            return !(ccn.match(/[^0-9]/gi) || ccn.length !== 16);
+        }
+
+        function check_profile_creation(uID, fName, lName, city, state, zipcode, phoneNum, email, ccn, sts, stpID) {
+            if (fName.match(/[^A-z]/gi) || lName.match(/[^A-z]/gi) || fName.length > 15 || lName.length > 15) {
+                alert('Invalid name: ' + fName + ' ' + lName);
+                return false;
+            }
+            if (city.match(/[^A-z]/gi)) {
+                alert('Invalid city: ' + city);
+                return false;
+            }
+            if (state.match(/[^A-z]/gi) || (state.length !== 2 && state.length !== 0)) {
+                alert('Invalid state: ' + state);
+                return false;
+            }
+            if (zipcode.match(/[^0-9]/gi) || (zipcode.length !== 5 && zipcode.length !== 0)) {
+                alert('Invalid zipcode: ' + zipcode);
+                return false;
+            }
+            if (phoneNum.match(/[^0-9]/gi) || (phoneNum.length !== 10 && phoneNum.length !== 0)) {
+                alert('Invalid Phone Number: ' + phoneNum);
+                return false;
+            }
+            if (email.match(/[^A-z0-9@.]/gi) || (email.length > 30 && email.length !== 0)) {
+                alert('Invalid Email: ' + email);
+                return false;
+            }
+            if (ccn.match(/[^0-9]/gi) || (ccn.length !== 16 && ccn.length !== 0)) {
+                alert('Invalid Credit Card Number: ' + ccn);
+                return false;
+            }
+            if (sts.length !== 8 && sts.length !== 0) {
+                alert('Invalid Season Ticket Seat: ' + sts);
+                return false;
+            }
+            if (stpID.match(/[^0-9]/gi) || stpID.length > 3) {
+                alert('Invalid Season Ticket Production ID: ' + stpID);
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        function check_ID(uID) {
+            return !(uID.match(/[^0-9]/gi) || uID.trim().length > 5 || uID.trim().length === 0);
+        }
+
+        function check_ticket(ticketID)
+        {
+            return !(ticketID.match(/[^0-9]/gi) || ticketID.trim().length > 5 || ticketID.trim().length === 0);
+        }
+
+        function clearUserText() {
+            $("#uid").val('');
+            $("#fname").val('');
+            $("#lname").val('');
+            $("#street").val(''),
+                $("#city").val(''),
+                $("#state").val(''),
+                $("#zipCode").val(''),
+                $("#pnum").val('');
+            $("#email").val('');
+            $("#ccn").val('');
+            $("#sth_seats").val('');
+            $("#sth_prod").val('');
+        }
+
         function set_paid_value(ticket_ID) {
             let data = {ticketID: ticket_ID};
             $.post("/manage/update_paid", data, function (result) {
                 alert("Ticket row updated, refresh table to view change.");
             });
         }
+
 
         //Displays a single user
         $(document).ready(function () {
@@ -70,24 +140,38 @@
             });
         });
 
+		$(document).ready(function () {
+            $("#btnClear").click(function () {
+				clearUserText()
+            });
+        });
+
         //Called for adding a new user
         $(document).ready(function () {
             $("#MU_add").click(function () {
-                let data = {
-                    firstName: $("#fname").val(),
-                    lastName: $("#lname").val(),
-                    street: $("#street").val(),
-                    city: $("#city").val(),
-                    state: $("#state").val(),
-                    zipCode: $("#zipCode").val(),
-                    phoneNumber: $("#pnum").val(),
-                    email: $("#email").val(),
-                    ccn: $("#ccn").val(),
-                    seasonTicketSeat: $("#sth_seats").val(),
-                    sthProductionID: $("#sth_prod").val()
-                };
-                $.post("/manage/user_add", data, function (result) {
-                })
+                console.log($("#uid").val());
+
+                if (check_profile_creation($("#uid").val(), $("#fname").val(), $("#lname").val(), $("#city").val(), $("#state").val(), $("#zipCode").val(), $("#pnum").val(), $("#email").val(), $("#ccn").val(), $("#sth_seats").val(), $("#sth_prod").val()) === false) {
+                    console.log('check_profile_creation failed');
+                } else {
+                    console.log('true');
+                    let data = {
+                        firstName: $("#fname").val(),
+                        lastName: $("#lname").val(),
+                        street: $("#street").val(),
+                        city: $("#city").val(),
+                        state: $("#state").val(),
+                        zipCode: $("#zipCode").val(),
+                        phoneNumber: $("#pnum").val(),
+                        email: $("#email").val(),
+                        ccn: $("#ccn").val(),
+                        seasonTicketSeat: $("#sth_seats").val(),
+                        sthProductionID: $("#sth_prod").val()
+                    };
+                    $.post("/manage/user_add", data, function (result) {
+                        alert('Added user.');
+                    });
+                }
             });
         });
 
@@ -97,9 +181,21 @@
                 let userId = $("#uid").val();
                 console.log(userId);
                 let data = {userID: userId};
-                $.post("/manage/user_delete", data, function (result) {
-                    console.log("User deleted with id " + userId);
-                })
+
+				if (check_ID(userId) === false){
+					alert('UserID not specified.');
+				}
+				else {
+					$.post("/manage/user_delete", data, function (result) {
+						if (result.errors) {
+							alert(result.errors[0]);
+						} else {
+							alert("User deleted with id " + userId);
+							console.log("User deleted with id " + userId);
+							clearUserText();
+						}
+					})
+				}
             });
         });
 
@@ -107,23 +203,57 @@
         $(document).ready(function () {
             $("#MU_upd").click(function () {
                 let userId = $("#uid").val();
-                console.log(userId);
-                let data = {
-                    userID: userId,
-                    firstName: $("#fname").val(),
-                    lastName: $("#lname").val(),
-                    street: $("#street").val(),
-                    city: $("#city").val(),
-                    state: $("#state").val(),
-                    zipCode: $("#zipCode").val(),
-                    phoneNumber: $("#pnum").val(),
-                    email: $("#email").val(),
-                    ccn: $("#ccn").val(),
-                    seasonTicketSeat: $("#sth_seats").val(),
-                    sthProductionID: $("#sth_prod").val()
-                };
-                $.post("/manage/user_update", data, function (result) {
-                })
+                console.log('userID: ' + userId);
+
+                let a1 = $("#street").val();
+                let a2 = $("#city").val();
+                let a3 = $("#state").val();
+                let a4 = $("#zipCode").val();
+
+                if ((a1 == '' || a2 == '' || a3 == '' || a4 == '') && (a1 != '' || a2 != '' || a3 != '' || a4 != '')) {
+                    alert('Missing Address Field.');
+                }
+                else if (check_profile_creation($("#uid").val(), $("#fname").val(), $("#lname").val(), $("#city").val(), $("#state").val(), $("#zipCode").val(), $("#pnum").val(), $("#email").val(), $("#ccn").val(), $("#sth_seats").val(), $("#sth_prod").val()) === false) {
+                    console.log('check_profile_creation failed');
+                } else {
+                    console.log('true');
+
+                    let data = {
+                        userID: userId,
+                        firstName: $("#fname").val(),
+                        lastName: $("#lname").val(),
+                        street: $("#street").val(),
+                        city: $("#city").val(),
+                        state: $("#state").val(),
+                        zipCode: $("#zipCode").val(),
+                        phoneNumber: $("#pnum").val(),
+                        email: $("#email").val(),
+                        ccn: $("#ccn").val(),
+                        seasonTicketSeat: $("#sth_seats").val(),
+                        sthProductionID: $("#sth_prod").val()
+                    };
+                    $.post("/manage/user_update", data, function (result) {
+                        alert('Updated user with ID ' + userId);
+                    });
+                }
+            });
+        });
+
+        $(document).ready(function () {
+            $("#exhangeTickets").click(function () {
+                let ticketID = $("#ticketID1").val();
+
+                $.getJSON("/manage/ticket?id=" + ticketID, function (result) {
+                    let ticket = result.ticket;
+                    let price1 = ticket.totalPrice;
+                    console.log(price1);
+
+
+                    let data = {ticketID: $("#ticketID1").val(), seats: $("#ticketID2").val(), numSeats: 55};
+                    console.log('data', data);
+                    $.post("/manage/ticketseat_update", data, function (result) {
+                    })
+                });
             });
         });
 
@@ -165,18 +295,24 @@
         $(document).ready(function () {
             $("#grabTicket").click(function () {
                 let ticketID = $("#ticket").val();
-                //document.write("test");
-                $.getJSON("/manage/ticket?id=" + ticketID, function (result) {
-                    console.log(result);
 
-                    let ticket = result.ticket;
-                    if (ticket) {
-                        let html = `<tr><td>${ticket.ticketID}</td><td>${ticket.showID}</td><td>${ticket.userID}</td><td>${ticket.paymentMethodID}</td><td>${ticket.reservedSeats}</td><td>${ticket.numberOfSeats}</td><td>${ticket.totalPrice}</td><td>${ticket.paid}</td><td><button class="setPaid" onclick="set_paid_value(${ticket.ticketID})">Set Paid</button></td></tr>`;
+                if (check_ticket(ticketID) === false)
+				{
+					alert('Invalid Ticket ID: ' + ticketID);
+				}
+				else {
+					$.getJSON("/manage/ticket?id=" + ticketID, function (result) {
+						console.log(result);
 
-                        $("#tbody2").html(html)
-                    }
-                    display_errors(result.errors);
-                });
+						let ticket = result.ticket;
+						if (ticket) {
+							let html = `<tr><td>${ticket.ticketID}</td><td>${ticket.showID}</td><td>${ticket.userID}</td><td>${ticket.paymentMethodID}</td><td>${ticket.reservedSeats}</td><td>${ticket.numberOfSeats}</td><td>${ticket.totalPrice}</td><td>${ticket.paid}</td><td><button class="setPaid" onclick="set_paid_value(${ticket.ticketID})">Set Paid</button></td></tr>`;
+
+							$("#tbody2").html(html)
+						}
+						display_errors(result.errors);
+					});
+				}
             });
         });
 
@@ -340,10 +476,10 @@
         <div class="column left" style="background-color:#f1f1f1">
             <div class="tab">
                 <button id='CreateTab' class="tablinks" onclick="openTool(event, 'Create/Edit Ticket', 'ceTip')">
-                    Create/Edit
+                    Create/Edit Users
                 </button>
                 <button class="tablinks" onclick="openTool(event, 'STH Manager', 'STHTip')">STH Manager</button>
-                <button class="tablinks" onclick="openTool(event, 'SSPrice', 'ssTip')">Set Show Prices
+                <button class="tablinks" onclick="openTool(event, 'SSPrice', 'ssTip')">Manage Show Sections and Pricing
                 </button>
                 <button class="tablinks" onclick="openTool(event, 'Ticket Manager', 'tmTip')">Ticket Manager</button>
                 <button class="tablinks" onclick="openTool(event, 'Export/Import', 'eiTip')">Export/Import</button>
@@ -357,7 +493,8 @@
                     <input type="text" id="uid" placeholder="1234"> <span><input id="btnGrab" type="button"
                                                                                  value="Grab User"></span><br><br>
                     <label for="fname">First Name:</label>
-                    <input type="text" id="fname" placeholder="John"><br><br>
+                    <input type="text" id="fname" placeholder="John"> <span><input id="btnClear" type="button"
+                                                                                 value="Clear"></span><br><br>
 
                     <label for="lname">Last Name:</label>
                     <input type="text" id="lname" placeholder="Doe"><br><br>
@@ -365,13 +502,13 @@
                     <label for="street">Street:</label>
                     <input type="text" id="street" placeholder="101 Joy Dr. Apt #3"><br>
 
-                    <label for="city">City:</label><br>
+                    <label for="city">City:</label>
                     <input type="text" id="city" placeholder="Huntsville"><br>
 
-                    <label for="state">State:</label><br>
+                    <label for="state">State:</label>
                     <input type="text" id="state" placeholder="AL"><br>
 
-                    <label for="zipCode">Zipcode:</label><br>
+                    <label for="zipCode">Zipcode:</label>
                     <input type="text" id="zipCode" placeholder="35824"><br>
 
                     <label for="pnum">Phone Number:</label>
@@ -386,7 +523,7 @@
                     <label for="sth_seats">Season Ticket Seat:</label>
                     <input type="text" id="sth_seats"><br><br>
 
-                    <label for="sth_seats">Season Ticket Production ID:</label><br>
+                    <label for="sth_prod">Season Ticket Production ID:</label><br>
                     <input type="text" id="sth_prod"><br><br>
 
                 </form>
@@ -431,7 +568,7 @@
                 <input type="text" id="sthid" placeholder="0001"><br>
 
                 <br><label for="seat">Pick Seat:</label>
-                <input type="text" id="seat" placeholder="F_S0_A01"><span><button
+                <input disabled type="text" id="seat" placeholder="F_S0_A01"><span><button
                     id="btnConHall">Show Concert Hall</button><button
                     id="btnPlayhouse">Show Playhouse</button></span><br>
 
@@ -440,33 +577,186 @@
                 <button id="btnNotify">Notify All to Renew</button>
             </div>
 
+            <div id="Exchange Tickets" class="tabcontent">
+                <h3>Exchange Tickets</h3>
+                <label for="tick1">Ticket 1:</label><input type="text" id="ticketID1" placeholder="Ticket 1 ID"><br>
+                <label for="tick2">Ticket 2:</label><input type="text" id="ticketID2" placeholder="Ticket 2 ID"><span><button
+                    id="exhangeTickets">Exchange</button></span><br>
+                <br>
+
+                <button>Display Available</button>
+                <br>
+                <table name="ticketTable" style="display:none"> <!-- THIS TABLE IS HIDDEN BY DEFAULT-->
+                    <tr>
+                        <th>WHAT</th>
+                        <th>FIELDS</th>
+                        <th>HERE?</th>
+                        <th></th>
+                    </tr>
+                    <tr>
+                        <td>This should be</td>
+                        <td>Hidden</td>
+                        <td>By Default</td>
+                        <td>
+                            <button>Add</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
             <div id="SSPrice" class="tabcontent">
-                <h3>Set Show Prices</h3>
+                <h3>Manage Show Sections and Pricing</h3>
                 <form>
                     <p>Select a Production</p>
-                    <select id="selectSet">
+                    <select id="selectSet"onchange="selectSetChange()">
                         <option value="PotO_1">Phantom of the Opera Night 1</option>
-                        <option value="PotO_2">Phantom of the Opera Night 1</option>
+                        <option value="PotO_2">Phantom of the Opera Night 2</option>
                         <option value="HSO">Huntsville Symphony Plays Bach</option>
                         <option value="TKaM">To Kill a Mockingbird</option>
                         <option value="Choir">UAH Choir</option>
                         <option value="GDCB">Grateful Dead Cover Band</option>
                     </select><br><br>
-
-
-                    <div style="float:left;margin-right:20px;">
-                        <label for="floorPrice">Floor Price:</label>
-                        <input id='floorPrice' type="text" placeholder="$40.00">
-                    </div>
-
-                    <div style="float:left;">
-                        <label for="balconyPrice">Balcony Price:</label>
-                        <input id='balconyPrice' type="text" placeholder="$20.00">
-                    </div>
-                    <br>
-                    <br>
-                    <br style="clear:both;"/>
-                    <button onclick="setPriceButton()">Set Prices</button>
+<button type='button' id="showSectionConcert" onclick="showSectionBtn()">Show Seat Map With Current Settings</button>
+                    <button type='button' id="showSectionPlayhouse" onclick="showSectionBtn()">Show Seat Map With Current Settings</button><br><br>
+                </form>
+                    <form id="setClassesForm" onsubmit="setClass()">
+                        <table name="setClasses">
+                        <tr>
+                            <th>Section Name</th>
+                            <th>Not Available</th>
+                            <th>Regular</th>
+                            <th>Handicap</th>
+                            <th>Student</th>
+                            <th>Veteran</th>
+                            <th>Section Price</th>
+                        </tr>
+                        <tr id="concertHallRow">
+                            <td>Concert Hall Floor</td>
+                            <td><input name="cHallFloor" type="radio" value="0" id="cHallNA" title="NA" /></td>
+                            <td><input name="cHallFloor" type="radio" value="1" id="cHallR" title="R" checked="checked"/></td>
+                            <td><input name="cHallFloor" type="radio" value="2" id="cHallH" title="H" /></td>
+                            <td><input name="cHallFloor" type="radio" value="3" id="cHallS" title="S" /></td>
+                            <td><input name="cHallFloor" type="radio" value="4" id="cHallV" title="V" /></td>
+                            <td><input name="cHallFloor" type="number" value="5" id="cHallPrice"/></td>
+                        </tr>
+                        <tr id="balcony1Row">
+                            <td>Balcony Section 1</td>
+                            <td><input name="bal1" type="radio" value="0" id="bal1NA" title="NA" /></td>
+                            <td><input name="bal1" type="radio" value="1" id="bal1R" title="R" checked="checked"/></td>
+                            <td><input name="bal1" type="radio" value="2" id="bal1H" title="H" /></td>
+                            <td><input name="bal1" type="radio" value="3" id="bal1S" title="S" /></td>
+                            <td><input name="bal1" type="radio" value="4" id="bal1V" title="V" /></td>
+                            <td><input name="bal1" type="number" value="5" id="bal1Price"/></td>
+                        </tr>
+                        <tr id="balcony2Row">
+                            <td>Balcony Section 2</td>
+                            <td><input name="bal2" type="radio" value="0" id="bal2NA" title="NA" /></td>
+                            <td><input name="bal2" type="radio" value="1" id="bal2R" title="R" checked="checked"/></td>
+                            <td><input name="bal2" type="radio" value="2" id="bal2H" title="H" /></td>
+                            <td><input name="bal2" type="radio" value="3" id="bal2S" title="S" /></td>
+                            <td><input name="bal2" type="radio" value="4" id="bal2V" title="V" /></td>
+                            <td><input name="bal2" type="number" value="5" id="bal2Price"/></td>
+                        </tr>
+                        <tr id="balcony3Row">
+                            <td>Balcony Section 3</td>
+                            <td><input name="bal3" type="radio" value="0" id="bal3NA" title="NA" /></td>
+                            <td><input name="bal3" type="radio" value="1" id="bal3R" title="R" checked="checked"/></td>
+                    <td><input name="bal3" type="radio" value="2" id="bal3H" title="H" /></td>
+                            <td><input name="bal3" type="radio" value="3" id="bal3S" title="S" /></td>
+                            <td><input name="bal3" type="radio" value="4" id="bal3V" title="V" /></td>
+                            <td><input name="bal3" type="number" value="5" id="bal3Price"/></td>
+                        </tr>
+                    <tr id="balcony4Row">
+                        <td>Balcony Section 4</td>
+                            <td><input name="bal4" type="radio" value="0" id="bal4NA" title="NA" /></td>
+                            <td><input name="bal4" type="radio" value="1" id="bal4R" title="R" checked="checked"/></td>
+                            <td><input name="bal4" type="radio" value="2" id="bal4H" title="H" /></td>
+                            <td><input name="bal4" type="radio" value="3" id="bal4S" title="S" /></td>
+                            <td><input name="bal4" type="radio" value="4" id="bal4V" title="V" /></td>
+                            <td><input name="bal4" type="number" value="5" id="bal4Price"/></td>
+                        </tr>
+                        <tr id="balcony5Row">
+                            <td>Balcony Section 5</td>
+                            <td><input name="bal5" type="radio" value="0" id="bal5NA" title="NA" /></td>
+                            <td><input name="bal5" type="radio" value="1" id="bal5R" title="R" checked="checked"/></td>
+                            <td><input name="bal5" type="radio" value="2" id="bal5H" title="H" /></td>
+                            <td><input name="bal5" type="radio" value="3" id="bal5S" title="S" /></td>
+                            <td><input name="bal5" type="radio" value="4" id="bal5V" title="V" /></td>
+                            <td><input name="bal5" type="number" value="5" id="bal5Price"/></td>
+                        </tr>
+                        <tr id="floor1Row">
+                            <td>Floor Section 1</td>
+                            <td><input name="floor1" type="radio" value="0" id="floor1NA" title="NA" /></td>
+                            <td><input name="floor1" type="radio" value="1" id="floor1R" title="R" checked="checked"/></td>
+                            <td><input name="floor1" type="radio" value="2" id="floor1H" title="H" /></td>
+                            <td><input name="floor1" type="radio" value="3" id="floor1S" title="S" /></td>
+                            <td><input name="floor1" type="radio" value="4" id="floor1V" title="V" /></td>
+                            <td><input name="floor1" type="number" value="5" id="floor1Price"/></td>
+                        </tr>
+                        <tr id="floor2Row">
+                            <td>Floor Section 2</td>
+                            <td><input name="floor2" type="radio" value="0" id="floor2NA" title="NA" /></td>
+                            <td><input name="floor2" type="radio" value="1" id="floor2R" title="R" checked="checked"/></td>
+                            <td><input name="floor2" type="radio" value="2" id="floor2H" title="H" /></td>
+                            <td><input name="floor2" type="radio" value="3" id="floor2S" title="S" /></td>
+                            <td><input name="floor2" type="radio" value="4" id="floor2V" title="V" /></td>
+                            <td><input name="floor2" type="number" value="5" id="floor2Price"/></td>
+                        </tr>
+                        <tr id="floor3Row">
+                            <td>Floor Section 3</td>
+                            <td><input name="floor3" type="radio" value="0" id="floor3NA" title="NA" /></td>
+                            <td><input name="floor3" type="radio" value="1" id="floor3R" title="R" checked="checked"/></td>
+                            <td><input name="floor3" type="radio" value="2" id="floor3H" title="H" /></td>
+                            <td><input name="floor3" type="radio" value="3" id="floor3S" title="S" /></td>
+                            <td><input name="floor3" type="radio" value="4" id="floor3V" title="V" /></td>
+                            <td><input name="floor3" type="number" value="5" id="floor3Price"/></td>
+                        </tr>
+                        <tr id="floor4Row">
+                            <td>Floor Section 4</td>
+                            <td><input name="floor4" type="radio" value="0" id="floor4NA" title="NA" /></td>
+                            <td><input name="floor4" type="radio" value="1" id="floor4R" title="R" checked="checked"/></td>
+                            <td><input name="floor4" type="radio" value="2" id="floor4H" title="H" /></td>
+                            <td><input name="floor4" type="radio" value="3" id="floor4S" title="S" /></td>
+                            <td><input name="floor4" type="radio" value="4" id="floor4V" title="V" /></td>
+                            <td><input name="floor4" type="number" value="5" id="floor4Price"/></td>
+                        </tr>
+                        <tr id="log1Row">
+                            <td>Loge Section 1</td>
+                            <td><input name="log1" type="radio" value="0" id="log1NA" title="NA" /></td>
+                            <td><input name="log1" type="radio" value="1" id="log1R" title="R" checked="checked"/></td>
+                            <td><input name="log1" type="radio" value="2" id="log1H" title="H" /></td>
+                            <td><input name="log1" type="radio" value="3" id="log1S" title="S" /></td>
+                            <td><input name="log1" type="radio" value="4" id="log1V" title="V" /></td>
+                            <td><input name="log1" type="number" value="5" id="log1Price"/></td>
+                        </tr>
+                        <tr id="log2Row">
+                            <td>Loge Section 2</td>
+                            <td><input name="log2" type="radio" value="0" id="log2NA" title="NA" /></td>
+                            <td><input name="log2" type="radio" value="1" id="log2R" title="R" checked="checked"/></td>
+                        <td><input name="log2" type="radio" value="2" id="log2H" title="H" /></td>
+                            <td><input name="log2" type="radio" value="3" id="log2S" title="S" /></td>
+                    <td><input name="log2" type="radio" value="4" id="log2V" title="V" /></td>
+                            <td><input name="log2" type="number" value="5" id="log2Price"/></td>
+                        </tr>
+                        <tr id="log3Row">
+                            <td>Loge Section 3</td>
+                            <td><input name="log3" type="radio" value="0" id="log3NA" title="NA" /></td>
+                            <td><input name="log3" type="radio" value="1" id="log3R" title="R" checked="checked"/></td>
+                            <td><input name="log3" type="radio" value="2" id="log3H" title="H" /></td>
+                            <td><input name="log3" type="radio" value="3" id="log3S" title="S" /></td>
+                            <td><input name="log3" type="radio" value="4" id="log3V" title="V" /></td>
+                            <td><input name="log3" type="number" value="5" id="log3Price"/></td>
+                        </tr>
+                        <tr id="log4Row">
+                            <td>Loge Section 4</td>
+                            <td><input name="log4" type="radio" value="0" id="log4NA" title="NA" /></td>
+                            <td><input name="log4" type="radio" value="1" id="log4R" title="R" checked="checked"/></td>
+                            <td><input name="log4" type="radio" value="2" id="log4H" title="H" /></td>
+                            <td><input name="log4" type="radio" value="3" id="log4S" title="S" /></td>
+                            <td><input name="log4" type="radio" value="4" id="log4V" title="V" /></td>
+                            <td><input name="log4" type="number" value="5" id="log4Price"/></td>
+                        </tr>
+                    </table><br>
+                    <input type="submit" value="Save Section Settings and Prices">
                 </form>
             </div>
 
@@ -602,17 +892,18 @@
             </div>
 
             <div id="ssTip" class="tipcontent">
-                <h3>Set Show Prices!</h3>
+                <h3>Manage Sections and Set Show Prices</h3>
                 <p>
-                    Blank
+                    From here you can pick a show to manage.
                 </p>
                 <br>
                 <p>
-                    Blank
+                    Then you can choose how to assign that show's sections and each sections price
                 </p>
                 <br>
                 <p>
-                    Blank
+                    Finally you can preview the current settings with the button above the table and then save the settings
+                    with the button below the table
                 </p>
             </div>
 
@@ -662,6 +953,14 @@
                 <div class="input-color">
                     <input type="text" value="Disabled" readonly/>
                     <div class="color-box" style="background-color: #28607f;"></div>
+                </div>
+                <div class="input-color">
+                    <input type="text" value="Student" readonly/>
+                    <div class="color-box" style="background-color: #97950c;"></div>
+                </div>
+                <div class="input-color">
+                    <input type="text" value="Veteran" readonly/>
+                    <div class="color-box" style="background-color: #7f0c00;"></div>
                 </div>
                 <div class="input-color">
                     <input type="text" value="Reserved" readonly/>
@@ -4940,6 +5239,14 @@
                 <div class="input-color">
                     <input type="text" value="Disabled" readonly/>
                     <div class="color-box" style="background-color: #28607f;"></div>
+                </div>
+                <div class="input-color">
+                    <input type="text" value="Student" readonly/>
+                    <div class="color-box" style="background-color: #97950c;"></div>
+                </div>
+                <div class="input-color">
+                    <input type="text" value="Veteran" readonly/>
+                    <div class="color-box" style="background-color: #7f0c00;"></div>
                 </div>
                 <div class="input-color">
                     <input type="text" value="Reserved" readonly/>

@@ -9,8 +9,7 @@ const path = require('path');
 module.exports.Database = function () {
     const THEATER_COLUMNS = "TheaterID theaterID, SeatsNum seatsNum, SeatsTotal seatsTotal";
     const SHOW_COLUMNS = `ShowID showID, StartDate startDate, EndDate endDate, Time time, 
-        TheaterID theaterID, SeatsTaken seatsTaken, ProductionID productionID, FloorPrice floorPrice, 
-        BalconyPrice balconyPrice`;
+        TheaterID theaterID, SeatsTaken seatsTaken, ProductionID productionID, SectionInfo sectionInfo`;
 
     console.log("Opening database at " + path.join(__dirname, 'database.db'));
     let db = new sqlite3.Database(path.join(__dirname, 'database.db'), sqlite3.OPEN_READWRITE,
@@ -240,7 +239,7 @@ module.exports.Database = function () {
      * @param seasonTicketSeat The season ticket seats
      * @param sthProductionID
      */
-    this.update_user_sth_seat = function (userID, seasonTicketSeat, sthProductionID) {
+    this.update_user_sth_seat = function (userID, seasonTicketSeat, sthProductionID, callback) {
         let data = [seasonTicketSeat, sthProductionID, userID];
 
         let sql = `UPDATE User SET SeasonTicketSeat = ?, STHProductionID = ? 
@@ -249,9 +248,33 @@ module.exports.Database = function () {
         db.run(sql, data, function (err) {
             if (err) {
                 console.error(err.message);
+                callback(0);
             } else {
                 //Log how many rows were updated. Should be 0-1.
                 console.log(`User row updated: ${this.changes}`);
+                callback(this.changes);
+            }
+        });
+    };
+
+    /**
+     * Update the seats of the ticket.
+     *
+     * @param ticketID The id of the ticket.
+     * @param seats The new seats variable to update
+     */
+    this.update_ticket_seat = function (ticketID, seats, numSeats) {
+        let data = [seats, numSeats, ticketID];
+
+        let sql = `UPDATE Ticket SET ReservedSeats = ?, NumberOFSeats = ? 
+                    WHERE TicketID = ?`;
+
+        db.run(sql, data, function (err) {
+            if (err) {
+                console.error(err.message);
+            } else {
+                //Log how many rows were updated. Should be 0-1.
+                console.log(`Ticket row updated: ${this.changes}`);
             }
         });
     };
@@ -261,15 +284,17 @@ module.exports.Database = function () {
      *
      * @param userID The id of the user.
      */
-    this.delete_user = function (userID) {
+    this.delete_user = function (userID, callback) {
         // delete a user based on id
         let sql = `DELETE FROM User WHERE UserID = ?`;
 
         db.run(sql, userID, function (err) {
             if (err) {
-                return console.error(err.message);
+                console.error(err.message);
+                callback(0);
             } else {
                 console.log(`Row(s) deleted ${this.changes}`);
+                callback(this.changes);
             }
         });
     };
@@ -572,7 +597,7 @@ module.exports.Database = function () {
                 console.log(`Show rows updated: ${this.changes}`);
             }
         });
-    }
+    };
     //update show price
     this.update_show_setPrice = function (id, floorPrice, balconyPrice) {
         let values = [floorPrice, balconyPrice, id];
@@ -586,6 +611,20 @@ module.exports.Database = function () {
                 console.log(`Show rows updated: ${this.changes}`);
             }
         });
-    }
+    };
+    //update show Section info
+    this.update_show_setSectionInfo = function (id, sectionInfo) {
+        let values = [sectionInfo, id];
+        let sql_statement = `Update Show SET SectionInfo = ? WHERE ShowID = ?`;
+
+        db.run(sql_statement, values, function (err) {
+            if (err) {
+                console.error(err.message);
+            } else {
+                //Log how many rows were updated. Should be 0-1.
+                console.log(`Show rows updated: ${this.changes}`);
+            }
+        });
+    };
     //endregion
 };

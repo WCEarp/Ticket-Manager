@@ -87,6 +87,10 @@ input[type=text] {
     margin-left: 85px;
 }
 
+#btnClear {
+    margin-left: 85px;
+}
+
 #btnDisplayUsers {
     margin-left: 85px;
 }
@@ -192,6 +196,30 @@ tr:nth-child(even) {
 }
 
 .disabled:hover {
+    cursor: pointer;
+}
+
+.student {
+    background-color: #97950c;
+    color: #fff;
+    border-radius: 1px;
+    padding: 0px;
+    font-size: 50%;
+}
+
+.student:hover {
+    cursor: pointer;
+}
+
+.veteran {
+    background-color: #7f0c00;
+    color: #fff;
+    border-radius: 1px;
+    padding: 0px;
+    font-size: 50%;
+}
+
+.veteran:hover {
     cursor: pointer;
 }
 
