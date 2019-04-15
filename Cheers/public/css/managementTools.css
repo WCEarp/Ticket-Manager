@@ -37,10 +37,12 @@
 
 .left {
     width: 75%;
+    height: 100%;
 }
 
 .right {
     width: 25%;
+    height: inherit;
 }
 
 /* Clear floats after the columns */
@@ -98,6 +100,8 @@ input[type=text] {
 table {
     font-family: arial, sans-serif;
     border-collapse: collapse;
+    display: block;
+    overflow: auto;
     width: 100%;
 }
 
