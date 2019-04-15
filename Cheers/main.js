@@ -1,7 +1,8 @@
 const PORT = 80;
 const SECURE_PORT = 443;
-const HOSTNAME = '127.0.0.1';
+let HOSTNAME = '127.0.0.1';
 const PUBLIC_DIR_NAME = '/res';
+let HTTP_ENABLED = true;
 
 const https = require('https');
 const http = require('http');
@@ -76,13 +77,23 @@ app.use(function (error, req, res, next) {
     res.status(500).send('500: Internal Server Error');
 });
 
+let args = process.argv.slice(2);
+if (args.length >= 1)
+{
+    HOSTNAME = args[0];
+    if(args.length === 2)
+    {
+        HTTP_ENABLED = (args[1] === 'ENABLED')
+    }
+}
 
 const httpsOptions = {host: HOSTNAME, port: SECURE_PORT};
 createHttpsServer(httpsOptions);
 
-const httpOptions = {host: HOSTNAME, port: PORT};
-createHttpServer(httpOptions);
-
+if(HTTP_ENABLED) {
+    const httpOptions = {host: HOSTNAME, port: PORT};
+    createHttpServer(httpOptions);
+}
 
 function createHttpsServer(options) {
     const credentials = {
