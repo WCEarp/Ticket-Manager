@@ -10,21 +10,15 @@ var transporter = nodemailer.createTransport({
     }
 });
 
-/*var mailOptions = {
-    from: '"Cheers Squad" <cheers.tickets@gmail.com>', // sender address
-    to: 'cheers.tickets@gmail.com',
-    subject: 'Sending Email using Node.js',
-    text: 'That was easy!'
-};*/
-
 function notify(emails) {
     //console.log(emails);
     var mailOptions = {
         from: '"Cheers Squad" <cheers.tickets@gmail.com>', // sender address
         to: emails,
         subject: 'YOUR SEASON TICKET RENEWAL REMINDER',
-        text: 'Buy it now! Please contact us at cheers.tickets@gmail.com. \n\nCheers, Cheers Squad'
+        text: 'Buy it now! Please contact us at cheers.tickets@gmail.com. \n\nCheers, \nCheers Squad'
     };
+    //Send the email
     transporter.sendMail(mailOptions, function (error, info) {
         if (error) {
             console.log(error);

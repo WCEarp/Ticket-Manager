@@ -187,27 +187,35 @@ router.post('/importUsers', upload.single('importUserFile'), function (req, res)
     let csvLines = req.file.buffer.toString().trim().split('\n');
     let errors = [];
     let linesAdded = 0;
+    //Loop through the lines
     for (let i = 0; i < csvLines.length; i++) {
+        //Make sure the line isn't a comment
         if (!(csvLines[i].trim().length > 0 && csvLines[i].trim()[0] === '#')) {
             console.log("Parsing csv line containing: " + csvLines[i]);
+            //Parse the fields in the line and validate the correct number of fields to import
             let fields = csvLines[i].split(",");
             if (fields.length === 11) {
+                //Add the user
                 userManager.add_user(fields[0].trim(), fields[1].trim(), fields[2].trim(),
                     fields[3].trim(), fields[4].trim(), fields[5].trim(), fields[6].trim(),
                     fields[7].trim(), fields[8].trim(), fields[9].trim(), fields[10].trim());
                 linesAdded++;
             } else {
+                //Add an error to send
                 let error = "Line " + (i + 1) + " has an incorrect number of fields. Expected 11.";
                 console.log(error);
                 errors.push(error);
             }
         } else {
+            //line was commented out
             console.log('Line ' + i + ' was commented out');
         }
     }
+    //Send the number of lines parsed and any error.
     res.json({linesAdded: linesAdded, errors: errors})
 });
 
+//Send the export data to the exporter object
 router.get('/exportTickets', function (req, res) {
     let options = {};
     let query = req.query;
@@ -222,19 +230,26 @@ router.get('/exportTickets', function (req, res) {
     csvHandler.exportTicketCSV(res, ticketManager, options);
 });
 
+//Accept http POST for importing a csv file of ticket data
 router.post('/importTickets', upload.single('importTicketFile'), function (req, res) {
+    //Get the lines of the csv file
     let csvLines = req.file.buffer.toString().trim().split('\n');
     let errors = [];
     let linesAdded = 0;
+    //Loop through the csv
     for (let i = 0; i < csvLines.length; i++) {
+        //Make sure the line isn't a comment
         if (!(csvLines[i].trim().length > 0 && csvLines[i].trim()[0] === '#')) {
             console.log("Parsing csv line containing: " + csvLines[i]);
+            //Separate the fields and validate the correct number of fields
             let fields = csvLines[i].split(",");
             if (fields.length === 7) {
+                //Add the ticket
                 ticketManager.add_ticket(fields[0].trim(), fields[1].trim(), fields[2].trim(),
                     fields[3].trim(), fields[4].trim(), fields[5].trim(), fields[6].trim());
                 linesAdded++;
             } else {
+                //Add an error to send to the user
                 let error = "Line " + (i + 1) + " has an incorrect number of fields. Expected 11.";
                 console.log(error);
                 errors.push(error);
@@ -243,6 +258,7 @@ router.post('/importTickets', upload.single('importTicketFile'), function (req, 
             console.log('Line ' + i + ' was commented out');
         }
     }
+    //Send the response to the user
     res.json({linesAdded: linesAdded, errors: errors})
 });
 

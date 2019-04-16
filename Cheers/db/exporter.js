@@ -8,6 +8,8 @@ module.exports.exportUserCSV = function (res, userManager, options,) {
         let exportEmail = options.email;
         let exportCCN = options.ccn;
         let exportSeasonTicketSeat = options.sthSeat;
+        //Loop through the users and create a line for each user and add the fields
+        // for the user as comma separated values
         for (let i = 0; i < users.length; i++) {
             let user = users[i];
             let firstName = user.firstName;
@@ -77,11 +79,18 @@ module.exports.exportUserCSV = function (res, userManager, options,) {
             csv += "\n";
         }
 
+        //Send the csv as an attachment to the response
         res.attachment('users.csv');
         res.send(csv);
     });
 };
 
+/**
+ * Exports the tickets to a csv file and sends the file to the user.
+ * @param res The response to attach the file to
+ * @param ticketManager The ticket manager used to get the tickets
+ * @param options Options specifying what fields to export
+ */
 module.exports.exportTicketCSV = function (res, ticketManager, options,) {
     ticketManager.getTickets(function (tickets) {
         let csv = "";
@@ -93,6 +102,7 @@ module.exports.exportTicketCSV = function (res, ticketManager, options,) {
         let exportNumSeats = options.numSeats;
         let exportPaid = options.paid;
         let exportPrice = options.price;
+        //For each ticket, create a new line and insert the fields seperated by commas
         for (let i = 0; i < tickets.length; i++) {
             let ticket = tickets[i];
             let ticketID = ticket.ticketID;
@@ -144,6 +154,7 @@ module.exports.exportTicketCSV = function (res, ticketManager, options,) {
             csv += "\n";
         }
 
+        //Send the file as an attachment
         res.attachment('tickets.csv');
         res.send(csv);
     });

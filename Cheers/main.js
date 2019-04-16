@@ -4,6 +4,7 @@ let HOSTNAME = '127.0.0.1';
 const PUBLIC_DIR_NAME = '/res';
 let HTTP_ENABLED = true;
 
+//Express dependencies
 const https = require('https');
 const http = require('http');
 const fs = require('fs');
@@ -13,9 +14,11 @@ const cookieSession = require('cookie-session');
 const path = require('path');
 const logger = require('morgan');
 
+//Start the database
 const database_module = require('./db/database');
 const database_instance = new database_module.Database();
 
+//Create managers wrapping database
 const user_module = require('./db/user');
 const userManager = new user_module.UserManager(database_instance);
 
@@ -28,6 +31,7 @@ const showManager = new show_module.ShowManager(database_instance);
 const account_module = require('./db/accountLogin');
 const accountManager = new account_module.AccountManager(database_instance);
 
+//Create the routes to handle different requests
 const homeRoutes = require('./routes/home_route');
 const loginRoutes = require('./routes/login_route');
 loginRoutes.setAccountManager(accountManager);
@@ -46,6 +50,7 @@ const app = express();
 
 app.use(logger('dev'));
 
+//Enable cookie sessions to keep track of who's logged in
 app.use(cookieSession({
     name: 'cheers-session',
     secret: 'keyboard-cat'
@@ -77,6 +82,7 @@ app.use(function (error, req, res, next) {
     res.status(500).send('500: Internal Server Error');
 });
 
+//Process program arguments
 let args = process.argv.slice(2);
 if (args.length >= 1)
 {
@@ -87,14 +93,22 @@ if (args.length >= 1)
     }
 }
 
+//Start the https server
 const httpsOptions = {host: HOSTNAME, port: SECURE_PORT};
 createHttpsServer(httpsOptions);
 
+//Start http if http is allowed
 if(HTTP_ENABLED) {
     const httpOptions = {host: HOSTNAME, port: PORT};
     createHttpServer(httpOptions);
 }
 
+/**
+ * Creates and starts an https server instance
+ *
+ * @param options Options specifying the ip and port
+ * @returns {{httpsServer: Server, httpsOptions: {port: number, host: string}}}
+ */
 function createHttpsServer(options) {
     const credentials = {
         key: fs.readFileSync(path.join(__dirname, 'certs', 'mockserver.key')),
@@ -129,6 +143,12 @@ function createHttpsServer(options) {
     return {httpsOptions, httpsServer};
 }
 
+/**
+ * Create and start an http server instance.
+ *
+ * @param options Options specifying ip and port
+ * @returns {Server}
+ */
 function createHttpServer(options) {
     let httpServer = http.createServer(app);
     httpServer.listen(options);

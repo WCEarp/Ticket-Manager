@@ -1,3 +1,7 @@
+/**
+ * This router handles login attempts and login validation
+ */
+
 const express = require('express');
 const router = express.Router();
 let accountManager;
@@ -9,12 +13,14 @@ router.setAccountManager = function (manager) {
 //This is called for a login attempt
 router.post('/', function (req, res) {
     let account = req.session.account;
+    //IF already logged in, send success.
     if (account && account.username) {
         console.log("User already logged in as " + account.username);
         res.send({success: true, username: account.username, userType: account.userType});
         return;
     }
 
+    //Get username and password from body of message and send error if invalid
     let username = req.body.u;
     let password = req.body.p;
     if (username === null || username === "" || username.match(/[^A-z0-9]/gi) != null) {

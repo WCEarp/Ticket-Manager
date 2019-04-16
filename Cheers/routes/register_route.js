@@ -11,4 +11,7 @@ router.post('/submitLogin', function (req, res) {
     res.redirect('/')
 });
 
+/**
+ * @deprecated This router is unused and replaced by login_route
+ */
 module.exports = router;
