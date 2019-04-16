@@ -1,3 +1,10 @@
+<!--
+    This is the landing page.
+
+    First page to load when coming to this website. Serves as a central hub for rest of the website, and offers some
+        advertising for current shows.
+-->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,8 +19,8 @@
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <title>Cheers</title>
-    <link rel="stylesheet" type="text/css" href="/res/css/navbar.css">
-    <link rel="stylesheet" type="text/css" href="/res/css/index.css">
+    <link rel="stylesheet" type="text/css" href="/res/css/navbar.css"> <!-- CSS for nav -->
+    <link rel="stylesheet" type="text/css" href="/res/css/index.css">  <!-- CSS for landing page -->
     <script>
         $(document).ready(function () {
             //Load the navbar
@@ -24,7 +31,13 @@
 <body id="main">
 <div id="nav_div"></div>
 
+<!--
+    Carousel container.
+
+    Serves as a method for advertising current & future shows.
+-->
 <div id="myCarousel" class="carousel slide" data-ride="carousel">
+    
     <!-- Indicators -->
     <ol class="carousel-indicators">
         <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
@@ -55,7 +68,6 @@
             </div>
         </div>
     </div>
-
 
     <!-- Left and right controls -->
     <a class="left carousel-control" href="#myCarousel" data-slide="prev">
