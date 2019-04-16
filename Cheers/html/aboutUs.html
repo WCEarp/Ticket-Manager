@@ -15,8 +15,8 @@
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 
-    <link rel="stylesheet" type="text/css" href="/res/css/navbar.css"> <!--Our custom style sheet-->
-    <link rel="stylesheet" type="text/css" href="/res/css/aboutUs.css"> <!--Our custom style sheet-->
+    <link rel="stylesheet" type="text/css" href="/res/css/navbar.css"> <!--CSS for the nav-->
+    <link rel="stylesheet" type="text/css" href="/res/css/aboutUs.css"> <!--CSS for about us-->
     <script>
         $(document).ready(function () {
             //Load the navbar
@@ -28,7 +28,16 @@
 <div id="nav_div"></div>
 <div id="errors_and_alerts"></div>
 
+<!-- 
+    Main container for about us page
+-->
 <div id="about" class="container-fluid">
+    
+    <!--
+        Container for "About Us"
+        
+        Describes what the website is about.
+    -->
     <div class="jumbotron jumbotron-fluid">
         <h1 style="text-align: center">About Us</h1>
         <h2 style="text-align: center">Welcome to Cheers!</h2>
@@ -43,8 +52,15 @@
             on the right side of the management tools window to guide you through the process of using each featured tool.
         </p>
     </div>
-
+    
+    <!--
+        Meet the cheer squad!
+        Each row is dedicated to a developer that worked on this website.
+        Each developer is given a photo and a description.
+    -->
     <div class="row">
+        
+        <!-- Bradster's row -->
         <div class="column" style="background-color:#aaa;">
             <div id="bradster" class="image-cropper">
                 <img src="/res/img/bradster.jpg" class="rounded" />
@@ -57,6 +73,8 @@
                 and in a timely manner for every customer on the network.
             </p>
         </div>
+        
+        <!-- J-Rod's row -->
         <div id="jrod" class="column" style="background-color:#ddd;">
             <div class="image-cropper">
                 <img src="/res/img/jrod.PNG" class="rounded" />
@@ -69,6 +87,8 @@
                 purchase tickets in an intuitive, user friendly manner.
             </p>
         </div>
+        
+        <!-- Telly's Row -->
         <div id="telly" class="column" style="background-color:#aaa;">
             <div class="image-cropper">
                 <img src="/res/img/telly.jpg" class="rounded" />
@@ -83,6 +103,8 @@
                 website.
             </p>
         </div>
+        
+        <!-- Wyatt's row -->
         <div id="wyatt" class="column" style="background-color:#ddd;">
             <div class="image-cropper">
                 <img src="/res/img/wyatt.JPG" class="rounded" />
@@ -98,7 +120,6 @@
     </div>
 
 </div>
-
 
 </body>
 </html>
