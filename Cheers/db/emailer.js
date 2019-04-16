@@ -22,8 +22,8 @@ function notify(emails) {
     var mailOptions = {
         from: '"Cheers Squad" <cheers.tickets@gmail.com>', // sender address
         to: emails,
-        subject: 'YOUR SEASON TICKET REEEE',
-        text: 'But it!'
+        subject: 'YOUR SEASON TICKET RENEWAL REMINDER',
+        text: 'Buy it now! Please contact us at cheers.tickets@gmail.com. \n\nCheers, Cheers Squad'
     };
     transporter.sendMail(mailOptions, function (error, info) {
         if (error) {
