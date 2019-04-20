@@ -4,6 +4,7 @@ const emailer = require('../db/emailer.js');
 const csvHandler = require('../db/exporter');
 const multer = require('multer');
 const upload = multer({storage: multer.memoryStorage()});
+const loginModule = require('../db/accountLogin');
 let userManager;
 let ticketManager;
 let showManager;
@@ -15,11 +16,6 @@ let showManager;
  * @type {Router|router}
  */
 let router = express.Router();
-
-//GET http://127.0.0.1/manage -> Send ../html/management.html
-router.get('/', function (req, res) {
-    res.sendFile(path.join(__dirname, '..', 'html', 'managementTools.html'));
-});
 
 //Add user manager as a variable
 router.setUserManager = function (manager) {
@@ -34,6 +30,18 @@ router.setTicketManager = function (manager) {
 router.setShowManager = function (manager) {
     showManager = manager;
 };
+
+//GET http://127.0.0.1/manage -> Send ../html/management.html
+router.get('/', function (req, res) {
+    if(loginModule.isAdmin(req)) {
+        res.sendFile(path.join(__dirname, '..', 'html', 'managementTools.html'));
+    }
+    else
+    {
+        console.log('Non-admin requesting access to management page. Redirecting to home');
+        res.redirect('/');
+    }
+});
 
 //GET http://127.0.0.1/manage/user?id=<id value>  ->  A json object containing either user or errors (a list of errors)
 router.get('/user', function (req, res) {

@@ -129,8 +129,7 @@ function createHttpsServer(options) {
                 }, 10000);
                 break;
             default:
-                console.error('Unsupported error: ' + e.code);
-                throw error;
+                console.error('Unsupported error for https server: ' + e.code);
         }
     });
     //Create a listener to run on the https server opening
@@ -163,8 +162,7 @@ function createHttpServer(options) {
                 }, 10000);
                 break;
             default:
-                console.error('Unsupported error: ' + e.code);
-                throw error;
+                console.error('Unsupported error for http server: ' + e.code);
 
         }
     });
